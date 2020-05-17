@@ -1,0 +1,33 @@
+---
+title: "Tableau de bord ESR"
+author: "Julien Gossa"
+date: "Mai 2020"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE)
+knitr::opts_chunk$set(fig.width = 6, fig.height = 4, fig.align = "center", out.height="10%")
+
+library(kpiESR)
+library(cowplot)
+```
+
+___ATTENTION : Les informations présentées dans ce document sont issues de traitements entièrement automatisés. Leur validité dépend de la validité de ces traitements, comme de la validité des données sources.___
+
+Téléchargement : 
+
+- [Rapport complet sur les universités](./tdbesr-rapport-nup.pdf)
+- [Rapport complet sur les universités (simple colonne)](./tdbesr-rapport.pdf)
+
+## Avant-propos
+
+```{r child = 'intro.Rmd', echo = FALSE, warning = FALSE}
+```
+
+## Apperçu des données
+
+```{r child = 'tdbesr-manuel.Rmd', echo = FALSE, warning = FALSE}
+```
+
+

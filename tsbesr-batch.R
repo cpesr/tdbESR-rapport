@@ -1,0 +1,108 @@
+
+library(kpiESR)
+library(wikidataESR)
+library(tidyverse)
+
+path <- "tdbesr-batch"
+
+missingdataplot <- ggplot(data=NULL,aes(x=1,y=1,label="Données manquantes")) + geom_text() + theme_void()
+
+
+small_style <- kpiesr_style(
+  point_size = 12,
+  line_size = 2,
+  text_size = 3,
+  primaire_plot.margin = ggplot2::unit(c(0.25,0,0,0), "cm"),
+  bp_width = 1,
+  bp_text_x = -0.25 )
+
+big_style <- kpiesr_style(
+  point_size = 17,
+  line_size = 2,
+  text_size = 4,
+  primaire_plot.margin = ggplot2::unit(c(0.3,0,0,0), "cm"),
+  bp_width = 0.9,
+  bp_text_x = -0.25 )
+
+strvar <- function(var) {
+  s <- as.character(var)
+  ifelse(str_length(s)>0,s,"N/A")
+}
+
+wdesr_load_cache()
+
+
+wdesr_load_and_plot("Q4027", c('prédécesseur', 'séparé_de'), depth=10, 
+                    node_label = "alias_date",
+                    legend_position="none",
+                    node_sizes = 40, arrow_gap = 0.17, margin_y = 0.2)
+
+
+
+rentrée <- 2017
+
+uai.unistra <- "0673021V"
+uai.uha <- "0681166Y"
+uai.ubm <- "0331766R"
+uai.nimes <- "0301687W"
+uai.lorraine <- "0542493S"
+uai.guyanne <- "9730429D"
+uai.bordeaux <- "0333298F"
+
+uai.ehess <- "0753742K"
+uai.dauphine <- "0750736T"
+
+etabs <- subset(esr,Type %in% c("Université", "Grand établissement"), c(UAI,Libellé:url.legifrance) ) %>% unique %>% arrange(desc(Type),Académie)
+#etabs <- subset(esr,Type %in% c("Grand établissement"), c(UAI,Libellé:url.legifrance) ) %>% unique %>% arrange(desc(Type),Académie)
+#etabs <- filter(etabs, UAI %in% c(uai.unistra,uai.uha))
+
+aca <- ""
+type <- ""
+
+
+
+for (i in seq(1,nrow(etabs))) {
+  etab <- etabs[i,]
+  message("\nProcessing ",i,"/",nrow(etabs)," : ",strvar(etab$Libellé))
+  
+  wdid <- substr(etab$url.wikidata,33,50)
+
+  p <- missingdataplot
+  try(
+  p <- wdesr_load_and_plot(wdid, c('composante','associé'), depth=2,
+                      legend_position="left")
+  )
+  ggsave(
+    paste0(path,"/",etab$UAI,"-composantes.pdf"),
+    plot = p,
+    width= 10, height=5)
+
+  p <- missingdataplot
+  try(  
+  p <- wdesr_load_and_plot(wdid, c('composante_de', 'associé_de', 'membre_de'), depth=2, 
+                      legend_position="none", margin_y = 0.1)
+  )
+  ggsave(
+    paste0(path,"/",etab$UAI,"-associations.pdf"),
+    plot = p,
+    width= 7, height=5)
+  
+  p <- missingdataplot
+  try(  
+  p <- wdesr_load_and_plot(wdid, c('prédécesseur', 'séparé_de'), depth=10, 
+                      node_label = "alias_date",
+                      legend_position="none",
+                      node_sizes = 40, arrow_gap = 0.17, margin_y = 0.15)
+  )
+  ggsave(
+    paste0(path,"/",etab$UAI,"-histoire.pdf"),
+    plot = p,
+    width= 7, height=5)
+  
+  kpiesr_plot_tdb(rentrée, etab$UAI, style.kpi.k=big_style, style.kpi=small_style)
+  ggsave(
+    paste0(path,"/",etab$UAI,"-kpi.pdf"),
+    width= 9, height=11.5)
+}
+
+wdesr_save_cache()
