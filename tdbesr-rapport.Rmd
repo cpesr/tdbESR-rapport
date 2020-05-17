@@ -139,7 +139,7 @@ for (i in seq(1,nrow(etabs))) {
 
   #cat("\\newpage   \n")  
   cat("\\checkoddpage  \n")
-  cat("\\ifoddpage \\ \\newpage \\fi   \n")
+  cat("\\ifoddpage \\fi \\ \\newpage  \n")
 
   if(etab$Type != type) {
     pandoc.p(paste0("# Type d'établissement : ", strvar(etab$Type)))
