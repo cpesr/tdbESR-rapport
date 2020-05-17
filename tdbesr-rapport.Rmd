@@ -100,15 +100,14 @@ strvar <- function(var, linkname=NA) {
 
 etab_header <- function(etab) {
   swurl <<- strvar(etab$url.siteweb,etab$url.siteweb)
-  wdurl <<- strvar(etab$url.wikidata, substr(etab$url.wikidata,33,50))
+  wdurl <<- strvar(etab$url.wikidata, etab$url.wikidata)  #substr(etab$url.wikidata,33,50))
   lfurl <<- strvar(etab$url.legifrance, "Legifrance")
   
   cat(paste0(
     "\\begin{tabular*}{\\textwidth}{rp{5cm}rl}  \n",
     "\\hline  \n",
     "Type : & ", strvar(etab$Type.détaillé)," & Web : &",swurl," \\\\  \n",
-    "Rattachement : & ", strvar(etab$Rattachement)," & Wikidata : & ",wdurl," \\\\  \n",
-    "UAI : & ", strvar(etab$UAI)," & Décret : & ",lfurl," \\\\  \n",
+    "UAI : & ", strvar(etab$UAI)," & WikiData : & ",wdurl," \\\\  \n",
     "\\hline  \n",
     "\\end{tabular*}  \n"
     ))
@@ -157,7 +156,7 @@ for (i in seq(1,nrow(etabs))) {
   etab_header(etab)
   pandoc.p("")
   
-  cat("\\textit{\\scriptsize Pour participer à l'amélioration de ces graphiques, veuillez éditer ", wdurl," en suivant \\href{https://github.com/cpesr/wikidataESR/blob/master/Rmd/wikidataESR.md}{ce guide.}}")
+  cat("\\textit{\\scriptsize Pour améliorer ces graphiques, veuillez éditer WikiData selon ce guide :  \\href{https://github.com/cpesr/wikidataESR/blob/master/Rmd/wikidataESR.md}{https://github.com/cpesr/wikidataESR/blob/master/Rmd/wikidataESR.md}} .")
 
   
   #pandoc.p(paste0("#### Ancêtres et associations"))
