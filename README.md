@@ -8,11 +8,7 @@ de traitements entièrement automatisés. Leur validité dépend de la
 validité de ces traitements, comme de la validité des données
 sources.***
 
-Téléchargement :
-
-  - [Rapport complet sur les universités](./tdbesr-rapport-nup.pdf)
-  - [Rapport complet sur les universités (simple
-    colonne)](./tdbesr-rapport.pdf)
+Téléchargement : [Rapport complet](./tdbesr-rapport.pdf)
 
 ## Avant-propos
 
