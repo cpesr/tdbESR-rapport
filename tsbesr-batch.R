@@ -76,7 +76,12 @@ for (i in seq(1,nrow(etabs))) {
     paste0(path,"/",etab$UAI,"-composantes.pdf"),
     plot = p,
     width= 10, height=5)
+}
 
+for (i in seq(1,nrow(etabs))) {
+  etab <- etabs[i,]
+  message("\nProcessing ",i,"/",nrow(etabs)," : ",strvar(etab$Libellé))
+  
   p <- missingdataplot
   try(  
   p <- wdesr_load_and_plot(wdid, c('composante_de', 'associé_de', 'membre_de'), depth=2, 
@@ -86,6 +91,11 @@ for (i in seq(1,nrow(etabs))) {
     paste0(path,"/",etab$UAI,"-associations.pdf"),
     plot = p,
     width= 7, height=5)
+}
+
+for (i in seq(1,nrow(etabs))) {
+  etab <- etabs[i,]
+  message("\nProcessing ",i,"/",nrow(etabs)," : ",strvar(etab$Libellé))
   
   p <- missingdataplot
   try(  
@@ -98,11 +108,16 @@ for (i in seq(1,nrow(etabs))) {
     paste0(path,"/",etab$UAI,"-histoire.pdf"),
     plot = p,
     width= 7, height=5)
+}
+
+for (i in seq(1,nrow(etabs))) {
+  etab <- etabs[i,]
+  message("\nProcessing ",i,"/",nrow(etabs)," : ",strvar(etab$Libellé))
   
   kpiesr_plot_tdb(rentrée, etab$UAI, style.kpi.k=big_style, style.kpi=small_style)
   ggsave(
     paste0(path,"/",etab$UAI,"-kpi.pdf"),
-    width= 9, height=11.5)
+    width= 9, height=13)
 }
 
 wdesr_save_cache()
