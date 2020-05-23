@@ -23,7 +23,7 @@ classoption: landscape
 ---
 
 ```{r setup, include=FALSE, warning = FALSE}
-knitr::opts_chunk$set(echo = FALSE, warning = FALSE, cache=TRUE)
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE)
 knitr::opts_chunk$set(fig.width = 6, fig.height = 4, fig.align = "center", out.height="30%")
 
 knitr::opts_chunk$set(pdf.options(encoding = "CP1250"))
@@ -106,7 +106,7 @@ Ce travail s'appuie à la fois sur ces deux types de données : WikiData pour d�
 ```
 
 
-```{r etab.loop, results="asis", message=FALSE, error=FALSE}
+```{r etab.loop, results="asis", message=FALSE, error=FALSE, echo = FALSE, warning = FALSE}
 
 strvar <- function(var, linkname=NA) {
   s <- as.character(var)
@@ -134,7 +134,6 @@ etab_header <- function(etab) {
     sep="")
   
   cat("\\textit{\\scriptsize Pour améliorer ces graphiques, veuillez éditer", wdurl," selon \\href{https://github.com/cpesr/wikidataESR/blob/master/Rmd/wikidataESR.md}{ce guide}} .")
-
 }
 
 
@@ -151,7 +150,7 @@ uai.dauphine <- "0750736T"
 
 
 etabs <- subset(esr,Type %in% c("Université", "Grand établissement"), c(UAI,Libellé:url.legifrance) ) %>% unique %>% arrange(desc(Type),Académie)
-#etabs <- filter(etabs, UAI %in% c(uai.unistra,uai.uha))
+#etabs <- filter(etabs, UAI %in% c(uai.unistra,uai.uha)
 
 aca <- ""
 type <- ""
@@ -182,9 +181,9 @@ for (i in seq(1,nrow(etabs))) {
   pandoc.p("")
    
   cat("\\maketdb",
-      "{tdbesr-batch/",etab$UAI,"-histoire}",
-      "{tdbesr-batch/",etab$UAI,"-associations}",
-      "{tdbesr-batch/",etab$UAI,"-composantes}",
+      "{tdbesr-batch/",etab$UAI,"-filiation}",
+      "{tdbesr-batch/",etab$UAI,"-association}",
+      "{tdbesr-batch/",etab$UAI,"-composition}",
       "{tdbesr-batch/",etab$UAI,"-kpi}", 
       sep='')
   

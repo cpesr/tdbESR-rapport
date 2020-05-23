@@ -40,6 +40,46 @@
             breaklinks=true}
 \urlstyle{same}  % don't use monospace font for urls
 \usepackage[margin=1.5cm]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
 \usepackage{graphicx,grffile}
 \makeatletter
 \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
@@ -183,8 +223,8 @@
       {\includegraphics[width=\graphesW]{#4}};
 
     \node (ancetres-tit) [inner sep=0pt, anchor=south] at (ancetres.north) {\bf Filiation};
-    \node (associations-tit) [inner sep=0pt, anchor=south] at (associations.north) {\bf Associations};
-    \node (composantes-tit) [inner sep=0pt, anchor=south] at (composantes.north) {\bf Composantes};
+    \node (associations-tit) [inner sep=0pt, anchor=south] at (associations.north) {\bf Association};
+    \node (composantes-tit) [inner sep=0pt, anchor=south] at (composantes.north) {\bf Composition};
 
   \end{tikzpicture}
 }
@@ -292,18 +332,14 @@ Les descriptions d'organisation sont de trois ordres, pour chaque
 \begin{itemize}
 \tightlist
 \item
-  le diagramme de filiation permet de visualiser ses origines ;
+  le diagramme de filiation modélise ses origines ;
 \item
-  le diagramme d'association permet de visualiser ses relations
-  externes, avec d'autres organismes ;
+  le diagramme d'association modélise ses relations externes, avec
+  d'autres organismes ;
 \item
-  le diagramme de composition permet de visualiser ses relations
-  internes, avec ses composantes et laboratoires.
+  le diagramme de composition modélise ses relations internes, avec ses
+  composantes et laboratoires.
 \end{itemize}
-
-Ces trois diagrammes dépendants d'une édition collaborative, il est
-important de noter qu'ils peuvent comporter des informations fausses,
-mais plus généralement incomplètes et non uniformes.
 
 \hypertarget{exemples-de-lectures}{%
 \subsection{Exemples de lectures}\label{exemples-de-lectures}}
@@ -311,7 +347,7 @@ mais plus généralement incomplètes et non uniformes.
 \hypertarget{diagramme-de-filiation}{%
 \subsubsection{Diagramme de filiation}\label{diagramme-de-filiation}}
 
-\begin{center}\includegraphics[width=1\linewidth,height=0.3\textheight]{tdbesr-batch/0673021V-histoire} \end{center}
+\begin{center}\includegraphics[width=1\linewidth,height=0.3\textheight]{tdbesr-batch/0673021V-filiation} \end{center}
 
 Exemple de lecture : « L'Université de Strasbourg (Unistra) a été créée
 en 2009, par la fusion des universités Louis Pasteur, Robert Schuman et
@@ -322,20 +358,38 @@ les origines remontent à 1528. »
 \hypertarget{diagramme-dassociation}{%
 \subsubsection{Diagramme d'association}\label{diagramme-dassociation}}
 
-\begin{center}\includegraphics[width=1\linewidth,height=0.3\textheight]{tdbesr-batch/0673021V-associations} \end{center}
+\begin{center}\includegraphics[width=1\linewidth,height=0.3\textheight]{tdbesr-batch/0673021V-association} \end{center}
 
 Exemple de lecture : « L'Université de Strasbourg (Unistra) est inclue
-dans le le Site Alsacien. Elle est également membre de l'EUA, du Réseau
-d'Utrecht, de COUPERIN et de RENATER. »
+dans le Site Alsacien. Elle est membre de la LERU, de la CURIF, de
+l'EUA, du Réseau d'Utrecht, de COUPERIN et de RENATER. Elle est
+également lauréate de l'IDEX»
 
 \hypertarget{diagramme-de-composition}{%
 \subsubsection{Diagramme de
 composition}\label{diagramme-de-composition}}
 
-\begin{center}\includegraphics[width=1\linewidth,height=0.3\textheight]{tdbesr-batch/0673021V-composantes} \end{center}
+\begin{center}\includegraphics[width=1\linewidth,height=0.3\textheight]{tdbesr-batch/0673021V-composition} \end{center}
 
-Exemple de lecture : « L'Université de Strasbourg (Unistra) a plein de
-composantes. »
+Exemple de lecture : « L'Université de Strasbourg (Unistra) a de
+nombreuses composantes. »
+
+\hypertarget{edition-collaborative}{%
+\subsection{Edition collaborative}\label{edition-collaborative}}
+
+Ces diagrammes dépendent d'une édition collaborative. En conséquence,
+ils peuvent comporter des informations fausses, mais plus généralement
+incomplètes et non uniformes.
+
+Ce document fait partie d'un effort d'harmonisation de ces données,
+grâce à une modélisation décrite dans
+\href{https://github.com/cpesr/wikidataESR/blob/master/Rmd/wikidataESR.md}{ce
+guide}. Chaque tableau de bord comporte un lien permettant de modifier
+directement les informations sur WikiData.
+
+Le lecteur est invité à le faire chaque fois qu'il le jugera nécessaire,
+et les modifications seront automatiquement incluse dans la prochaine
+version de ce document.
 
 \hypertarget{indicateurs-de-performance}{%
 \section{Indicateurs de performance}\label{indicateurs-de-performance}}
@@ -515,17 +569,37 @@ présentés dans le cadre de ce travail~:
   une mesure directe de la précarité enseignante.
 \end{itemize}
 
+Les indicateurs clés de performances sont présentés sous trois formes :
+
+\begin{itemize}
+\tightlist
+\item
+  Normalisés : les valeurs de la dernière année sont présentées en
+  fonction de la moyenne nationale des établissements de même type ;
+\item
+  Evolution en valeur absolue : les valeurs sont présentées sur
+  plusieurs années ;
+\item
+  Evolution en valeur de référence : les valeurs sont présentées en
+  pourcentage relatif à l'année de référence.
+\end{itemize}
+
+Pour chacune des trois présentations, le fond de graphique représente
+les valeurs de tous les autres établissements, sous forme de point (un
+point par établissement), de
+\href{https://fr.wikipedia.org/wiki/Bo\%C3\%AEte_\%C3\%A0_moustaches}{boite
+à moustaches}, ou de distribution en violon.
+
 \hypertarget{exemples-de-lecture}{%
 \subsection{Exemples de lecture}\label{exemples-de-lecture}}
 
-\hypertarget{kpi-instantanuxe9s}{%
-\subsubsection{KPI : instantanés}\label{kpi-instantanuxe9s}}
+\hypertarget{kpi-normalisuxe9s}{%
+\subsubsection{KPI : normalisés}\label{kpi-normalisuxe9s}}
 
-\begin{center}\includegraphics[height=0.3\textheight]{tdbesr-rapport_files/figure-latex/kpi.raw-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth,height=0.3\textheight]{tdbesr-rapport_files/figure-latex/kpi.raw-1} \end{center}
 
-Exemple de lecture : « Il y a en moyenne 4,1 enseignants titulaires pour
-100 étudiants dans les universités. Dans cet établissement, il y en a
-3,7, ce qui le place dans le deuxième quartile ».
+Exemple de lecture : « Le taux de titularité de cet établissement est de
+3,7, pour une moyenne nationale de 4,1. ».
 
 \hypertarget{kpi-uxe9volution-en-valeur-absolue}{%
 \subsubsection{KPI : évolution en valeur
@@ -538,9 +612,9 @@ Exemple de lecture : « En 2012, le taux d'encadrement de l'établissement
 progressivement passé à 3,7, ce qui place maintenant l'établissement
 dans le deuxième quartile ».
 
-\hypertarget{kpi-uxe9volution-en-valeur-de-lannuxe9e-de-ruxe9fuxe9rence}{%
-\subsubsection{KPI : évolution en valeur de l'année de
-référence}\label{kpi-uxe9volution-en-valeur-de-lannuxe9e-de-ruxe9fuxe9rence}}
+\hypertarget{kpi-uxe9volution-en-valeur-de-ruxe9fuxe9rence}{%
+\subsubsection{KPI : évolution en valeur de
+référence}\label{kpi-uxe9volution-en-valeur-de-ruxe9fuxe9rence}}
 
 \begin{center}\includegraphics[width=1\linewidth,height=0.3\textheight]{tdbesr-rapport_files/figure-latex/kpi.evol.nor-1} \end{center}
 
@@ -551,7 +625,7 @@ quartile inférieur des évolution de cet indicateur ».
 \hypertarget{donnuxe9es-brutes}{%
 \subsubsection{Données brutes}\label{donnuxe9es-brutes}}
 
-\begin{center}\includegraphics[height=0.3\textheight]{tdbesr-rapport_files/figure-latex/etu.raw-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth,height=0.3\textheight]{tdbesr-rapport_files/figure-latex/etu.raw-1} \end{center}
 
 Exemple de lecture : « l'établissement compte 47 573 étudiants hors
 double inscription en CPGE, dont 26 679 en 1er cycle (L, DUT, prépa,
@@ -560,7 +634,7 @@ etc.) ».
 \hypertarget{donnuxe9es-normalisuxe9es}{%
 \subsubsection{Données normalisées}\label{donnuxe9es-normalisuxe9es}}
 
-\begin{center}\includegraphics[height=0.3\textheight]{tdbesr-rapport_files/figure-latex/etu.norm-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth,height=0.3\textheight]{tdbesr-rapport_files/figure-latex/etu.norm-1} \end{center}
 
 Exemple de lecture : « La part moyenne des étudiants en 1er cycle dans
 les effectifs des universités est de 68\%. L'établissement présente une
@@ -595,7 +669,7 @@ UAI : & 0134009M & Décret : & N/A \\
 \textit{\scriptsize Pour améliorer ces graphiques, veuillez éditer \href{https://www.wikidata.org/entity/Q2302586}{Q2302586}  selon \href{https://github.com/cpesr/wikidataESR/blob/master/Rmd/wikidataESR.md}{ce guide}}
 .
 
-\maketdb{tdbesr-batch/0134009M-histoire}{tdbesr-batch/0134009M-associations}{tdbesr-batch/0134009M-composantes}{tdbesr-batch/0134009M-kpi}
+\maketdb{tdbesr-batch/0134009M-filiation}{tdbesr-batch/0134009M-association}{tdbesr-batch/0134009M-composition}{tdbesr-batch/0134009M-kpi}
 
 \newpage
 
@@ -613,7 +687,7 @@ UAI : & 0840685N & Décret : & N/A \\
 \textit{\scriptsize Pour améliorer ces graphiques, veuillez éditer \href{https://www.wikidata.org/entity/Q2033119}{Q2033119}  selon \href{https://github.com/cpesr/wikidataESR/blob/master/Rmd/wikidataESR.md}{ce guide}}
 .
 
-\maketdb{tdbesr-batch/0840685N-histoire}{tdbesr-batch/0840685N-associations}{tdbesr-batch/0840685N-composantes}{tdbesr-batch/0840685N-kpi}
+\maketdb{tdbesr-batch/0840685N-filiation}{tdbesr-batch/0840685N-association}{tdbesr-batch/0840685N-composition}{tdbesr-batch/0840685N-kpi}
 
 \newpage
 
@@ -635,7 +709,7 @@ UAI : & 0801344B & Décret : & N/A \\
 \textit{\scriptsize Pour améliorer ces graphiques, veuillez éditer \href{https://www.wikidata.org/entity/Q947747}{Q947747}  selon \href{https://github.com/cpesr/wikidataESR/blob/master/Rmd/wikidataESR.md}{ce guide}}
 .
 
-\maketdb{tdbesr-batch/0801344B-histoire}{tdbesr-batch/0801344B-associations}{tdbesr-batch/0801344B-composantes}{tdbesr-batch/0801344B-kpi}
+\maketdb{tdbesr-batch/0801344B-filiation}{tdbesr-batch/0801344B-association}{tdbesr-batch/0801344B-composition}{tdbesr-batch/0801344B-kpi}
 
 \newpage
 
@@ -657,7 +731,7 @@ UAI : & 0251215K & Décret : & N/A \\
 \textit{\scriptsize Pour améliorer ces graphiques, veuillez éditer \href{https://www.wikidata.org/entity/Q829449}{Q829449}  selon \href{https://github.com/cpesr/wikidataESR/blob/master/Rmd/wikidataESR.md}{ce guide}}
 .
 
-\maketdb{tdbesr-batch/0251215K-histoire}{tdbesr-batch/0251215K-associations}{tdbesr-batch/0251215K-composantes}{tdbesr-batch/0251215K-kpi}
+\maketdb{tdbesr-batch/0251215K-filiation}{tdbesr-batch/0251215K-association}{tdbesr-batch/0251215K-composition}{tdbesr-batch/0251215K-kpi}
 
 \newpage
 
@@ -679,7 +753,7 @@ UAI : & 0331766R & Décret : & N/A \\
 \textit{\scriptsize Pour améliorer ces graphiques, veuillez éditer \href{https://www.wikidata.org/entity/Q13342}{Q13342}  selon \href{https://github.com/cpesr/wikidataESR/blob/master/Rmd/wikidataESR.md}{ce guide}}
 .
 
-\maketdb{tdbesr-batch/0331766R-histoire}{tdbesr-batch/0331766R-associations}{tdbesr-batch/0331766R-composantes}{tdbesr-batch/0331766R-kpi}
+\maketdb{tdbesr-batch/0331766R-filiation}{tdbesr-batch/0331766R-association}{tdbesr-batch/0331766R-composition}{tdbesr-batch/0331766R-kpi}
 
 \newpage
 
@@ -698,7 +772,7 @@ UAI : & 0333298F & Décret : & N/A \\
 \textit{\scriptsize Pour améliorer ces graphiques, veuillez éditer \href{https://www.wikidata.org/entity/Q13344}{Q13344}  selon \href{https://github.com/cpesr/wikidataESR/blob/master/Rmd/wikidataESR.md}{ce guide}}
 .
 
-\maketdb{tdbesr-batch/0333298F-histoire}{tdbesr-batch/0333298F-associations}{tdbesr-batch/0333298F-composantes}{tdbesr-batch/0333298F-kpi}
+\maketdb{tdbesr-batch/0333298F-filiation}{tdbesr-batch/0333298F-association}{tdbesr-batch/0333298F-composition}{tdbesr-batch/0333298F-kpi}
 
 \newpage
 
@@ -717,7 +791,7 @@ UAI : & 0640251A & Décret : & N/A \\
 \textit{\scriptsize Pour améliorer ces graphiques, veuillez éditer \href{https://www.wikidata.org/entity/Q572968}{Q572968}  selon \href{https://github.com/cpesr/wikidataESR/blob/master/Rmd/wikidataESR.md}{ce guide}}
 .
 
-\maketdb{tdbesr-batch/0640251A-histoire}{tdbesr-batch/0640251A-associations}{tdbesr-batch/0640251A-composantes}{tdbesr-batch/0640251A-kpi}
+\maketdb{tdbesr-batch/0640251A-filiation}{tdbesr-batch/0640251A-association}{tdbesr-batch/0640251A-composition}{tdbesr-batch/0640251A-kpi}
 
 \newpage
 
@@ -739,7 +813,7 @@ UAI : & 0141408E & Décret : & N/A \\
 \textit{\scriptsize Pour améliorer ces graphiques, veuillez éditer \href{https://www.wikidata.org/entity/Q568554}{Q568554}  selon \href{https://github.com/cpesr/wikidataESR/blob/master/Rmd/wikidataESR.md}{ce guide}}
 .
 
-\maketdb{tdbesr-batch/0141408E-histoire}{tdbesr-batch/0141408E-associations}{tdbesr-batch/0141408E-composantes}{tdbesr-batch/0141408E-kpi}
+\maketdb{tdbesr-batch/0141408E-filiation}{tdbesr-batch/0141408E-association}{tdbesr-batch/0141408E-composition}{tdbesr-batch/0141408E-kpi}
 
 \newpage
 
@@ -762,7 +836,7 @@ UAI : & 0632035V & Décret : & \href{https://www.legifrance.gouv.fr/affichTexte.
 \textit{\scriptsize Pour améliorer ces graphiques, veuillez éditer \href{https://www.wikidata.org/entity/Q28057967}{Q28057967}  selon \href{https://github.com/cpesr/wikidataESR/blob/master/Rmd/wikidataESR.md}{ce guide}}
 .
 
-\maketdb{tdbesr-batch/0632035V-histoire}{tdbesr-batch/0632035V-associations}{tdbesr-batch/0632035V-composantes}{tdbesr-batch/0632035V-kpi}
+\maketdb{tdbesr-batch/0632035V-filiation}{tdbesr-batch/0632035V-association}{tdbesr-batch/0632035V-composition}{tdbesr-batch/0632035V-kpi}
 
 \newpage
 
@@ -784,7 +858,7 @@ UAI : & 7200664J & Décret : & N/A \\
 \textit{\scriptsize Pour améliorer ces graphiques, veuillez éditer \href{https://www.wikidata.org/entity/Q335841}{Q335841}  selon \href{https://github.com/cpesr/wikidataESR/blob/master/Rmd/wikidataESR.md}{ce guide}}
 .
 
-\maketdb{tdbesr-batch/7200664J-histoire}{tdbesr-batch/7200664J-associations}{tdbesr-batch/7200664J-composantes}{tdbesr-batch/7200664J-kpi}
+\maketdb{tdbesr-batch/7200664J-filiation}{tdbesr-batch/7200664J-association}{tdbesr-batch/7200664J-composition}{tdbesr-batch/7200664J-kpi}
 
 \newpage
 
@@ -806,7 +880,7 @@ UAI : & 0772502B & Décret : & N/A \\
 \textit{\scriptsize Pour améliorer ces graphiques, veuillez éditer \href{https://www.wikidata.org/entity/Q501207}{Q501207}  selon \href{https://github.com/cpesr/wikidataESR/blob/master/Rmd/wikidataESR.md}{ce guide}}
 .
 
-\maketdb{tdbesr-batch/0772502B-histoire}{tdbesr-batch/0772502B-associations}{tdbesr-batch/0772502B-composantes}{tdbesr-batch/0772502B-kpi}
+\maketdb{tdbesr-batch/0772502B-filiation}{tdbesr-batch/0772502B-association}{tdbesr-batch/0772502B-composition}{tdbesr-batch/0772502B-kpi}
 
 \newpage
 
@@ -824,7 +898,7 @@ UAI : & 0931238R & Décret : & N/A \\
 \textit{\scriptsize Pour améliorer ces graphiques, veuillez éditer \href{https://www.wikidata.org/entity/Q1780212}{Q1780212}  selon \href{https://github.com/cpesr/wikidataESR/blob/master/Rmd/wikidataESR.md}{ce guide}}
 .
 
-\maketdb{tdbesr-batch/0931238R-histoire}{tdbesr-batch/0931238R-associations}{tdbesr-batch/0931238R-composantes}{tdbesr-batch/0931238R-kpi}
+\maketdb{tdbesr-batch/0931238R-filiation}{tdbesr-batch/0931238R-association}{tdbesr-batch/0931238R-composition}{tdbesr-batch/0931238R-kpi}
 
 \newpage
 
@@ -843,7 +917,7 @@ UAI : & 0931827F & Décret : & N/A \\
 \textit{\scriptsize Pour améliorer ces graphiques, veuillez éditer \href{https://www.wikidata.org/entity/Q1194988}{Q1194988}  selon \href{https://github.com/cpesr/wikidataESR/blob/master/Rmd/wikidataESR.md}{ce guide}}
 .
 
-\maketdb{tdbesr-batch/0931827F-histoire}{tdbesr-batch/0931827F-associations}{tdbesr-batch/0931827F-composantes}{tdbesr-batch/0931827F-kpi}
+\maketdb{tdbesr-batch/0931827F-filiation}{tdbesr-batch/0931827F-association}{tdbesr-batch/0931827F-composition}{tdbesr-batch/0931827F-kpi}
 
 \newpage
 
@@ -862,7 +936,7 @@ UAI : & 0941111X & Décret : & N/A \\
 \textit{\scriptsize Pour améliorer ces graphiques, veuillez éditer \href{https://www.wikidata.org/entity/Q980688}{Q980688}  selon \href{https://github.com/cpesr/wikidataESR/blob/master/Rmd/wikidataESR.md}{ce guide}}
 .
 
-\maketdb{tdbesr-batch/0941111X-histoire}{tdbesr-batch/0941111X-associations}{tdbesr-batch/0941111X-composantes}{tdbesr-batch/0941111X-kpi}
+\maketdb{tdbesr-batch/0941111X-filiation}{tdbesr-batch/0941111X-association}{tdbesr-batch/0941111X-composition}{tdbesr-batch/0941111X-kpi}
 
 \newpage
 
@@ -884,7 +958,7 @@ UAI : & 0211237F & Décret : & N/A \\
 \textit{\scriptsize Pour améliorer ces graphiques, veuillez éditer \href{https://www.wikidata.org/entity/Q287072}{Q287072}  selon \href{https://github.com/cpesr/wikidataESR/blob/master/Rmd/wikidataESR.md}{ce guide}}
 .
 
-\maketdb{tdbesr-batch/0211237F-histoire}{tdbesr-batch/0211237F-associations}{tdbesr-batch/0211237F-composantes}{tdbesr-batch/0211237F-kpi}
+\maketdb{tdbesr-batch/0211237F-filiation}{tdbesr-batch/0211237F-association}{tdbesr-batch/0211237F-composition}{tdbesr-batch/0211237F-kpi}
 
 \newpage
 
@@ -906,7 +980,7 @@ UAI : & 0383493R & Décret : & \href{http://legifrance.gouv.fr/affichTexte.do?ci
 \textit{\scriptsize Pour améliorer ces graphiques, veuillez éditer \href{https://www.wikidata.org/entity/Q945876}{Q945876}  selon \href{https://github.com/cpesr/wikidataESR/blob/master/Rmd/wikidataESR.md}{ce guide}}
 .
 
-\maketdb{tdbesr-batch/0383493R-histoire}{tdbesr-batch/0383493R-associations}{tdbesr-batch/0383493R-composantes}{tdbesr-batch/0383493R-kpi}
+\maketdb{tdbesr-batch/0383493R-filiation}{tdbesr-batch/0383493R-association}{tdbesr-batch/0383493R-composition}{tdbesr-batch/0383493R-kpi}
 
 \newpage
 
@@ -925,7 +999,7 @@ UAI : & 0730858L & Décret : & N/A \\
 \textit{\scriptsize Pour améliorer ces graphiques, veuillez éditer \href{https://www.wikidata.org/entity/Q2496158}{Q2496158}  selon \href{https://github.com/cpesr/wikidataESR/blob/master/Rmd/wikidataESR.md}{ce guide}}
 .
 
-\maketdb{tdbesr-batch/0730858L-histoire}{tdbesr-batch/0730858L-associations}{tdbesr-batch/0730858L-composantes}{tdbesr-batch/0730858L-kpi}
+\maketdb{tdbesr-batch/0730858L-filiation}{tdbesr-batch/0730858L-association}{tdbesr-batch/0730858L-composition}{tdbesr-batch/0730858L-kpi}
 
 \newpage
 
@@ -947,7 +1021,7 @@ UAI : & 9710585J & Décret : & N/A \\
 \textit{\scriptsize Pour améliorer ces graphiques, veuillez éditer \href{https://www.wikidata.org/entity/Q829169}{Q829169}  selon \href{https://github.com/cpesr/wikidataESR/blob/master/Rmd/wikidataESR.md}{ce guide}}
 .
 
-\maketdb{tdbesr-batch/9710585J-histoire}{tdbesr-batch/9710585J-associations}{tdbesr-batch/9710585J-composantes}{tdbesr-batch/9710585J-kpi}
+\maketdb{tdbesr-batch/9710585J-filiation}{tdbesr-batch/9710585J-association}{tdbesr-batch/9710585J-composition}{tdbesr-batch/9710585J-kpi}
 
 \newpage
 
@@ -969,7 +1043,7 @@ UAI : & 9730429D & Décret : & \href{http://www.legifrance.gouv.fr/affichTexte.d
 \textit{\scriptsize Pour améliorer ces graphiques, veuillez éditer \href{https://www.wikidata.org/entity/Q16682067}{Q16682067}  selon \href{https://github.com/cpesr/wikidataESR/blob/master/Rmd/wikidataESR.md}{ce guide}}
 .
 
-\maketdb{tdbesr-batch/9730429D-histoire}{tdbesr-batch/9730429D-associations}{tdbesr-batch/9730429D-composantes}{tdbesr-batch/9730429D-kpi}
+\maketdb{tdbesr-batch/9730429D-filiation}{tdbesr-batch/9730429D-association}{tdbesr-batch/9730429D-composition}{tdbesr-batch/9730429D-kpi}
 
 \newpage
 
@@ -991,7 +1065,7 @@ UAI : & 9740478B & Décret : & N/A \\
 \textit{\scriptsize Pour améliorer ces graphiques, veuillez éditer \href{https://www.wikidata.org/entity/Q834819}{Q834819}  selon \href{https://github.com/cpesr/wikidataESR/blob/master/Rmd/wikidataESR.md}{ce guide}}
 .
 
-\maketdb{tdbesr-batch/9740478B-histoire}{tdbesr-batch/9740478B-associations}{tdbesr-batch/9740478B-composantes}{tdbesr-batch/9740478B-kpi}
+\maketdb{tdbesr-batch/9740478B-filiation}{tdbesr-batch/9740478B-association}{tdbesr-batch/9740478B-composition}{tdbesr-batch/9740478B-kpi}
 
 \newpage
 
@@ -1013,7 +1087,7 @@ UAI : & 0593279U & Décret : & N/A \\
 \textit{\scriptsize Pour améliorer ces graphiques, veuillez éditer \href{https://www.wikidata.org/entity/Q1548539}{Q1548539}  selon \href{https://github.com/cpesr/wikidataESR/blob/master/Rmd/wikidataESR.md}{ce guide}}
 .
 
-\maketdb{tdbesr-batch/0593279U-histoire}{tdbesr-batch/0593279U-associations}{tdbesr-batch/0593279U-composantes}{tdbesr-batch/0593279U-kpi}
+\maketdb{tdbesr-batch/0593279U-filiation}{tdbesr-batch/0593279U-association}{tdbesr-batch/0593279U-composition}{tdbesr-batch/0593279U-kpi}
 
 \newpage
 
@@ -1032,7 +1106,7 @@ UAI : & 0595964M & Décret : & N/A \\
 \textit{\scriptsize Pour améliorer ces graphiques, veuillez éditer \href{https://www.wikidata.org/entity/Q3551755}{Q3551755}  selon \href{https://github.com/cpesr/wikidataESR/blob/master/Rmd/wikidataESR.md}{ce guide}}
 .
 
-\maketdb{tdbesr-batch/0595964M-histoire}{tdbesr-batch/0595964M-associations}{tdbesr-batch/0595964M-composantes}{tdbesr-batch/0595964M-kpi}
+\maketdb{tdbesr-batch/0595964M-filiation}{tdbesr-batch/0595964M-association}{tdbesr-batch/0595964M-composition}{tdbesr-batch/0595964M-kpi}
 
 \newpage
 
@@ -1050,7 +1124,7 @@ UAI : & 0597065J & Décret : & \href{https://www.legifrance.gouv.fr/affichTexte.
 \textit{\scriptsize Pour améliorer ces graphiques, veuillez éditer \href{https://www.wikidata.org/entity/Q3551621}{Q3551621}  selon \href{https://github.com/cpesr/wikidataESR/blob/master/Rmd/wikidataESR.md}{ce guide}}
 .
 
-\maketdb{tdbesr-batch/0597065J-histoire}{tdbesr-batch/0597065J-associations}{tdbesr-batch/0597065J-composantes}{tdbesr-batch/0597065J-kpi}
+\maketdb{tdbesr-batch/0597065J-filiation}{tdbesr-batch/0597065J-association}{tdbesr-batch/0597065J-composition}{tdbesr-batch/0597065J-kpi}
 
 \newpage
 
@@ -1068,7 +1142,7 @@ UAI : & 0623957P & Décret : & N/A \\
 \textit{\scriptsize Pour améliorer ces graphiques, veuillez éditer \href{https://www.wikidata.org/entity/Q475504}{Q475504}  selon \href{https://github.com/cpesr/wikidataESR/blob/master/Rmd/wikidataESR.md}{ce guide}}
 .
 
-\maketdb{tdbesr-batch/0623957P-histoire}{tdbesr-batch/0623957P-associations}{tdbesr-batch/0623957P-composantes}{tdbesr-batch/0623957P-kpi}
+\maketdb{tdbesr-batch/0623957P-filiation}{tdbesr-batch/0623957P-association}{tdbesr-batch/0623957P-composition}{tdbesr-batch/0623957P-kpi}
 
 \newpage
 
@@ -1090,7 +1164,7 @@ UAI : & 0870669E & Décret : & \href{https://www.legifrance.gouv.fr/eli/decret/2
 \textit{\scriptsize Pour améliorer ces graphiques, veuillez éditer \href{https://www.wikidata.org/entity/Q2661290}{Q2661290}  selon \href{https://github.com/cpesr/wikidataESR/blob/master/Rmd/wikidataESR.md}{ce guide}}
 .
 
-\maketdb{tdbesr-batch/0870669E-histoire}{tdbesr-batch/0870669E-associations}{tdbesr-batch/0870669E-composantes}{tdbesr-batch/0870669E-kpi}
+\maketdb{tdbesr-batch/0870669E-filiation}{tdbesr-batch/0870669E-association}{tdbesr-batch/0870669E-composition}{tdbesr-batch/0870669E-kpi}
 
 \newpage
 
@@ -1112,7 +1186,7 @@ UAI : & 0421095M & Décret : & N/A \\
 \textit{\scriptsize Pour améliorer ces graphiques, veuillez éditer \href{https://www.wikidata.org/entity/Q623154}{Q623154}  selon \href{https://github.com/cpesr/wikidataESR/blob/master/Rmd/wikidataESR.md}{ce guide}}
 .
 
-\maketdb{tdbesr-batch/0421095M-histoire}{tdbesr-batch/0421095M-associations}{tdbesr-batch/0421095M-composantes}{tdbesr-batch/0421095M-kpi}
+\maketdb{tdbesr-batch/0421095M-filiation}{tdbesr-batch/0421095M-association}{tdbesr-batch/0421095M-composition}{tdbesr-batch/0421095M-kpi}
 
 \newpage
 
@@ -1131,7 +1205,7 @@ UAI : & 0691774D & Décret : & N/A \\
 \textit{\scriptsize Pour améliorer ces graphiques, veuillez éditer \href{https://www.wikidata.org/entity/Q4032}{Q4032}  selon \href{https://github.com/cpesr/wikidataESR/blob/master/Rmd/wikidataESR.md}{ce guide}}
 .
 
-\maketdb{tdbesr-batch/0691774D-histoire}{tdbesr-batch/0691774D-associations}{tdbesr-batch/0691774D-composantes}{tdbesr-batch/0691774D-kpi}
+\maketdb{tdbesr-batch/0691774D-filiation}{tdbesr-batch/0691774D-association}{tdbesr-batch/0691774D-composition}{tdbesr-batch/0691774D-kpi}
 
 \newpage
 
@@ -1150,7 +1224,7 @@ UAI : & 0691775E & Décret : & N/A \\
 \textit{\scriptsize Pour améliorer ces graphiques, veuillez éditer \href{https://www.wikidata.org/entity/Q4041}{Q4041}  selon \href{https://github.com/cpesr/wikidataESR/blob/master/Rmd/wikidataESR.md}{ce guide}}
 .
 
-\maketdb{tdbesr-batch/0691775E-histoire}{tdbesr-batch/0691775E-associations}{tdbesr-batch/0691775E-composantes}{tdbesr-batch/0691775E-kpi}
+\maketdb{tdbesr-batch/0691775E-filiation}{tdbesr-batch/0691775E-association}{tdbesr-batch/0691775E-composition}{tdbesr-batch/0691775E-kpi}
 
 \newpage
 
@@ -1169,7 +1243,7 @@ UAI : & 0692437Z & Décret : & N/A \\
 \textit{\scriptsize Pour améliorer ces graphiques, veuillez éditer \href{https://www.wikidata.org/entity/Q4027}{Q4027}  selon \href{https://github.com/cpesr/wikidataESR/blob/master/Rmd/wikidataESR.md}{ce guide}}
 .
 
-\maketdb{tdbesr-batch/0692437Z-histoire}{tdbesr-batch/0692437Z-associations}{tdbesr-batch/0692437Z-composantes}{tdbesr-batch/0692437Z-kpi}
+\maketdb{tdbesr-batch/0692437Z-filiation}{tdbesr-batch/0692437Z-association}{tdbesr-batch/0692437Z-composition}{tdbesr-batch/0692437Z-kpi}
 
 \newpage
 
@@ -1191,7 +1265,7 @@ UAI : & 0301687W & Décret : & \href{http://www.legifrance.gouv.fr/affichTexte.d
 \textit{\scriptsize Pour améliorer ces graphiques, veuillez éditer \href{https://www.wikidata.org/entity/Q2496121}{Q2496121}  selon \href{https://github.com/cpesr/wikidataESR/blob/master/Rmd/wikidataESR.md}{ce guide}}
 .
 
-\maketdb{tdbesr-batch/0301687W-histoire}{tdbesr-batch/0301687W-associations}{tdbesr-batch/0301687W-composantes}{tdbesr-batch/0301687W-kpi}
+\maketdb{tdbesr-batch/0301687W-filiation}{tdbesr-batch/0301687W-association}{tdbesr-batch/0301687W-composition}{tdbesr-batch/0301687W-kpi}
 
 \newpage
 
@@ -1210,7 +1284,7 @@ UAI : & 0341089Z & Décret : & N/A \\
 \textit{\scriptsize Pour améliorer ces graphiques, veuillez éditer \href{https://www.wikidata.org/entity/Q2912244}{Q2912244}  selon \href{https://github.com/cpesr/wikidataESR/blob/master/Rmd/wikidataESR.md}{ce guide}}
 .
 
-\maketdb{tdbesr-batch/0341089Z-histoire}{tdbesr-batch/0341089Z-associations}{tdbesr-batch/0341089Z-composantes}{tdbesr-batch/0341089Z-kpi}
+\maketdb{tdbesr-batch/0341089Z-filiation}{tdbesr-batch/0341089Z-association}{tdbesr-batch/0341089Z-composition}{tdbesr-batch/0341089Z-kpi}
 
 \newpage
 
@@ -1229,7 +1303,7 @@ UAI : & 0342321N & Décret : & N/A \\
 \textit{\scriptsize Pour améliorer ces graphiques, veuillez éditer \href{https://www.wikidata.org/entity/Q776223}{Q776223}  selon \href{https://github.com/cpesr/wikidataESR/blob/master/Rmd/wikidataESR.md}{ce guide}}
 .
 
-\maketdb{tdbesr-batch/0342321N-histoire}{tdbesr-batch/0342321N-associations}{tdbesr-batch/0342321N-composantes}{tdbesr-batch/0342321N-kpi}
+\maketdb{tdbesr-batch/0342321N-filiation}{tdbesr-batch/0342321N-association}{tdbesr-batch/0342321N-composition}{tdbesr-batch/0342321N-kpi}
 
 \newpage
 
@@ -1248,7 +1322,7 @@ UAI : & 0660437S & Décret : & N/A \\
 \textit{\scriptsize Pour améliorer ces graphiques, veuillez éditer \href{https://www.wikidata.org/entity/Q304872}{Q304872}  selon \href{https://github.com/cpesr/wikidataESR/blob/master/Rmd/wikidataESR.md}{ce guide}}
 .
 
-\maketdb{tdbesr-batch/0660437S-histoire}{tdbesr-batch/0660437S-associations}{tdbesr-batch/0660437S-composantes}{tdbesr-batch/0660437S-kpi}
+\maketdb{tdbesr-batch/0660437S-filiation}{tdbesr-batch/0660437S-association}{tdbesr-batch/0660437S-composition}{tdbesr-batch/0660437S-kpi}
 
 \newpage
 
@@ -1270,7 +1344,7 @@ UAI : & 0542493S & Décret : & N/A \\
 \textit{\scriptsize Pour améliorer ces graphiques, veuillez éditer \href{https://www.wikidata.org/entity/Q4173330}{Q4173330}  selon \href{https://github.com/cpesr/wikidataESR/blob/master/Rmd/wikidataESR.md}{ce guide}}
 .
 
-\maketdb{tdbesr-batch/0542493S-histoire}{tdbesr-batch/0542493S-associations}{tdbesr-batch/0542493S-composantes}{tdbesr-batch/0542493S-kpi}
+\maketdb{tdbesr-batch/0542493S-filiation}{tdbesr-batch/0542493S-association}{tdbesr-batch/0542493S-composition}{tdbesr-batch/0542493S-kpi}
 
 \newpage
 
@@ -1292,7 +1366,7 @@ UAI : & 0440984F & Décret : & N/A \\
 \textit{\scriptsize Pour améliorer ces graphiques, veuillez éditer \href{https://www.wikidata.org/entity/Q259388}{Q259388}  selon \href{https://github.com/cpesr/wikidataESR/blob/master/Rmd/wikidataESR.md}{ce guide}}
 .
 
-\maketdb{tdbesr-batch/0440984F-histoire}{tdbesr-batch/0440984F-associations}{tdbesr-batch/0440984F-composantes}{tdbesr-batch/0440984F-kpi}
+\maketdb{tdbesr-batch/0440984F-filiation}{tdbesr-batch/0440984F-association}{tdbesr-batch/0440984F-composition}{tdbesr-batch/0440984F-kpi}
 
 \newpage
 
@@ -1310,7 +1384,7 @@ UAI : & 0490970N & Décret : & N/A \\
 \textit{\scriptsize Pour améliorer ces graphiques, veuillez éditer \href{https://www.wikidata.org/entity/Q1538727}{Q1538727}  selon \href{https://github.com/cpesr/wikidataESR/blob/master/Rmd/wikidataESR.md}{ce guide}}
 .
 
-\maketdb{tdbesr-batch/0490970N-histoire}{tdbesr-batch/0490970N-associations}{tdbesr-batch/0490970N-composantes}{tdbesr-batch/0490970N-kpi}
+\maketdb{tdbesr-batch/0490970N-filiation}{tdbesr-batch/0490970N-association}{tdbesr-batch/0490970N-composition}{tdbesr-batch/0490970N-kpi}
 
 \newpage
 
@@ -1328,7 +1402,7 @@ UAI : & 0720916E & Décret : & N/A \\
 \textit{\scriptsize Pour améliorer ces graphiques, veuillez éditer \href{https://www.wikidata.org/entity/Q834825}{Q834825}  selon \href{https://github.com/cpesr/wikidataESR/blob/master/Rmd/wikidataESR.md}{ce guide}}
 .
 
-\maketdb{tdbesr-batch/0720916E-histoire}{tdbesr-batch/0720916E-associations}{tdbesr-batch/0720916E-composantes}{tdbesr-batch/0720916E-kpi}
+\maketdb{tdbesr-batch/0720916E-filiation}{tdbesr-batch/0720916E-association}{tdbesr-batch/0720916E-composition}{tdbesr-batch/0720916E-kpi}
 
 \newpage
 
@@ -1350,7 +1424,7 @@ UAI : & 0060931E & Décret : & N/A \\
 \textit{\scriptsize Pour améliorer ces graphiques, veuillez éditer \href{https://www.wikidata.org/entity/Q1198571}{Q1198571}  selon \href{https://github.com/cpesr/wikidataESR/blob/master/Rmd/wikidataESR.md}{ce guide}}
 .
 
-\maketdb{tdbesr-batch/0060931E-histoire}{tdbesr-batch/0060931E-associations}{tdbesr-batch/0060931E-composantes}{tdbesr-batch/0060931E-kpi}
+\maketdb{tdbesr-batch/0060931E-filiation}{tdbesr-batch/0060931E-association}{tdbesr-batch/0060931E-composition}{tdbesr-batch/0060931E-kpi}
 
 \newpage
 
@@ -1369,7 +1443,7 @@ UAI : & 0830766G & Décret : & N/A \\
 \textit{\scriptsize Pour améliorer ces graphiques, veuillez éditer \href{https://www.wikidata.org/entity/Q1816857}{Q1816857}  selon \href{https://github.com/cpesr/wikidataESR/blob/master/Rmd/wikidataESR.md}{ce guide}}
 .
 
-\maketdb{tdbesr-batch/0830766G-histoire}{tdbesr-batch/0830766G-associations}{tdbesr-batch/0830766G-composantes}{tdbesr-batch/0830766G-kpi}
+\maketdb{tdbesr-batch/0830766G-filiation}{tdbesr-batch/0830766G-association}{tdbesr-batch/0830766G-composition}{tdbesr-batch/0830766G-kpi}
 
 \newpage
 
@@ -1392,7 +1466,7 @@ UAI : & 9830445S & Décret : & N/A \\
 \textit{\scriptsize Pour améliorer ces graphiques, veuillez éditer \href{https://www.wikidata.org/entity/Q734332}{Q734332}  selon \href{https://github.com/cpesr/wikidataESR/blob/master/Rmd/wikidataESR.md}{ce guide}}
 .
 
-\maketdb{tdbesr-batch/9830445S-histoire}{tdbesr-batch/9830445S-associations}{tdbesr-batch/9830445S-composantes}{tdbesr-batch/9830445S-kpi}
+\maketdb{tdbesr-batch/9830445S-filiation}{tdbesr-batch/9830445S-association}{tdbesr-batch/9830445S-composition}{tdbesr-batch/9830445S-kpi}
 
 \newpage
 
@@ -1413,7 +1487,7 @@ UAI : & 0370800U & Décret : & N/A \\
 \textit{\scriptsize Pour améliorer ces graphiques, veuillez éditer \href{https://www.wikidata.org/entity/Q494335}{Q494335}  selon \href{https://github.com/cpesr/wikidataESR/blob/master/Rmd/wikidataESR.md}{ce guide}}
 .
 
-\maketdb{tdbesr-batch/0370800U-histoire}{tdbesr-batch/0370800U-associations}{tdbesr-batch/0370800U-composantes}{tdbesr-batch/0370800U-kpi}
+\maketdb{tdbesr-batch/0370800U-filiation}{tdbesr-batch/0370800U-association}{tdbesr-batch/0370800U-composition}{tdbesr-batch/0370800U-kpi}
 
 \newpage
 
@@ -1432,7 +1506,7 @@ UAI : & 0450855K & Décret : & N/A \\
 \textit{\scriptsize Pour améliorer ces graphiques, veuillez éditer \href{https://www.wikidata.org/entity/Q13334}{Q13334}  selon \href{https://github.com/cpesr/wikidataESR/blob/master/Rmd/wikidataESR.md}{ce guide}}
 .
 
-\maketdb{tdbesr-batch/0450855K-histoire}{tdbesr-batch/0450855K-associations}{tdbesr-batch/0450855K-composantes}{tdbesr-batch/0450855K-kpi}
+\maketdb{tdbesr-batch/0450855K-filiation}{tdbesr-batch/0450855K-association}{tdbesr-batch/0450855K-composition}{tdbesr-batch/0450855K-kpi}
 
 \newpage
 
@@ -1454,7 +1528,7 @@ UAI : & 0751717J & Décret : & N/A \\
 \textit{\scriptsize Pour améliorer ces graphiques, veuillez éditer \href{https://www.wikidata.org/entity/Q999763}{Q999763}  selon \href{https://github.com/cpesr/wikidataESR/blob/master/Rmd/wikidataESR.md}{ce guide}}
 .
 
-\maketdb{tdbesr-batch/0751717J-histoire}{tdbesr-batch/0751717J-associations}{tdbesr-batch/0751717J-composantes}{tdbesr-batch/0751717J-kpi}
+\maketdb{tdbesr-batch/0751717J-filiation}{tdbesr-batch/0751717J-association}{tdbesr-batch/0751717J-composition}{tdbesr-batch/0751717J-kpi}
 
 \newpage
 
@@ -1473,7 +1547,7 @@ UAI : & 0751718K & Décret : & N/A \\
 \textit{\scriptsize Pour améliorer ces graphiques, veuillez éditer \href{https://www.wikidata.org/entity/Q662976}{Q662976}  selon \href{https://github.com/cpesr/wikidataESR/blob/master/Rmd/wikidataESR.md}{ce guide}}
 .
 
-\maketdb{tdbesr-batch/0751718K-histoire}{tdbesr-batch/0751718K-associations}{tdbesr-batch/0751718K-composantes}{tdbesr-batch/0751718K-kpi}
+\maketdb{tdbesr-batch/0751718K-filiation}{tdbesr-batch/0751718K-association}{tdbesr-batch/0751718K-composition}{tdbesr-batch/0751718K-kpi}
 
 \newpage
 
@@ -1492,7 +1566,7 @@ UAI : & 0751719L & Décret : & N/A \\
 \textit{\scriptsize Pour améliorer ces graphiques, veuillez éditer \href{https://www.wikidata.org/entity/Q571293}{Q571293}  selon \href{https://github.com/cpesr/wikidataESR/blob/master/Rmd/wikidataESR.md}{ce guide}}
 .
 
-\maketdb{tdbesr-batch/0751719L-histoire}{tdbesr-batch/0751719L-associations}{tdbesr-batch/0751719L-composantes}{tdbesr-batch/0751719L-kpi}
+\maketdb{tdbesr-batch/0751719L-filiation}{tdbesr-batch/0751719L-association}{tdbesr-batch/0751719L-composition}{tdbesr-batch/0751719L-kpi}
 
 \newpage
 
@@ -1511,7 +1585,7 @@ UAI : & 0751721N & Décret : & N/A \\
 \textit{\scriptsize Pour améliorer ces graphiques, veuillez éditer \href{https://www.wikidata.org/entity/Q1155944}{Q1155944}  selon \href{https://github.com/cpesr/wikidataESR/blob/master/Rmd/wikidataESR.md}{ce guide}}
 .
 
-\maketdb{tdbesr-batch/0751721N-histoire}{tdbesr-batch/0751721N-associations}{tdbesr-batch/0751721N-composantes}{tdbesr-batch/0751721N-kpi}
+\maketdb{tdbesr-batch/0751721N-filiation}{tdbesr-batch/0751721N-association}{tdbesr-batch/0751721N-composition}{tdbesr-batch/0751721N-kpi}
 
 \newpage
 
@@ -1530,7 +1604,7 @@ UAI : & 0751723R & Décret : & N/A \\
 \textit{\scriptsize Pour améliorer ces graphiques, veuillez éditer \href{https://www.wikidata.org/entity/Q1235608}{Q1235608}  selon \href{https://github.com/cpesr/wikidataESR/blob/master/Rmd/wikidataESR.md}{ce guide}}
 .
 
-\maketdb{tdbesr-batch/0751723R-histoire}{tdbesr-batch/0751723R-associations}{tdbesr-batch/0751723R-composantes}{tdbesr-batch/0751723R-kpi}
+\maketdb{tdbesr-batch/0751723R-filiation}{tdbesr-batch/0751723R-association}{tdbesr-batch/0751723R-composition}{tdbesr-batch/0751723R-kpi}
 
 \newpage
 
@@ -1548,7 +1622,7 @@ UAI : & 0755890V & Décret : & \href{https://www.legifrance.gouv.fr/affichTexte.
 \textit{\scriptsize Pour améliorer ces graphiques, veuillez éditer \href{https://www.wikidata.org/entity/Q41497113}{Q41497113}  selon \href{https://github.com/cpesr/wikidataESR/blob/master/Rmd/wikidataESR.md}{ce guide}}
 .
 
-\maketdb{tdbesr-batch/0755890V-histoire}{tdbesr-batch/0755890V-associations}{tdbesr-batch/0755890V-composantes}{tdbesr-batch/0755890V-kpi}
+\maketdb{tdbesr-batch/0755890V-filiation}{tdbesr-batch/0755890V-association}{tdbesr-batch/0755890V-composition}{tdbesr-batch/0755890V-kpi}
 
 \newpage
 
@@ -1570,7 +1644,7 @@ UAI : & 0171463Y & Décret : & N/A \\
 \textit{\scriptsize Pour améliorer ces graphiques, veuillez éditer \href{https://www.wikidata.org/entity/Q1500822}{Q1500822}  selon \href{https://github.com/cpesr/wikidataESR/blob/master/Rmd/wikidataESR.md}{ce guide}}
 .
 
-\maketdb{tdbesr-batch/0171463Y-histoire}{tdbesr-batch/0171463Y-associations}{tdbesr-batch/0171463Y-composantes}{tdbesr-batch/0171463Y-kpi}
+\maketdb{tdbesr-batch/0171463Y-filiation}{tdbesr-batch/0171463Y-association}{tdbesr-batch/0171463Y-composition}{tdbesr-batch/0171463Y-kpi}
 
 \newpage
 
@@ -1589,7 +1663,7 @@ UAI : & 0860856N & Décret : & N/A \\
 \textit{\scriptsize Pour améliorer ces graphiques, veuillez éditer \href{https://www.wikidata.org/entity/Q661056}{Q661056}  selon \href{https://github.com/cpesr/wikidataESR/blob/master/Rmd/wikidataESR.md}{ce guide}}
 .
 
-\maketdb{tdbesr-batch/0860856N-histoire}{tdbesr-batch/0860856N-associations}{tdbesr-batch/0860856N-composantes}{tdbesr-batch/0860856N-kpi}
+\maketdb{tdbesr-batch/0860856N-filiation}{tdbesr-batch/0860856N-association}{tdbesr-batch/0860856N-composition}{tdbesr-batch/0860856N-kpi}
 
 \newpage
 
@@ -1612,7 +1686,7 @@ UAI : & 9840349G & Décret : & N/A \\
 \textit{\scriptsize Pour améliorer ces graphiques, veuillez éditer \href{https://www.wikidata.org/entity/Q1695245}{Q1695245}  selon \href{https://github.com/cpesr/wikidataESR/blob/master/Rmd/wikidataESR.md}{ce guide}}
 .
 
-\maketdb{tdbesr-batch/9840349G-histoire}{tdbesr-batch/9840349G-associations}{tdbesr-batch/9840349G-composantes}{tdbesr-batch/9840349G-kpi}
+\maketdb{tdbesr-batch/9840349G-filiation}{tdbesr-batch/9840349G-association}{tdbesr-batch/9840349G-composition}{tdbesr-batch/9840349G-kpi}
 
 \newpage
 
@@ -1634,7 +1708,7 @@ UAI : & 0511296G & Décret : & N/A \\
 \textit{\scriptsize Pour améliorer ces graphiques, veuillez éditer \href{https://www.wikidata.org/entity/Q2496149}{Q2496149}  selon \href{https://github.com/cpesr/wikidataESR/blob/master/Rmd/wikidataESR.md}{ce guide}}
 .
 
-\maketdb{tdbesr-batch/0511296G-histoire}{tdbesr-batch/0511296G-associations}{tdbesr-batch/0511296G-composantes}{tdbesr-batch/0511296G-kpi}
+\maketdb{tdbesr-batch/0511296G-filiation}{tdbesr-batch/0511296G-association}{tdbesr-batch/0511296G-composition}{tdbesr-batch/0511296G-kpi}
 
 \newpage
 
@@ -1656,7 +1730,7 @@ UAI : & 0290346U & Décret : & N/A \\
 \textit{\scriptsize Pour améliorer ces graphiques, veuillez éditer \href{https://www.wikidata.org/entity/Q1857334}{Q1857334}  selon \href{https://github.com/cpesr/wikidataESR/blob/master/Rmd/wikidataESR.md}{ce guide}}
 .
 
-\maketdb{tdbesr-batch/0290346U-histoire}{tdbesr-batch/0290346U-associations}{tdbesr-batch/0290346U-composantes}{tdbesr-batch/0290346U-kpi}
+\maketdb{tdbesr-batch/0290346U-filiation}{tdbesr-batch/0290346U-association}{tdbesr-batch/0290346U-composition}{tdbesr-batch/0290346U-kpi}
 
 \newpage
 
@@ -1675,7 +1749,7 @@ UAI : & 0350936C & Décret : & N/A \\
 \textit{\scriptsize Pour améliorer ces graphiques, veuillez éditer \href{https://www.wikidata.org/entity/Q726595}{Q726595}  selon \href{https://github.com/cpesr/wikidataESR/blob/master/Rmd/wikidataESR.md}{ce guide}}
 .
 
-\maketdb{tdbesr-batch/0350936C-histoire}{tdbesr-batch/0350936C-associations}{tdbesr-batch/0350936C-composantes}{tdbesr-batch/0350936C-kpi}
+\maketdb{tdbesr-batch/0350936C-filiation}{tdbesr-batch/0350936C-association}{tdbesr-batch/0350936C-composition}{tdbesr-batch/0350936C-kpi}
 
 \newpage
 
@@ -1693,7 +1767,7 @@ UAI : & 0350937D & Décret : & N/A \\
 \textit{\scriptsize Pour améliorer ces graphiques, veuillez éditer \href{https://www.wikidata.org/entity/Q459026}{Q459026}  selon \href{https://github.com/cpesr/wikidataESR/blob/master/Rmd/wikidataESR.md}{ce guide}}
 .
 
-\maketdb{tdbesr-batch/0350937D-histoire}{tdbesr-batch/0350937D-associations}{tdbesr-batch/0350937D-composantes}{tdbesr-batch/0350937D-kpi}
+\maketdb{tdbesr-batch/0350937D-filiation}{tdbesr-batch/0350937D-association}{tdbesr-batch/0350937D-composition}{tdbesr-batch/0350937D-kpi}
 
 \newpage
 
@@ -1712,7 +1786,7 @@ UAI : & 0561718N & Décret : & N/A \\
 \textit{\scriptsize Pour améliorer ces graphiques, veuillez éditer \href{https://www.wikidata.org/entity/Q1125958}{Q1125958}  selon \href{https://github.com/cpesr/wikidataESR/blob/master/Rmd/wikidataESR.md}{ce guide}}
 .
 
-\maketdb{tdbesr-batch/0561718N-histoire}{tdbesr-batch/0561718N-associations}{tdbesr-batch/0561718N-composantes}{tdbesr-batch/0561718N-kpi}
+\maketdb{tdbesr-batch/0561718N-filiation}{tdbesr-batch/0561718N-association}{tdbesr-batch/0561718N-composition}{tdbesr-batch/0561718N-kpi}
 
 \newpage
 
@@ -1733,7 +1807,7 @@ UAI : & 0761904G & Décret : & N/A \\
 \textit{\scriptsize Pour améliorer ces graphiques, veuillez éditer \href{https://www.wikidata.org/entity/Q494247}{Q494247}  selon \href{https://github.com/cpesr/wikidataESR/blob/master/Rmd/wikidataESR.md}{ce guide}}
 .
 
-\maketdb{tdbesr-batch/0761904G-histoire}{tdbesr-batch/0761904G-associations}{tdbesr-batch/0761904G-composantes}{tdbesr-batch/0761904G-kpi}
+\maketdb{tdbesr-batch/0761904G-filiation}{tdbesr-batch/0761904G-association}{tdbesr-batch/0761904G-composition}{tdbesr-batch/0761904G-kpi}
 
 \newpage
 
@@ -1751,7 +1825,7 @@ UAI : & 0762762P & Décret : & N/A \\
 \textit{\scriptsize Pour améliorer ces graphiques, veuillez éditer \href{https://www.wikidata.org/entity/Q1784954}{Q1784954}  selon \href{https://github.com/cpesr/wikidataESR/blob/master/Rmd/wikidataESR.md}{ce guide}}
 .
 
-\maketdb{tdbesr-batch/0762762P-histoire}{tdbesr-batch/0762762P-associations}{tdbesr-batch/0762762P-composantes}{tdbesr-batch/0762762P-kpi}
+\maketdb{tdbesr-batch/0762762P-filiation}{tdbesr-batch/0762762P-association}{tdbesr-batch/0762762P-composition}{tdbesr-batch/0762762P-kpi}
 
 \newpage
 
@@ -1773,7 +1847,7 @@ UAI : & 0673021V & Décret : & N/A \\
 \textit{\scriptsize Pour améliorer ces graphiques, veuillez éditer \href{https://www.wikidata.org/entity/Q157575}{Q157575}  selon \href{https://github.com/cpesr/wikidataESR/blob/master/Rmd/wikidataESR.md}{ce guide}}
 .
 
-\maketdb{tdbesr-batch/0673021V-histoire}{tdbesr-batch/0673021V-associations}{tdbesr-batch/0673021V-composantes}{tdbesr-batch/0673021V-kpi}
+\maketdb{tdbesr-batch/0673021V-filiation}{tdbesr-batch/0673021V-association}{tdbesr-batch/0673021V-composition}{tdbesr-batch/0673021V-kpi}
 
 \newpage
 
@@ -1792,7 +1866,7 @@ UAI : & 0681166Y & Décret : & N/A \\
 \textit{\scriptsize Pour améliorer ces graphiques, veuillez éditer \href{https://www.wikidata.org/entity/Q280183}{Q280183}  selon \href{https://github.com/cpesr/wikidataESR/blob/master/Rmd/wikidataESR.md}{ce guide}}
 .
 
-\maketdb{tdbesr-batch/0681166Y-histoire}{tdbesr-batch/0681166Y-associations}{tdbesr-batch/0681166Y-composantes}{tdbesr-batch/0681166Y-kpi}
+\maketdb{tdbesr-batch/0681166Y-filiation}{tdbesr-batch/0681166Y-association}{tdbesr-batch/0681166Y-composition}{tdbesr-batch/0681166Y-kpi}
 
 \newpage
 
@@ -1814,7 +1888,7 @@ UAI : & 0311382J & Décret : & N/A \\
 \textit{\scriptsize Pour améliorer ces graphiques, veuillez éditer \href{https://www.wikidata.org/entity/Q590201}{Q590201}  selon \href{https://github.com/cpesr/wikidataESR/blob/master/Rmd/wikidataESR.md}{ce guide}}
 .
 
-\maketdb{tdbesr-batch/0311382J-histoire}{tdbesr-batch/0311382J-associations}{tdbesr-batch/0311382J-composantes}{tdbesr-batch/0311382J-kpi}
+\maketdb{tdbesr-batch/0311382J-filiation}{tdbesr-batch/0311382J-association}{tdbesr-batch/0311382J-composition}{tdbesr-batch/0311382J-kpi}
 
 \newpage
 
@@ -1833,7 +1907,7 @@ UAI : & 0311383K & Décret : & N/A \\
 \textit{\scriptsize Pour améliorer ces graphiques, veuillez éditer \href{https://www.wikidata.org/entity/Q1933558}{Q1933558}  selon \href{https://github.com/cpesr/wikidataESR/blob/master/Rmd/wikidataESR.md}{ce guide}}
 .
 
-\maketdb{tdbesr-batch/0311383K-histoire}{tdbesr-batch/0311383K-associations}{tdbesr-batch/0311383K-composantes}{tdbesr-batch/0311383K-kpi}
+\maketdb{tdbesr-batch/0311383K-filiation}{tdbesr-batch/0311383K-association}{tdbesr-batch/0311383K-composition}{tdbesr-batch/0311383K-kpi}
 
 \newpage
 
@@ -1852,7 +1926,7 @@ UAI : & 0311384L & Décret : & N/A \\
 \textit{\scriptsize Pour améliorer ces graphiques, veuillez éditer \href{https://www.wikidata.org/entity/Q1273188}{Q1273188}  selon \href{https://github.com/cpesr/wikidataESR/blob/master/Rmd/wikidataESR.md}{ce guide}}
 .
 
-\maketdb{tdbesr-batch/0311384L-histoire}{tdbesr-batch/0311384L-associations}{tdbesr-batch/0311384L-composantes}{tdbesr-batch/0311384L-kpi}
+\maketdb{tdbesr-batch/0311384L-filiation}{tdbesr-batch/0311384L-association}{tdbesr-batch/0311384L-composition}{tdbesr-batch/0311384L-kpi}
 
 \newpage
 
@@ -1874,7 +1948,7 @@ UAI : & 0781944P & Décret : & N/A \\
 \textit{\scriptsize Pour améliorer ces graphiques, veuillez éditer \href{https://www.wikidata.org/entity/Q186638}{Q186638}  selon \href{https://github.com/cpesr/wikidataESR/blob/master/Rmd/wikidataESR.md}{ce guide}}
 .
 
-\maketdb{tdbesr-batch/0781944P-histoire}{tdbesr-batch/0781944P-associations}{tdbesr-batch/0781944P-composantes}{tdbesr-batch/0781944P-kpi}
+\maketdb{tdbesr-batch/0781944P-filiation}{tdbesr-batch/0781944P-association}{tdbesr-batch/0781944P-composition}{tdbesr-batch/0781944P-kpi}
 
 \newpage
 
@@ -1893,7 +1967,7 @@ UAI : & 0911101C & Décret : & N/A \\
 \textit{\scriptsize Pour améliorer ces graphiques, veuillez éditer \href{https://www.wikidata.org/entity/Q1480643}{Q1480643}  selon \href{https://github.com/cpesr/wikidataESR/blob/master/Rmd/wikidataESR.md}{ce guide}}
 .
 
-\maketdb{tdbesr-batch/0911101C-histoire}{tdbesr-batch/0911101C-associations}{tdbesr-batch/0911101C-composantes}{tdbesr-batch/0911101C-kpi}
+\maketdb{tdbesr-batch/0911101C-filiation}{tdbesr-batch/0911101C-association}{tdbesr-batch/0911101C-composition}{tdbesr-batch/0911101C-kpi}
 
 \newpage
 
@@ -1912,7 +1986,7 @@ UAI : & 0911975C & Décret : & N/A \\
 \textit{\scriptsize Pour améliorer ces graphiques, veuillez éditer \href{https://www.wikidata.org/entity/Q1531014}{Q1531014}  selon \href{https://github.com/cpesr/wikidataESR/blob/master/Rmd/wikidataESR.md}{ce guide}}
 .
 
-\maketdb{tdbesr-batch/0911975C-histoire}{tdbesr-batch/0911975C-associations}{tdbesr-batch/0911975C-composantes}{tdbesr-batch/0911975C-kpi}
+\maketdb{tdbesr-batch/0911975C-filiation}{tdbesr-batch/0911975C-association}{tdbesr-batch/0911975C-composition}{tdbesr-batch/0911975C-kpi}
 
 \newpage
 
@@ -1931,7 +2005,7 @@ UAI : & 0921204J & Décret : & N/A \\
 \textit{\scriptsize Pour améliorer ces graphiques, veuillez éditer \href{https://www.wikidata.org/entity/Q1394262}{Q1394262}  selon \href{https://github.com/cpesr/wikidataESR/blob/master/Rmd/wikidataESR.md}{ce guide}}
 .
 
-\maketdb{tdbesr-batch/0921204J-histoire}{tdbesr-batch/0921204J-associations}{tdbesr-batch/0921204J-composantes}{tdbesr-batch/0921204J-kpi}
+\maketdb{tdbesr-batch/0921204J-filiation}{tdbesr-batch/0921204J-association}{tdbesr-batch/0921204J-composition}{tdbesr-batch/0921204J-kpi}
 
 \newpage
 
@@ -1950,7 +2024,7 @@ UAI : & 0951793H & Décret : & N/A \\
 \textit{\scriptsize Pour améliorer ces graphiques, veuillez éditer \href{https://www.wikidata.org/entity/Q2496006}{Q2496006}  selon \href{https://github.com/cpesr/wikidataESR/blob/master/Rmd/wikidataESR.md}{ce guide}}
 .
 
-\maketdb{tdbesr-batch/0951793H-histoire}{tdbesr-batch/0951793H-associations}{tdbesr-batch/0951793H-composantes}{tdbesr-batch/0951793H-kpi}
+\maketdb{tdbesr-batch/0951793H-filiation}{tdbesr-batch/0951793H-association}{tdbesr-batch/0951793H-composition}{tdbesr-batch/0951793H-kpi}
 
 \newpage   
 \vspace*{5cm}   
@@ -1975,7 +2049,7 @@ UAI : & 0333232J & Décret : & \href{http://legifrance.gouv.fr/affichTexte.do?ci
 \textit{\scriptsize Pour améliorer ces graphiques, veuillez éditer \href{https://www.wikidata.org/entity/Q3152470}{Q3152470}  selon \href{https://github.com/cpesr/wikidataESR/blob/master/Rmd/wikidataESR.md}{ce guide}}
 .
 
-\maketdb{tdbesr-batch/0333232J-histoire}{tdbesr-batch/0333232J-associations}{tdbesr-batch/0333232J-composantes}{tdbesr-batch/0333232J-kpi}
+\maketdb{tdbesr-batch/0333232J-filiation}{tdbesr-batch/0333232J-association}{tdbesr-batch/0333232J-composition}{tdbesr-batch/0333232J-kpi}
 
 \newpage
 
@@ -1998,7 +2072,7 @@ UAI : & 0212198A & Décret : & N/A \\
 \textit{\scriptsize Pour améliorer ces graphiques, veuillez éditer \href{https://www.wikidata.org/entity/Q3152459}{Q3152459}  selon \href{https://github.com/cpesr/wikidataESR/blob/master/Rmd/wikidataESR.md}{ce guide}}
 .
 
-\maketdb{tdbesr-batch/0212198A-histoire}{tdbesr-batch/0212198A-associations}{tdbesr-batch/0212198A-composantes}{tdbesr-batch/0212198A-kpi}
+\maketdb{tdbesr-batch/0212198A-filiation}{tdbesr-batch/0212198A-association}{tdbesr-batch/0212198A-composition}{tdbesr-batch/0212198A-kpi}
 
 \newpage
 
@@ -2019,7 +2093,7 @@ UAI : & 0381912X & Décret : & N/A \\
 \textit{\scriptsize Pour améliorer ces graphiques, veuillez éditer \href{https://www.wikidata.org/entity/Q1665121}{Q1665121}  selon \href{https://github.com/cpesr/wikidataESR/blob/master/Rmd/wikidataESR.md}{ce guide}}
 .
 
-\maketdb{tdbesr-batch/0381912X-histoire}{tdbesr-batch/0381912X-associations}{tdbesr-batch/0381912X-composantes}{tdbesr-batch/0381912X-kpi}
+\maketdb{tdbesr-batch/0381912X-filiation}{tdbesr-batch/0381912X-association}{tdbesr-batch/0381912X-composition}{tdbesr-batch/0381912X-kpi}
 
 \newpage
 
@@ -2042,7 +2116,7 @@ UAI : & 0692459Y & Décret : & N/A \\
 \textit{\scriptsize Pour améliorer ces graphiques, veuillez éditer \href{https://www.wikidata.org/entity/Q2791269}{Q2791269}  selon \href{https://github.com/cpesr/wikidataESR/blob/master/Rmd/wikidataESR.md}{ce guide}}
 .
 
-\maketdb{tdbesr-batch/0692459Y-histoire}{tdbesr-batch/0692459Y-associations}{tdbesr-batch/0692459Y-composantes}{tdbesr-batch/0692459Y-kpi}
+\maketdb{tdbesr-batch/0692459Y-filiation}{tdbesr-batch/0692459Y-association}{tdbesr-batch/0692459Y-composition}{tdbesr-batch/0692459Y-kpi}
 
 \newpage
 
@@ -2064,7 +2138,7 @@ UAI : & 0750736T & Décret : & N/A \\
 \textit{\scriptsize Pour améliorer ces graphiques, veuillez éditer \href{https://www.wikidata.org/entity/Q1546437}{Q1546437}  selon \href{https://github.com/cpesr/wikidataESR/blob/master/Rmd/wikidataESR.md}{ce guide}}
 .
 
-\maketdb{tdbesr-batch/0750736T-histoire}{tdbesr-batch/0750736T-associations}{tdbesr-batch/0750736T-composantes}{tdbesr-batch/0750736T-kpi}
+\maketdb{tdbesr-batch/0750736T-filiation}{tdbesr-batch/0750736T-association}{tdbesr-batch/0750736T-composition}{tdbesr-batch/0750736T-kpi}
 
 \newpage
 
@@ -2083,7 +2157,7 @@ UAI : & 0753237L & Décret : & N/A \\
 \textit{\scriptsize Pour améliorer ces graphiques, veuillez éditer \href{https://www.wikidata.org/entity/Q2570220}{Q2570220}  selon \href{https://github.com/cpesr/wikidataESR/blob/master/Rmd/wikidataESR.md}{ce guide}}
 .
 
-\maketdb{tdbesr-batch/0753237L-histoire}{tdbesr-batch/0753237L-associations}{tdbesr-batch/0753237L-composantes}{tdbesr-batch/0753237L-kpi}
+\maketdb{tdbesr-batch/0753237L-filiation}{tdbesr-batch/0753237L-association}{tdbesr-batch/0753237L-composition}{tdbesr-batch/0753237L-kpi}
 
 \newpage
 
@@ -2102,7 +2176,7 @@ UAI : & 0753428U & Décret : & N/A \\
 \textit{\scriptsize Pour améliorer ces graphiques, veuillez éditer \href{https://www.wikidata.org/entity/Q3152060}{Q3152060}  selon \href{https://github.com/cpesr/wikidataESR/blob/master/Rmd/wikidataESR.md}{ce guide}}
 .
 
-\maketdb{tdbesr-batch/0753428U-histoire}{tdbesr-batch/0753428U-associations}{tdbesr-batch/0753428U-composantes}{tdbesr-batch/0753428U-kpi}
+\maketdb{tdbesr-batch/0753428U-filiation}{tdbesr-batch/0753428U-association}{tdbesr-batch/0753428U-composition}{tdbesr-batch/0753428U-kpi}
 
 \newpage
 
@@ -2121,7 +2195,7 @@ UAI : & 0753471R & Décret : & \href{http://www.legifrance.gouv.fr/affichTexte.d
 \textit{\scriptsize Pour améliorer ces graphiques, veuillez éditer \href{https://www.wikidata.org/entity/Q524289}{Q524289}  selon \href{https://github.com/cpesr/wikidataESR/blob/master/Rmd/wikidataESR.md}{ce guide}}
 .
 
-\maketdb{tdbesr-batch/0753471R-histoire}{tdbesr-batch/0753471R-associations}{tdbesr-batch/0753471R-composantes}{tdbesr-batch/0753471R-kpi}
+\maketdb{tdbesr-batch/0753471R-filiation}{tdbesr-batch/0753471R-association}{tdbesr-batch/0753471R-composition}{tdbesr-batch/0753471R-kpi}
 
 \newpage
 
@@ -2140,7 +2214,7 @@ UAI : & 0753478Y & Décret : & N/A \\
 \textit{\scriptsize Pour améliorer ces graphiques, veuillez éditer \href{https://www.wikidata.org/entity/Q273570}{Q273570}  selon \href{https://github.com/cpesr/wikidataESR/blob/master/Rmd/wikidataESR.md}{ce guide}}
 .
 
-\maketdb{tdbesr-batch/0753478Y-histoire}{tdbesr-batch/0753478Y-associations}{tdbesr-batch/0753478Y-composantes}{tdbesr-batch/0753478Y-kpi}
+\maketdb{tdbesr-batch/0753478Y-filiation}{tdbesr-batch/0753478Y-association}{tdbesr-batch/0753478Y-composition}{tdbesr-batch/0753478Y-kpi}
 
 \newpage
 
@@ -2158,7 +2232,7 @@ UAI : & 0753480A & Décret : & \href{http://www.legifrance.gouv.fr/affichTexte.d
 \textit{\scriptsize Pour améliorer ces graphiques, veuillez éditer \href{https://www.wikidata.org/entity/Q202660}{Q202660}  selon \href{https://github.com/cpesr/wikidataESR/blob/master/Rmd/wikidataESR.md}{ce guide}}
 .
 
-\maketdb{tdbesr-batch/0753480A-histoire}{tdbesr-batch/0753480A-associations}{tdbesr-batch/0753480A-composantes}{tdbesr-batch/0753480A-kpi}
+\maketdb{tdbesr-batch/0753480A-filiation}{tdbesr-batch/0753480A-association}{tdbesr-batch/0753480A-composition}{tdbesr-batch/0753480A-kpi}
 
 \newpage
 
@@ -2177,7 +2251,7 @@ UAI : & 0753486G & Décret : & \href{https://www.legifrance.gouv.fr/affichTexte.
 \textit{\scriptsize Pour améliorer ces graphiques, veuillez éditer \href{https://www.wikidata.org/entity/Q273631}{Q273631}  selon \href{https://github.com/cpesr/wikidataESR/blob/master/Rmd/wikidataESR.md}{ce guide}}
 .
 
-\maketdb{tdbesr-batch/0753486G-histoire}{tdbesr-batch/0753486G-associations}{tdbesr-batch/0753486G-composantes}{tdbesr-batch/0753486G-kpi}
+\maketdb{tdbesr-batch/0753486G-filiation}{tdbesr-batch/0753486G-association}{tdbesr-batch/0753486G-composition}{tdbesr-batch/0753486G-kpi}
 
 \newpage
 
@@ -2196,7 +2270,7 @@ UAI : & 0753488J & Décret : & N/A \\
 \textit{\scriptsize Pour améliorer ces graphiques, veuillez éditer \href{https://www.wikidata.org/entity/Q1430113}{Q1430113}  selon \href{https://github.com/cpesr/wikidataESR/blob/master/Rmd/wikidataESR.md}{ce guide}}
 .
 
-\maketdb{tdbesr-batch/0753488J-histoire}{tdbesr-batch/0753488J-associations}{tdbesr-batch/0753488J-composantes}{tdbesr-batch/0753488J-kpi}
+\maketdb{tdbesr-batch/0753488J-filiation}{tdbesr-batch/0753488J-association}{tdbesr-batch/0753488J-composition}{tdbesr-batch/0753488J-kpi}
 
 \newpage
 
@@ -2215,7 +2289,7 @@ UAI : & 0753494R & Décret : & N/A \\
 \textit{\scriptsize Pour améliorer ces graphiques, veuillez éditer \href{https://www.wikidata.org/entity/Q838691}{Q838691}  selon \href{https://github.com/cpesr/wikidataESR/blob/master/Rmd/wikidataESR.md}{ce guide}}
 .
 
-\maketdb{tdbesr-batch/0753494R-histoire}{tdbesr-batch/0753494R-associations}{tdbesr-batch/0753494R-composantes}{tdbesr-batch/0753494R-kpi}
+\maketdb{tdbesr-batch/0753494R-filiation}{tdbesr-batch/0753494R-association}{tdbesr-batch/0753494R-composition}{tdbesr-batch/0753494R-kpi}
 
 \newpage
 
@@ -2234,7 +2308,7 @@ UAI : & 0753496T & Décret : & N/A \\
 \textit{\scriptsize Pour améliorer ces graphiques, veuillez éditer \href{https://www.wikidata.org/entity/Q461340}{Q461340}  selon \href{https://github.com/cpesr/wikidataESR/blob/master/Rmd/wikidataESR.md}{ce guide}}
 .
 
-\maketdb{tdbesr-batch/0753496T-histoire}{tdbesr-batch/0753496T-associations}{tdbesr-batch/0753496T-composantes}{tdbesr-batch/0753496T-kpi}
+\maketdb{tdbesr-batch/0753496T-filiation}{tdbesr-batch/0753496T-association}{tdbesr-batch/0753496T-composition}{tdbesr-batch/0753496T-kpi}
 
 \newpage
 
@@ -2253,7 +2327,7 @@ UAI : & 0753742K & Décret : & N/A \\
 \textit{\scriptsize Pour améliorer ces graphiques, veuillez éditer \href{https://www.wikidata.org/entity/Q273518}{Q273518}  selon \href{https://github.com/cpesr/wikidataESR/blob/master/Rmd/wikidataESR.md}{ce guide}}
 .
 
-\maketdb{tdbesr-batch/0753742K-histoire}{tdbesr-batch/0753742K-associations}{tdbesr-batch/0753742K-composantes}{tdbesr-batch/0753742K-kpi}
+\maketdb{tdbesr-batch/0753742K-filiation}{tdbesr-batch/0753742K-association}{tdbesr-batch/0753742K-composition}{tdbesr-batch/0753742K-kpi}
 
 \newpage
 
@@ -2272,7 +2346,7 @@ UAI : & 0755026F & Décret : & N/A \\
 \textit{\scriptsize Pour améliorer ces graphiques, veuillez éditer \href{https://www.wikidata.org/entity/Q3152376}{Q3152376}  selon \href{https://github.com/cpesr/wikidataESR/blob/master/Rmd/wikidataESR.md}{ce guide}}
 .
 
-\maketdb{tdbesr-batch/0755026F-histoire}{tdbesr-batch/0755026F-associations}{tdbesr-batch/0755026F-composantes}{tdbesr-batch/0755026F-kpi}
+\maketdb{tdbesr-batch/0755026F-filiation}{tdbesr-batch/0755026F-association}{tdbesr-batch/0755026F-composition}{tdbesr-batch/0755026F-kpi}
 
 \newpage
 
@@ -2291,7 +2365,7 @@ UAI : & 0753431X & Décret : & N/A \\
 \textit{\scriptsize Pour améliorer ces graphiques, veuillez éditer \href{https://www.wikidata.org/entity/Q859363}{Q859363}  selon \href{https://github.com/cpesr/wikidataESR/blob/master/Rmd/wikidataESR.md}{ce guide}}
 .
 
-\maketdb{tdbesr-batch/0753431X-histoire}{tdbesr-batch/0753431X-associations}{tdbesr-batch/0753431X-composantes}{tdbesr-batch/0753431X-kpi}
+\maketdb{tdbesr-batch/0753431X-filiation}{tdbesr-batch/0753431X-association}{tdbesr-batch/0753431X-composition}{tdbesr-batch/0753431X-kpi}
 
 \newpage
 
@@ -2313,7 +2387,7 @@ UAI : & 0350095N & Décret : & N/A \\
 \textit{\scriptsize Pour améliorer ces graphiques, veuillez éditer \href{https://www.wikidata.org/entity/Q1587855}{Q1587855}  selon \href{https://github.com/cpesr/wikidataESR/blob/master/Rmd/wikidataESR.md}{ce guide}}
 .
 
-\maketdb{tdbesr-batch/0350095N-histoire}{tdbesr-batch/0350095N-associations}{tdbesr-batch/0350095N-composantes}{tdbesr-batch/0350095N-kpi}
+\maketdb{tdbesr-batch/0350095N-filiation}{tdbesr-batch/0350095N-association}{tdbesr-batch/0350095N-composition}{tdbesr-batch/0350095N-kpi}
 
 \newpage
 
@@ -2334,7 +2408,7 @@ UAI : & 0912341A & Décret : & \href{http://legifrance.gouv.fr/affichTexte.do?ci
 \textit{\scriptsize Pour améliorer ces graphiques, veuillez éditer \href{https://www.wikidata.org/entity/Q19203245}{Q19203245}  selon \href{https://github.com/cpesr/wikidataESR/blob/master/Rmd/wikidataESR.md}{ce guide}}
 .
 
-\maketdb{tdbesr-batch/0912341A-histoire}{tdbesr-batch/0912341A-associations}{tdbesr-batch/0912341A-composantes}{tdbesr-batch/0912341A-kpi}
+\maketdb{tdbesr-batch/0912341A-filiation}{tdbesr-batch/0912341A-association}{tdbesr-batch/0912341A-composition}{tdbesr-batch/0912341A-kpi}
 
 \newpage
 
@@ -2346,6 +2420,42 @@ UAI : & 0912341A & Décret : & \href{http://legifrance.gouv.fr/affichTexte.do?ci
 
 \hypertarget{taux-de-ressources-propres}{%
 \section{Taux de ressources propres}\label{taux-de-ressources-propres}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{rentrée_hist <-}\StringTok{ }\DecValTok{2012}
+\NormalTok{hist <-}\StringTok{ }\KeywordTok{seq}\NormalTok{(rentrée_hist, rentrée)}
+
+\NormalTok{table_classement <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(rentrée,type,kpis,labels)}
+  \KeywordTok{kpiesr_classement}\NormalTok{(rentrée, type, kpis, labels, hist) }\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{kable}\NormalTok{(}\StringTok{"latex"}\NormalTok{, }\DataTypeTok{longtable =}\NormalTok{ T, }\DataTypeTok{booktabs =}\NormalTok{ T, }\DataTypeTok{align =} \KeywordTok{c}\NormalTok{(}\StringTok{"r"}\NormalTok{,}\StringTok{"r"}\NormalTok{,}\StringTok{"l"}\NormalTok{,}\KeywordTok{rep}\NormalTok{(}\StringTok{"r"}\NormalTok{,}\DecValTok{4}\NormalTok{))) }\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{kable_styling}\NormalTok{(}\DataTypeTok{latex_options =} \KeywordTok{c}\NormalTok{(}\StringTok{"striped"}\NormalTok{, }\StringTok{"repeat_header"}\NormalTok{)) }\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{add_header_above}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\StringTok{"Rang et écart à la moyenne"}\NormalTok{ =}\StringTok{ }\DecValTok{3}\NormalTok{, }\StringTok{"Détails"}\NormalTok{ =}\StringTok{ }\KeywordTok{length}\NormalTok{(kpis), }\StringTok{"Historique"}\NormalTok{=}\KeywordTok{length}\NormalTok{(hist)))}
+
+\NormalTok{table_classement_slice <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(rentrée,type,kpis,labels,rows)}
+  \KeywordTok{kpiesr_classement}\NormalTok{(rentrée, type, kpis, labels) }\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{slice}\NormalTok{(rows) }\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{mutate}\NormalTok{(Libellé =}\StringTok{ }\KeywordTok{str_replace}\NormalTok{(Libellé,}\StringTok{"Université"}\NormalTok{,}\StringTok{"UN."}\NormalTok{)) }\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{kable}\NormalTok{(}\StringTok{"latex"}\NormalTok{, }\DataTypeTok{longtable =}\NormalTok{ T, }\DataTypeTok{booktabs =}\NormalTok{ T, }
+          \DataTypeTok{align =} \KeywordTok{c}\NormalTok{(}\StringTok{"r"}\NormalTok{,}\StringTok{"r"}\NormalTok{,}\StringTok{"l"}\NormalTok{,}\KeywordTok{rep}\NormalTok{(}\StringTok{"r"}\NormalTok{,}\DecValTok{4}\NormalTok{)),}
+          \DataTypeTok{col.names =} \KeywordTok{c}\NormalTok{(}\StringTok{""}\NormalTok{,}\StringTok{"Ecart"}\NormalTok{,}\StringTok{"Libellé"}\NormalTok{,labels)) }\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{kable_styling}\NormalTok{(}\DataTypeTok{latex_options =} \KeywordTok{c}\NormalTok{(}\StringTok{"striped"}\NormalTok{), }\DataTypeTok{full_width =}\NormalTok{ F, }\DataTypeTok{font_size =} \DecValTok{7}\NormalTok{) }
+
+\NormalTok{table_classement_sbs <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(rentrée,type,kpis,labels,row) \{}
+  \KeywordTok{cat}\NormalTok{(}\StringTok{"}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{begin\{minipage\}\{0.50}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{textwidth\}   }\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+  \KeywordTok{print}\NormalTok{(}\KeywordTok{table_classement_slice}\NormalTok{(rentrée,type,kpis,labels, }\DecValTok{1}\OperatorTok{:}\DecValTok{34}\NormalTok{))}
+  \KeywordTok{cat}\NormalTok{(}\StringTok{"}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{end\{minipage\}  }\CharTok{\textbackslash{}\textbackslash{}}\StringTok{begin\{minipage\}\{0.50}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{textwidth\}  }\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+  \KeywordTok{print}\NormalTok{(}\KeywordTok{table_classement_slice}\NormalTok{(rentrée,type,kpis,labels, }\DecValTok{35}\OperatorTok{:}\DecValTok{70}\NormalTok{))}
+  \KeywordTok{cat}\NormalTok{(}\StringTok{"}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{end\{minipage\}"}\NormalTok{)}
+\NormalTok{\}}
+
+\KeywordTok{table_classement}\NormalTok{(rentrée, }\StringTok{"Université"}\NormalTok{,}
+                  \KeywordTok{c}\NormalTok{(}\StringTok{"kpi.K.proPres"}\NormalTok{, }
+                    \StringTok{"kpi.FIN.P.ressources"}\NormalTok{, }
+                    \StringTok{"kpi.FIN.S.ressourcesPropres"}\NormalTok{),}
+                  \KeywordTok{c}\NormalTok{(}\StringTok{"Taux"}\NormalTok{,}\StringTok{"Ressources"}\NormalTok{,}\StringTok{"Res. Propres"}\NormalTok{)) }
+\end{Highlighting}
+\end{Shaded}
 
 \begin{longtable}{rrlrrrrrrlrr}
 \toprule
@@ -2452,6 +2562,14 @@ NA & NA\% & Université Sorbonne Nouvelle - Paris 3 & NA & NA M€ & NA M€ & 1
 \section{Taux de ressources par étudiant (inscrit en cycles 1 (L) et 2
 (M))}\label{taux-de-ressources-par-uxe9tudiant-inscrit-en-cycles-1-l-et-2-m}}
 
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{table_classement}\NormalTok{(rentrée, }\StringTok{"Université"}\NormalTok{,}
+                  \KeywordTok{c}\NormalTok{(}\StringTok{"kpi.K.resPetu"}\NormalTok{, }\StringTok{"kpi.FIN.P.ressources"}\NormalTok{,}\StringTok{"kpi.ETU.S.cycle.1.L"}\NormalTok{,}\StringTok{"kpi.ETU.S.cycle.2.M"}\NormalTok{),}
+                  \KeywordTok{c}\NormalTok{(}\StringTok{"Taux"}\NormalTok{,}\StringTok{"Ressources"}\NormalTok{,}\StringTok{"Effectif L"}\NormalTok{,}\StringTok{"Effectif M"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
 \begin{longtable}{rrlrrrrrrlrrr}
 \toprule
 \multicolumn{3}{c}{Rang et écart à la moyenne} & \multicolumn{4}{c}{Détails} & \multicolumn{6}{c}{Historique} \\
@@ -2556,6 +2674,14 @@ NA & NA\% & Université Sorbonne Nouvelle - Paris 3 & NA k€ & NA M€ & 10 418
 \hypertarget{taux-dencadrement}{%
 \section{Taux d'encadrement}\label{taux-dencadrement}}
 
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{table_classement}\NormalTok{(rentrée, }\StringTok{"Université"}\NormalTok{,}
+                  \KeywordTok{c}\NormalTok{(}\StringTok{"kpi.K.titPetu"}\NormalTok{, }\StringTok{"kpi.ENS.S.titulaires"}\NormalTok{,}\StringTok{"kpi.ETU.P.effectif"}\NormalTok{),}
+                  \KeywordTok{c}\NormalTok{(}\StringTok{"Taux"}\NormalTok{,}\StringTok{"Ens. titulaires"}\NormalTok{,}\StringTok{"Etudiants"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
 \begin{longtable}{rrlrrrrrrlrr}
 \toprule
 \multicolumn{3}{c}{Rang et écart à la moyenne} & \multicolumn{3}{c}{Détails} & \multicolumn{6}{c}{Historique} \\
@@ -2659,6 +2785,14 @@ Rang & Ecart & Libellé & Taux & Ens. titulaires & Etudiants & 2012 & 2013 & 201
 
 \hypertarget{taux-de-titularituxe9}{%
 \section{Taux de titularité}\label{taux-de-titularituxe9}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{table_classement}\NormalTok{(rentrée, }\StringTok{"Université"}\NormalTok{,}
+                  \KeywordTok{c}\NormalTok{(}\StringTok{"kpi.K.titPens"}\NormalTok{, }\StringTok{"kpi.ENS.P.effectif"}\NormalTok{, }\StringTok{"kpi.ENS.S.titulaires"}\NormalTok{),}
+                  \KeywordTok{c}\NormalTok{(}\StringTok{"Taux"}\NormalTok{,}\StringTok{"Enseignants"}\NormalTok{,}\StringTok{"Titulaires"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
 
 \begin{longtable}{rrlrrrrrrlrr}
 \toprule

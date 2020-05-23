@@ -83,20 +83,27 @@ Sur la base des indicateurs primaires, des indicateurs clés peuvent être consr
 - __Taux d'encadrement__\ : ce nombre d'enseignants titulaires pour 100 étudiants inscrits en premier et deuxième cycle (L et M) permet de mesurer à la fois la qualité de l'encadrement, et la charge des enseignants. _Attention_\ : la répartition de cette charge peut être très hétérogène au sein même d'un établissement, tant entre les enseignants qu'entre les étudiants.
 - __Taux de titularité__\ : pourcentage d'enseignants titulaires parmis tous les enseignants. _Attention_\ : il existe une population d'enseignants non titulaires «\ normale\ » ^[Par exemple\ : doctorants et ATER, ou les vacataires professionnels qui ne relèvent pas d'une politique de précarisation], ce n'est donc pas une mesure directe de la précarité enseignante.
 
+Les indicateurs clés de performances sont présentés sous trois formes :
+
+- Normalisés : les valeurs de la dernière année sont présentées en fonction de la moyenne nationale des établissements de même type ;
+- Evolution en valeur absolue : les valeurs sont présentées sur plusieurs années ;
+- Evolution en valeur de référence : les valeurs sont présentées en pourcentage relatif à l'année de référence.
+
+Pour chacune des trois présentations, le fond de graphique représente les valeurs de tous les autres établissements, sous forme de point (un point par établissement), de [boite à moustaches](https://fr.wikipedia.org/wiki/Bo%C3%AEte_%C3%A0_moustaches), ou de distribution en violon.
 
 ## Exemples de lecture
 
-### KPI : instantanés
+### KPI : normalisés
 
-```{r kpi.raw}
+```{r kpi.raw, fig.width = 7, fig.height = 3, out.width="100%"}
   kpiesr_plot_norm(rentrée,uai,kpiesr_lfc[["K"]], norm.values=FALSE, omit.first = FALSE)
 ```
 
-Exemple de lecture : « Il y a en moyenne 4,1 enseignants titulaires pour 100 étudiants dans les universités. Dans cet établissement, il y en a 3,7, ce qui le place dans le deuxième quartile ».
+Exemple de lecture : « Le taux de titularité de cet établissement est de 3,7, pour une moyenne nationale de 4,1. ».
 
 ### KPI : évolution en valeur absolue
 
-```{r kpi.evol.raw, fig.width = 9, out.width="100%"}
+```{r kpi.evol.raw, fig.width = 8, fig.height = 2, out.width="100%"}
 plot_grid(nrow=1, 
    plotlist = kpiesr_plot_evol_all(rentrée, uai, peg.args,
                                   yzooms = c(0.5, 0.5, 1, 1, 0.5),
@@ -107,9 +114,9 @@ plot_grid(nrow=1,
 
 Exemple de lecture : « En 2012, le taux d'encadrement de l'établissement était à 4,3, soit la médiane pour toutes les universités. Il est progressivement passé à 3,7, ce qui place maintenant l'établissement dans le deuxième quartile ».
 
-### KPI : évolution en valeur de l'année de référence
+### KPI : évolution en valeur de référence
 
-```{r kpi.evol.nor, fig.width = 9, out.width="100%"}
+```{r kpi.evol.nor, fig.width = 8, fig.height = 2, out.width="100%"}
 plot_grid(nrow=1,
    plotlist = kpiesr_plot_evol_all(rentrée, uai, peg.args, 
                                   yzooms = c(0.6, 0.6, 0.5, 0.2, 0.2, 1),
@@ -122,7 +129,7 @@ Exemple de lecture : « Entre 2012 et 2017, le taux d'encadrement de l'établiss
 
 ### Données brutes 
 
-```{r etu.raw}
+```{r etu.raw, fig.width = 7, fig.height = 3, out.width="100%"}
 kpiesr_plot_primaire(rentrée,uai,kpiesr_lfc[["ETU"]])
 ```
 
@@ -130,7 +137,7 @@ Exemple de lecture : « l'établissement compte 47 573 étudiants hors double in
 
 ### Données normalisées
 
-```{r etu.norm}
+```{r etu.norm, fig.width = 7, fig.height = 3, out.width="100%"}
 kpiesr_plot_norm(rentrée,uai,kpiesr_lfc[["ETU"]])
 ```
 
