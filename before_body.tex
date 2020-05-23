@@ -7,14 +7,14 @@
 \definecolor{royalblue(traditional)}{rgb}{0.0, 0.14, 0.4}
 \definecolor{royalblue(web)}{rgb}{0.25, 0.41, 0.88}
 
-\newcommand\titleY{2}
-\newcommand\titleS{3.5}
-\newcommand\titleBoxW{20cm}
-\newcommand\titleBoxH{13cm}
+\newcommand\titleY{0cm}
+\newcommand\titleS{3}
+\newcommand\titleBoxW{19cm}
+\newcommand\titleBoxH{11cm}
 \newcommand\titleBoxR{7}
 
-\begin{titlepage}
 
+\begin{titlepage}
 
 \begin{tikzpicture}[overlay,remember picture]
 
@@ -45,3 +45,29 @@
 \end{titlepage}
 
 
+
+\newlength{\graphesX}
+\setlength{\graphesX}{30pt}
+\newlength{\graphesY}
+\setlength{\graphesY}{-7cm}
+\newlength{\graphesW}
+\setlength{\graphesW}{0.52\textwidth}
+
+\newcommand\maketdb[4]{
+  \begin{tikzpicture}[overlay,remember picture]
+    \node (ancetres) [inner sep=0pt, anchor=north west, xshift=\graphesX, yshift=\graphesY] at (current page.north west)
+      {\includegraphics[width=0.5\graphesW]{#1}};
+    \node (associations) [inner sep=0pt, anchor=west] at (ancetres.east)
+      {\includegraphics[width=0.5\graphesW]{#2}};
+    \node (composantes) [inner sep=0pt, anchor=north west,yshift=-30pt] at (ancetres.south west)
+      {\includegraphics[width=\graphesW]{#3}};
+      
+    \node (kpi) [inner sep=30pt, anchor=north east] at (current page.north east)
+      {\includegraphics[width=\graphesW]{#4}};
+
+    \node (ancetres-tit) [inner sep=0pt, anchor=south] at (ancetres.north) {\bf Filiation};
+    \node (associations-tit) [inner sep=0pt, anchor=south] at (associations.north) {\bf Association};
+    \node (composantes-tit) [inner sep=0pt, anchor=south] at (composantes.north) {\bf Composition};
+
+  \end{tikzpicture}
+}

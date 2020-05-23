@@ -14,7 +14,7 @@ small_style <- kpiesr_style(
   text_size = 3,
   primaire_plot.margin = ggplot2::unit(c(0.25,0,0,0), "cm"),
   bp_width = 1,
-  bp_text_x = -0.25 )
+  bp_text_x = -0.21 )
 
 big_style <- kpiesr_style(
   point_size = 17,
@@ -22,7 +22,7 @@ big_style <- kpiesr_style(
   text_size = 4,
   primaire_plot.margin = ggplot2::unit(c(0.3,0,0,0), "cm"),
   bp_width = 0.9,
-  bp_text_x = -0.25 )
+  bp_text_x = -0.21 )
 
 strvar <- function(var) {
   s <- as.character(var)
@@ -63,9 +63,8 @@ type <- ""
 
 for (i in seq(1,nrow(etabs))) {
   etab <- etabs[i,]
-  message("\nProcessing ",i,"/",nrow(etabs)," : ",strvar(etab$Libellé))
-  
   wdid <- substr(etab$url.wikidata,33,50)
+  message("\nProcessing ",i,"/",nrow(etabs)," : ",strvar(etab$Libellé))
 
   p <- missingdataplot
   try(
@@ -73,19 +72,33 @@ for (i in seq(1,nrow(etabs))) {
                       legend_position="left")
   )
   ggsave(
-    paste0(path,"/",etab$UAI,"-composantes.pdf"),
+    paste0(path,"/",etab$UAI,"-composition.pdf"),
     plot = p,
-    width= 10, height=5)
+    width= 10, height=5,
+    device = cairo_pdf)
+}
 
+for (i in seq(1,nrow(etabs))) {
+  etab <- etabs[i,]
+  wdid <- substr(etab$url.wikidata,33,50)
+  message("\nProcessing ",i,"/",nrow(etabs)," : ",strvar(etab$Libellé))
+  
   p <- missingdataplot
   try(  
   p <- wdesr_load_and_plot(wdid, c('composante_de', 'associé_de', 'membre_de'), depth=2, 
                       legend_position="none", margin_y = 0.1)
   )
   ggsave(
-    paste0(path,"/",etab$UAI,"-associations.pdf"),
+    paste0(path,"/",etab$UAI,"-association.pdf"),
     plot = p,
-    width= 7, height=5)
+    width= 7, height=5,
+    device = cairo_pdf)
+}
+
+for (i in seq(1,nrow(etabs))) {
+  etab <- etabs[i,]
+  wdid <- substr(etab$url.wikidata,33,50)
+  message("\nProcessing ",i,"/",nrow(etabs)," : ",strvar(etab$Libellé))
   
   p <- missingdataplot
   try(  
@@ -95,14 +108,21 @@ for (i in seq(1,nrow(etabs))) {
                       node_sizes = 40, arrow_gap = 0.17, margin_y = 0.15)
   )
   ggsave(
-    paste0(path,"/",etab$UAI,"-histoire.pdf"),
+    paste0(path,"/",etab$UAI,"-filiation.pdf"),
     plot = p,
-    width= 7, height=5)
+    width= 7, height=5,
+    device = cairo_pdf)
+}
+
+for (i in seq(1,nrow(etabs))) {
+  etab <- etabs[i,]
+  message("\nProcessing ",i,"/",nrow(etabs)," : ",strvar(etab$Libellé))
   
   kpiesr_plot_tdb(rentrée, etab$UAI, style.kpi.k=big_style, style.kpi=small_style)
   ggsave(
     paste0(path,"/",etab$UAI,"-kpi.pdf"),
-    width= 9, height=11.5)
+    width= 9, height=13,
+    device = cairo_pdf)
 }
 
 wdesr_save_cache()
