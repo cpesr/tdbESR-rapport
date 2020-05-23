@@ -1,0 +1,137 @@
+
+```{r setup.manual, include = FALSE}
+rentrée <- 2017
+type <- "Université"
+uai.unistra <- "0673021V"
+uai <- uai.unistra
+```
+
+
+Dans ce travail, les indicateurs retenus sont de trois ordres\ : effectifs étudiants, effectifs enseignants et données financières. Il n'existe malheureusement pas de données ouvertes sur les personnels administratifs. 
+
+Ces indicateurs sont déclinés en deux types :
+
+- les indicateurs primaires, secondaires et normalisés, au plus proche des jeux de données ouvertes ;
+- les indicateurs clés de performance, combinaison des précédents plus proche des missions.
+
+## Les indicateurs primaires, secondaires et normalisés
+
+Les indicateurs primaires et secondaires sont ceux qui sont directement disponibles dans les jeux de données. L'indicateur primaire est le plus général possible. Les indicateurs secondaires sont plus précis, et peuvent se recouper (i.e. la somme des indicateurs secondaires ne correspond pas à l'indicateur principal).
+
+Leur présentation est en deux volets. Le premier présente les valeurs brutes, avec en première colonne l'indicateur primaire, et ensuite les indicateurs secondaires. 
+
+Le second volet présente les valeurs normalisées, qui sont calculées comme le rapport entre les indicateurs secondaires et l'indicateur primaire. L'avantage principal de ces valeurs relatives est d'être comparables d'un établissement à l'autre. On peut donc présenter la moyenne de tous les établissements et leur distribution, afin d'y situer chaque établissement.
+
+
+
+
+Les indicateurs primaires suivant sont extraits des jeux de données ouverts :
+
+- [Principaux établissements d'enseignement supérieur (lien)
+](https://data.enseignementsup-recherche.gouv.fr/explore/dataset/fr-esr-principaux-etablissements-enseignement-superieur/)
+  - __UAI__ : Unité Administrative Immatriculée
+  - __Libellé__ et __Sigle__
+  - __Type__ : université, regroupement ou autre
+  - __Type détaillé__ : type d'établissement tel qu'il apparait dans le jeu de données
+  - __Académie__
+  - __Rattachement__ : établissement de rattachement (regroupement et fusions)
+  - __Site web__, url __wikidata__ et __légifrance__
+
+- [Indicateurs financiers des opérateurs de l’enseignement supérieur français (lien)
+](https://data.enseignementsup-recherche.gouv.fr/explore/dataset/fr-esr-operateurs-indicateurs-financiers/)
+   - __Ressources__ : _Produits encaissables_ dans le jeu de données
+   - __Masse salariale__ : _Dépenses de personnel_ dans le jeu de données
+   - __Ressources propres__ : _Ressources propres / Produits encaissables_ dans le jeu de données
+
+- [Statistiques sur les effectifs d'étudiants inscrits par établissement public sous tutelle du ministère en charge de l'Enseignement supérieur (lien)](https://data.enseignementsup-recherche.gouv.fr/explore/dataset/fr-esr-statistiques-sur-les-effectifs-d-etudiants-inscrits-par-etablissement/)
+   - __Effectif étudiant__ : Nombre d'étudiants inscrits (inscriptions principales) hors étudiants inscrits en parallèle en CPGE
+   - __Nombre d'inscriptions en Cycle 1 (L)__ hors étudiants inscrits en parallèle en CPGE, inclu les DUT et autres formations post-bac
+   - __Nombre d'inscriptions en Cycle 2 (M)__
+   - __Nombre d'inscriptions en Cycle D (D)__
+   - __Nombre d'inscriptions en diplôme d'établissement__ : par exemple diplôme d'université (DU)
+
+- [Les enseignants titulaires dans les établissements publics de l'enseignement supérieur
+(lien)](https://data.enseignementsup-recherche.gouv.fr/explore/dataset/fr-esr-enseignants-titulaires-esr-public/)
+- [Les enseignants non permanents des établissements publics de l'enseignement supérieur
+(lien)](https://data.enseignementsup-recherche.gouv.fr/explore/dataset/fr-esr-enseignants-nonpermanents-esr-public/)
+   - __Effectif enseignant__ : les vacataires ne sont pas comptablisés et les quotités ne sont pas prises en compte
+   - __Effectif titulaire__ 
+   - __Enseignant-chercheurs titulaires__
+   - __Doctorants et ATER__ 
+   - __Contrats LRU__
+
+
+<!-- - [APB Voeux de poursuite d'étude et admissions (lien)](https://data.enseignementsup-recherche.gouv.fr/explore/dataset/fr-esr-apb_voeux-et-admissions/) -->
+<!-- - [Parcoursup vœux de poursuite d'études et de réorientation dans l'enseignement supérieur et réponses des établissements (lien)](https://data.enseignementsup-recherche.gouv.fr/explore/dataset/fr-esr-parcoursup/) -->
+<!--    - __Formations Post-Bac__ : le nombre de formations post-bac proposées par l'établissement -->
+<!--    - __Sélectives__ : le nombre de formations dont le rang du dernier appelé est inférieur de plus de 10% du nombre de candidats -->
+<!--    - __Hyper-sélectives__ : le nombre de formations dont le rang du dernier appelé est inférieur de plus de 80% du nombre de candidats -->
+<!--    - __Surchargées__ : le nombre de formations dont le nombre d'admis est supérieur à la capacité d'accueil -->
+<!--    - __Souschargées__ : le nombre de formations dont le nombre d'admis est inférieur à 75% de la capacité d'accueil -->
+
+<!-- _NB_ : les données APB/Parcoursup sont particulièrement difficile à exploiter et comportent de nombreux trous. De plus, elles concernent deux plateformes différentes (APB puis Parcoursup), avec des changements legislatifs et pratiques profonds. Les indicateurs ont ne sont pas présentés dans cette version pour éviter d'induire le lecteur en erreur. -->
+
+<!-- Enfin, afin de pouvoir présenter les données, les series ont été décalées d'un an (i.e. les données d'admission post-bac notée à l'année 2017 sont celles de la rentrée 2018). -->
+
+
+## Les indicateurs clés de performance (KPI)
+
+Sur la base des indicateurs primaires, des indicateurs clés peuvent être consruits pour représenter des informations plus proches des missions, et donc plus à même de faire sens. Quatre indicateurs clés sont présentés dans le cadre de ce travail\ : 
+
+- __Taux de ressources propres__\ : ce pourcentage des ressources qui ne proviennent pas de l'Etat permet de mesurer l'autonomie financère de l'établissement vis-à-vis de se tutelle principale. _Attention_\ : ce gain d'autonomie peut être compensée par une perte d'autonomie vis-à-vis d'autres acteurs.
+- __Taux de ressources par étudiant__\ : ce rapport entre les ressources de l'établissement et le nombre d'étudiants inscrits en premier et deuxième cycle (L et M) permet de mesurer les ressources dont dispose l'établissement par rapport à la taille de sa population étudiante. _Attention_\ : ce taux ne correspond pas à la dépense de l'établissement pour chacun de ses étudiants ^[les dépenses sont multiples, et un établissement «\ riche\ » peut très bien consacrer son budget à d'autres fonction que l'enseignement. La comptabilité analytique interne aux établissements permet d'approcher une valeur de la dépense par étudiant, mais elle est généralement très peu fiable (Gossa, 2019)].
+- __Taux d'encadrement__\ : ce nombre d'enseignants titulaires pour 100 étudiants inscrits en premier et deuxième cycle (L et M) permet de mesurer à la fois la qualité de l'encadrement, et la charge des enseignants. _Attention_\ : la répartition de cette charge peut être très hétérogène au sein même d'un établissement, tant entre les enseignants qu'entre les étudiants.
+- __Taux de titularité__\ : pourcentage d'enseignants titulaires parmis tous les enseignants. _Attention_\ : il existe une population d'enseignants non titulaires «\ normale\ » ^[Par exemple\ : doctorants et ATER, ou les vacataires professionnels qui ne relèvent pas d'une politique de précarisation], ce n'est donc pas une mesure directe de la précarité enseignante.
+
+
+## Exemples de lecture
+
+### KPI : instantanés
+
+```{r kpi.raw}
+  kpiesr_plot_norm(rentrée,uai,kpiesr_lfc[["K"]], norm.values=FALSE, omit.first = FALSE)
+```
+
+Exemple de lecture : « Il y a en moyenne 4,1 enseignants titulaires pour 100 étudiants dans les universités. Dans cet établissement, il y en a 3,7, ce qui le place dans le deuxième quartile ».
+
+### KPI : évolution en valeur absolue
+
+```{r kpi.evol.raw, fig.width = 9, out.width="100%"}
+plot_grid(nrow=1, 
+   plotlist = kpiesr_plot_evol_all(rentrée, uai, peg.args,
+                                  yzooms = c(0.5, 0.5, 1, 1, 0.5),
+                                  plot.type="abs",
+                                  style = kpiesr_style(title=TRUE)) )
+```
+
+
+Exemple de lecture : « En 2012, le taux d'encadrement de l'établissement était à 4,3, soit la médiane pour toutes les universités. Il est progressivement passé à 3,7, ce qui place maintenant l'établissement dans le deuxième quartile ».
+
+### KPI : évolution en valeur de l'année de référence
+
+```{r kpi.evol.nor, fig.width = 9, out.width="100%"}
+plot_grid(nrow=1,
+   plotlist = kpiesr_plot_evol_all(rentrée, uai, peg.args, 
+                                  yzooms = c(0.6, 0.6, 0.5, 0.2, 0.2, 1),
+                                  plot.type="norm",
+                                  style = kpiesr_style(title=TRUE)) )
+```
+
+Exemple de lecture : « Entre 2012 et 2017, le taux d'encadrement de l'établissement a baissé d'environ 15%, ce qui le place dans le premier quartile inférieur des évolution de cet indicateur ».
+
+
+### Données brutes 
+
+```{r etu.raw}
+kpiesr_plot_primaire(rentrée,uai,kpiesr_lfc[["ETU"]])
+```
+
+Exemple de lecture : « l'établissement compte 47 573 étudiants hors double inscription en CPGE, dont 26 679 en 1er cycle (L, DUT, prépa, etc.) ».
+
+### Données normalisées
+
+```{r etu.norm}
+kpiesr_plot_norm(rentrée,uai,kpiesr_lfc[["ETU"]])
+```
+
+Exemple de lecture : « La part moyenne des étudiants en 1er cycle dans les effectifs des universités est de 68%. L'établissement présente une part de 56%, ce qui le place dans le quartile inférieur ».

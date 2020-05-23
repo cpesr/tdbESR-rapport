@@ -1,0 +1,47 @@
+
+```{r setup.guideline, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(wikidataESR)
+library(knitr)
+
+uai.unistra <- "0673021V"
+uai <- uai.unistra
+```
+
+Les descriptions d'organisation sont de trois ordres, pour chaque établissement :
+
+- le diagramme de filiation permet de visualiser ses origines ;
+- le diagramme d'association permet de visualiser ses relations externes, avec d'autres organismes ;
+- le diagramme de composition permet de visualiser ses relations internes, avec ses composantes et laboratoires.
+
+Ces trois diagrammes dépendants d'une édition collaborative, il est important de noter qu'ils peuvent comporter des informations fausses, mais plus généralement incomplètes et non uniformes. 
+
+
+
+## Exemples de lectures 
+
+### Diagramme de filiation
+
+```{r, out.width = "100%"}
+knitr::include_graphics(paste0("tdbesr-batch/",uai,"-histoire.pdf"))
+```
+
+Exemple de lecture : « L'Université de Strasbourg (Unistra) a été créée en 2009, par la fusion des universités Louis Pasteur, Robert Schuman et Marc-Bloch. Ces trois universités ont été créées en 1970, par la division de l'Université de Strasbourg (Académia argentinensis), dont les origines remontent à 1528. »
+
+
+### Diagramme d'association
+
+```{r, out.width = "100%"}
+knitr::include_graphics(paste0("tdbesr-batch/",uai,"-associations.pdf"))
+```
+
+Exemple de lecture : « L'Université de Strasbourg (Unistra) est inclue dans le le Site Alsacien. Elle est également membre de l'EUA, du Réseau d'Utrecht, de COUPERIN et de RENATER. »
+
+### Diagramme de composition
+
+```{r, out.width = "100%"}
+knitr::include_graphics(paste0("tdbesr-batch/",uai,"-composantes.pdf"))
+```
+
+Exemple de lecture : « L'Université de Strasbourg (Unistra) a plein de composantes. »
+
