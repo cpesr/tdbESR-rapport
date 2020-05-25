@@ -1,8 +1,9 @@
 
 \newcommand\titre{Tableaux de bord \\ des établissements de \\ l'Enseignement Supérieur \\ et de la Recherche}
 \newcommand\auteur{Julien Gossa}
+\newcommand\rentree{Edition 2017-2018}
 \newcommand\ladate{Mai 2020}
-\newcommand\reportid{tdbesr-2020-05-v0.9}
+\newcommand\reportid{tdbesr-2017-v1.0}
 
 \definecolor{royalblue(traditional)}{rgb}{0.0, 0.14, 0.4}
 \definecolor{royalblue(web)}{rgb}{0.25, 0.41, 0.88}
@@ -23,7 +24,7 @@
   \coordinate (author) at (current page.south east);
 
 \node (nlogo) [inner sep=20pt, anchor=north west] at (logo)
-  {\includegraphics[width=8cm]{files/logo_cpesr_sackersgothic.v2}};
+  {\includegraphics[width=8cm]{files/logo_cpesr_sackersgothic}};
 
 \node (bandeau) at (title) 
   [draw, minimum width=\titleBoxW, minimum height=\titleBoxH, rotate=\titleBoxR, color=royalblue(web), fill=royalblue(web)] {};
@@ -31,12 +32,17 @@
 \node (ntitle) at (title) 
   [inner sep=0pt, anchor=center, align=center, font=\bfseries, scale=\titleS, align=center, color=white]  
   {\titre};
-  
-\node (num) at ($(bandeau.south west)!0.95!(bandeau.south east)$)
+
+\node (nrentree) at ($(bandeau.south west)!0.95!(bandeau.south east)$)
+  [inner sep=10pt, anchor=south east, rotate=\titleBoxR, font=\Huge, color=white]
+  {\rentree};
+
+\node (num) at ($(bandeau.south west)!0.94!(bandeau.south east)$)
   [inner sep=5pt, anchor=north east, rotate=\titleBoxR, font=\large]
   {\reportid};
 
-\node[inner sep=50pt, anchor=south east, align=center, font=\huge, align=left, color=black] (nauteur) at (author) 
+\node (nauteur) at (author) 
+  [inner sep=50pt, anchor=south east, align=center, font=\huge, align=left, color =black]
   {\textbf{\ladate} \\ \auteur};
 
   
