@@ -334,7 +334,7 @@ part de 56%, ce qui le place dans le quartile inférieur ».
     bien consacrer son budget à d’autres fonction que l’enseignement. La
     comptabilité analytique interne aux établissements permet
     d’approcher une valeur de la dépense par étudiant, mais elle est
-    généralement très peu fiable (Gossa, 2019)
+    généralement très peu fiable
 
 2.  Par exemple : doctorants et ATER, ou les vacataires professionnels
     qui ne relèvent pas d’une politique de précarisation
