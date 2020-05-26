@@ -73,27 +73,9 @@ ___ATTENTION : Les informations présentées dans ce document sont issues de tra
 \part{Présentation des données}
 ```
 
-Il existe trois sources principales d'informations sur les établissements de l'ESR français :
-
-- [data.gouv.fr](https://www.data.gouv.fr/fr/) : le portail des données publiques du gouvernement français ;
-- [#DataESR](https://data.esr.gouv.fr/FR/) : le portail des données publiques du ministère de l'enseignement supérieur, de la recherche et de l'innovation ;
-- [WikiData](https://www.wikidata.org/wiki/Wikidata:Main_Page) : une base de connaissances libre et gratuite, dans la famille WikiMédia, qui compte notamment WikiPédia.
-
-Les deux premières sources sont maintenues par des organes officiels, et proposent essentiellement des jeux de données brutes, très complets et généralement fiables. En revanche, leur délais de publication peut être élevé (autour de 18 mois), et ils sont structurellement rigides (il s'agit seulement de tableaux).
-
-WikiData s'appuie sur l'édition collaborative, plus adaté au rythme des transformations actuelles, et permet de structurer les données de façon très souple, grâce à un très large choix de relations entre entités. En revanche, les données sont peu fiables, souvent incomplètes, et non-harmonisées.
-
-Ce travail s'appuie à la fois sur ces deux types de données : WikiData pour décrire les organisations, et les données gouvernementales pour les indicateurs de performance.
-
-# Description des organisations
-
-```{r child = 'guide-wd.Rmd', echo = FALSE, warning = FALSE}
+```{r child = 'guide.Rmd', echo = FALSE, warning = FALSE}
 ```
 
-# Indicateurs de performance
-
-```{r child = 'guide-kpi.Rmd', echo = FALSE, warning = FALSE}
-```
 
 ```{=latex}
 \end{multicols}
@@ -149,7 +131,9 @@ uai.ehess <- "0753742K"
 uai.dauphine <- "0750736T"
 
 
-etabs <- subset(esr,Type %in% c("Université", "Grand établissement"), c(UAI,Libellé:url.legifrance) ) %>% unique %>% arrange(desc(Type),Académie)
+#etabs <- subset(esr,Type %in% c("Université", "Grand établissement"), c(UAI,Libellé:url.legifrance) ) %>% unique %>% arrange(desc(Type),Académie)
+etabs <- subset(esr,Rentrée==2018 & Type != "Autre établissement", c(UAI,Libellé:url.legifrance) ) %>% unique %>% arrange(Type,Académie)
+
 #etabs <- filter(etabs, UAI %in% c(uai.unistra,uai.uha)
 
 aca <- ""

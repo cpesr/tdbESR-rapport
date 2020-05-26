@@ -2,10 +2,14 @@
 ```{r setup.guideline, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(wikidataESR)
+library(kpiESR)
 library(knitr)
+
+wdesr_load_cache()
 
 uai.unistra <- "0673021V"
 uai <- uai.unistra
+wdid <- "Q157575"
 ```
 
 Les descriptions d'organisation sont de trois ordres, pour chaque établissement :
@@ -20,7 +24,10 @@ Les descriptions d'organisation sont de trois ordres, pour chaque établissement
 ### Diagramme de filiation
 
 ```{r, out.width = "100%", echo = FALSE, warning = FALSE}
-knitr::include_graphics(paste0("tdbesr-batch/",uai,"-filiation.pdf"))
+wdesr_load_and_plot(wdid, c('prédécesseur', 'séparé_de'), depth=10, 
+                    node_label = "alias_date",
+                    legend_position="none",
+                    node_sizes = 40, arrow_gap = 0.17, margin_y = 0.15)
 ```
 
 Exemple de lecture : « L'Université de Strasbourg (Unistra) a été créée en 2009, par la fusion des universités Louis Pasteur, Robert Schuman et Marc-Bloch. Ces trois universités ont été créées en 1970, par la division de l'Université de Strasbourg (Académia argentinensis), dont les origines remontent à 1528. »
@@ -29,7 +36,8 @@ Exemple de lecture : « L'Université de Strasbourg (Unistra) a été créée en
 ### Diagramme d'association
 
 ```{r, out.width = "100%", echo = FALSE, warning = FALSE}
-knitr::include_graphics(paste0("tdbesr-batch/",uai,"-association.pdf"))
+  wdesr_load_and_plot(wdid, c('composante','associé'), depth=2,
+                      legend_position="left")
 ```
 
 Exemple de lecture : « L'Université de Strasbourg (Unistra) est inclue dans le Site Alsacien. Elle est membre de la LERU, de la CURIF, de l'EUA, du Réseau d'Utrecht, de COUPERIN et de RENATER. Elle est également lauréate de l'IDEX»
@@ -37,7 +45,8 @@ Exemple de lecture : « L'Université de Strasbourg (Unistra) est inclue dans le
 ### Diagramme de composition
 
 ```{r, out.width = "100%", echo = FALSE, warning = FALSE}
-knitr::include_graphics(paste0("tdbesr-batch/",uai,"-composition.pdf"))
+wdesr_load_and_plot(wdid, c('composante_de', 'associé_de', 'membre_de'), depth=2, 
+                      legend_position="none", margin_y = 0.1)
 ```
 
 Exemple de lecture : « L'Université de Strasbourg (Unistra) a de nombreuses composantes. »

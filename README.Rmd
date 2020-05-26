@@ -15,19 +15,20 @@ library(cowplot)
 
 ___ATTENTION : Les informations présentées dans ce document sont issues de traitements entièrement automatisés. Leur validité dépend de la validité de ces traitements, comme de la validité des données sources.___
 
-Téléchargement : 
+Téléchargement des tableaux de bord : 
 
-- [Rapport complet sur les universités](./tdbesr-rapport-nup.pdf)
-- [Rapport complet sur les universités (simple colonne)](./tdbesr-rapport.pdf)
+- [Edition 2017-2018](./tdbesr-rapport-2017.pdf)
+- [Edition 2018-2019](./tdbesr-rapport.pdf)
 
 ## Avant-propos
 
-```{r child = 'intro.Rmd', echo = FALSE, warning = FALSE}
+```{r child = 'avantpropos.Rmd', echo = FALSE, warning = FALSE}
 ```
 
-## Apperçu des données
+## Présentation des données
 
-```{r child = 'tdbesr-manuel.Rmd', echo = FALSE, warning = FALSE}
+```{r child = 'guide.Rmd', echo = FALSE, warning = FALSE}
 ```
+
 
 
