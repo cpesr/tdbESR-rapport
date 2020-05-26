@@ -39,7 +39,7 @@ wdesr_load_and_plot("Q4027", c('prédécesseur', 'séparé_de'), depth=10,
 
 
 
-rentrée <- 2017
+rentrée <- 2018
 
 uai.unistra <- "0673021V"
 uai.uha <- "0681166Y"
@@ -52,7 +52,8 @@ uai.bordeaux <- "0333298F"
 uai.ehess <- "0753742K"
 uai.dauphine <- "0750736T"
 
-etabs <- subset(esr,Type %in% c("Université", "Grand établissement"), c(UAI,Libellé:url.legifrance) ) %>% unique %>% arrange(desc(Type),Académie)
+etabs <- subset(esr,Type %in% c("Université", "Grand établissement"), c(UAI,Libellé:url.legifrance) ) %>% unique %>% arrange(Type,Académie)
+etabs <- subset(esr,Rentrée==2018, c(UAI,Libellé:url.legifrance) ) %>% unique %>% arrange(Type,Académie)
 #etabs <- subset(esr,Type %in% c("Grand établissement"), c(UAI,Libellé:url.legifrance) ) %>% unique %>% arrange(desc(Type),Académie)
 #etabs <- filter(etabs, UAI %in% c(uai.unistra,uai.uha))
 
@@ -118,11 +119,16 @@ for (i in seq(1,nrow(etabs))) {
   etab <- etabs[i,]
   message("\nProcessing ",i,"/",nrow(etabs)," : ",strvar(etab$Libellé))
   
-  kpiesr_plot_tdb(rentrée, etab$UAI, style.kpi.k=big_style, style.kpi=small_style)
+  p <- missingdataplot
+  try(
+    kpiesr_plot_tdb(rentrée, etab$UAI, style.kpi.k=big_style, style.kpi=small_style)
+  )
   ggsave(
     paste0(path,"/",etab$UAI,"-kpi.pdf"),
+    plot = p,
     width= 9, height=13,
     device = cairo_pdf)
 }
 
 wdesr_save_cache()
+

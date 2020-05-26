@@ -8,7 +8,10 @@ de traitements entièrement automatisés. Leur validité dépend de la
 validité de ces traitements, comme de la validité des données
 sources.***
 
-Téléchargement : [Rapport complet](./tdbesr-rapport.pdf)
+Téléchargement des tableaux de bord :
+
+  - [Edition 2017-2018](./tdbesr-rapport-2017.pdf)
+  - [Edition 2018-2019](./tdbesr-rapport.pdf)
 
 ## Avant-propos
 
@@ -47,9 +50,95 @@ suffisament peu nombreux et complexes pour être rapidement utilisables,
 puis une construction d’indicateurs clés permettant de leur donner du
 sens.
 
-## Apperçu des données
+## Présentation des données
 
-# Présentation des indicateurs
+Il existe trois sources principales d’informations sur les
+établissements de l’ESR français :
+
+  - [data.gouv.fr](https://www.data.gouv.fr/fr/) : le portail des
+    données publiques du gouvernement français ;
+  - [\#DataESR](https://data.esr.gouv.fr/FR/) : le portail des données
+    publiques du ministère de l’enseignement supérieur, de la recherche
+    et de l’innovation ;
+  - [WikiData](https://www.wikidata.org/wiki/Wikidata:Main_Page) : une
+    base de connaissances libre et gratuite, dans la famille WikiMédia,
+    qui compte notamment WikiPédia.
+
+Les deux premières sources sont maintenues par des organes officiels, et
+proposent essentiellement des jeux de données brutes, très complets et
+généralement fiables. En revanche, leur délais de publication peut être
+élevé (autour de 18 mois), et ils sont structurellement rigides (il
+s’agit seulement de tableaux).
+
+WikiData s’appuie sur l’édition collaborative, plus adaté au rythme des
+transformations actuelles, et permet de structurer les données de façon
+très souple, grâce à un très large choix de relations entre entités. En
+revanche, les données sont peu fiables, souvent incomplètes, et
+non-harmonisées.
+
+Ce travail s’appuie à la fois sur ces deux types de données : WikiData
+pour décrire les organisations, et les données gouvernementales pour les
+indicateurs de performance.
+
+# Description des organisations
+
+Les descriptions d’organisation sont de trois ordres, pour chaque
+établissement :
+
+  - le diagramme de filiation modélise ses origines ;
+  - le diagramme d’association modélise ses relations externes, avec
+    d’autres organismes ;
+  - le diagramme de composition modélise ses relations internes, avec
+    ses composantes et
+laboratoires.
+
+## Exemples de lectures
+
+### Diagramme de filiation
+
+<img src="README_files/figure-gfm/unnamed-chunk-5-1.png" width="100%" height="10%" style="display: block; margin: auto;" />
+
+Exemple de lecture : « L’Université de Strasbourg (Unistra) a été créée
+en 2009, par la fusion des universités Louis Pasteur, Robert Schuman et
+Marc-Bloch. Ces trois universités ont été créées en 1970, par la
+division de l’Université de Strasbourg (Académia argentinensis), dont
+les origines remontent à 1528.
+»
+
+### Diagramme d’association
+
+<img src="README_files/figure-gfm/unnamed-chunk-6-1.png" width="100%" height="10%" style="display: block; margin: auto;" />
+
+Exemple de lecture : « L’Université de Strasbourg (Unistra) est inclue
+dans le Site Alsacien. Elle est membre de la LERU, de la CURIF, de
+l’EUA, du Réseau d’Utrecht, de COUPERIN et de RENATER. Elle est
+également lauréate de
+l’IDEX»
+
+### Diagramme de composition
+
+<img src="README_files/figure-gfm/unnamed-chunk-7-1.png" width="100%" height="10%" style="display: block; margin: auto;" />
+
+Exemple de lecture : « L’Université de Strasbourg (Unistra) a de
+nombreuses composantes. »
+
+## Edition collaborative
+
+Ces diagrammes dépendent d’une édition collaborative. En conséquence,
+ils peuvent comporter des informations fausses, mais plus généralement
+incomplètes et non uniformes.
+
+Ce document fait partie d’un effort d’harmonisation de ces données,
+grâce à une modélisation décrite dans [ce
+guide](https://github.com/cpesr/wikidataESR/blob/master/Rmd/wikidataESR.md).
+Chaque tableau de bord comporte un lien permettant de modifier
+directement les informations sur WikiData.
+
+Le lecteur est invité à le faire chaque fois qu’il le jugera nécessaire,
+et les modifications seront automatiquement incluse dans la prochaine
+version de ce document.
+
+# Indicateurs de performance
 
 Dans ce travail, les indicateurs retenus sont de trois ordres :
 effectifs étudiants, effectifs enseignants et données financières. Il
@@ -177,18 +266,32 @@ présentés dans le cadre de ce travail :
   - **Taux de titularité** : pourcentage d’enseignants titulaires parmis
     tous les enseignants. *Attention* : il existe une population
     d’enseignants non titulaires « normale » \[2\], ce n’est donc pas
-    une mesure directe de la précarité
-enseignante.
+    une mesure directe de la précarité enseignante.
+
+Les indicateurs clés de performances sont présentés sous trois formes :
+
+  - Normalisés : les valeurs de la dernière année sont présentées en
+    fonction de la moyenne nationale des établissements de même type ;
+  - Evolution en valeur absolue : les valeurs sont présentées sur
+    plusieurs années ;
+  - Evolution en valeur de référence : les valeurs sont présentées en
+    pourcentage relatif à l’année de référence.
+
+Pour chacune des trois présentations, le fond de graphique représente
+les valeurs de tous les autres établissements, sous forme de point (un
+point par établissement), de [boite à
+moustaches](https://fr.wikipedia.org/wiki/Bo%C3%AEte_%C3%A0_moustaches),
+ou de distribution en
+violon.
 
 ## Exemples de lecture
 
-### KPI : instantanés
+### KPI : normalisés
 
-<img src="README_files/figure-gfm/kpi.raw-1.png" height="10%" style="display: block; margin: auto;" />
+<img src="README_files/figure-gfm/kpi.raw-1.png" width="100%" height="10%" style="display: block; margin: auto;" />
 
-Exemple de lecture : « Il y a en moyenne 4,1 enseignants titulaires pour
-100 étudiants dans les universités. Dans cet établissement, il y en a
-3,7, ce qui le place dans le deuxième quartile
+Exemple de lecture : « Le taux de titularité de cet établissement est de
+3,7, pour une moyenne nationale de 4,1.
 ».
 
 ### KPI : évolution en valeur absolue
@@ -201,7 +304,7 @@ progressivement passé à 3,7, ce qui place maintenant l’établissement
 dans le deuxième quartile
 ».
 
-### KPI : évolution en valeur de l’année de référence
+### KPI : évolution en valeur de référence
 
 <img src="README_files/figure-gfm/kpi.evol.nor-1.png" width="100%" height="10%" style="display: block; margin: auto;" />
 
@@ -212,7 +315,7 @@ premier quartile inférieur des évolution de cet indicateur
 
 ### Données brutes
 
-<img src="README_files/figure-gfm/etu.raw-1.png" height="10%" style="display: block; margin: auto;" />
+<img src="README_files/figure-gfm/etu.raw-1.png" width="100%" height="10%" style="display: block; margin: auto;" />
 
 Exemple de lecture : « l’établissement compte 47 573 étudiants hors
 double inscription en CPGE, dont 26 679 en 1er cycle (L, DUT, prépa,
@@ -221,7 +324,7 @@ etc.)
 
 ### Données normalisées
 
-<img src="README_files/figure-gfm/etu.norm-1.png" height="10%" style="display: block; margin: auto;" />
+<img src="README_files/figure-gfm/etu.norm-1.png" width="100%" height="10%" style="display: block; margin: auto;" />
 
 Exemple de lecture : « La part moyenne des étudiants en 1er cycle dans
 les effectifs des universités est de 68%. L’établissement présente une
@@ -231,7 +334,7 @@ part de 56%, ce qui le place dans le quartile inférieur ».
     bien consacrer son budget à d’autres fonction que l’enseignement. La
     comptabilité analytique interne aux établissements permet
     d’approcher une valeur de la dépense par étudiant, mais elle est
-    généralement très peu fiable (Gossa, 2019)
+    généralement très peu fiable
 
 2.  Par exemple : doctorants et ATER, ou les vacataires professionnels
     qui ne relèvent pas d’une politique de précarisation
