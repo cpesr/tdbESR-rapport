@@ -36,8 +36,8 @@ Exemple de lecture : « L'Université de Strasbourg (Unistra) a été créée en
 ### Diagramme d'association
 
 ```{r, out.width = "100%", echo = FALSE, warning = FALSE}
-  wdesr_load_and_plot(wdid, c('composante','associé'), depth=2,
-                      legend_position="left")
+wdesr_load_and_plot(wdid, c('composante_de', 'associé_de', 'membre_de'), depth=2, 
+                      legend_position="none", margin_y = 0.1)
 ```
 
 Exemple de lecture : « L'Université de Strasbourg (Unistra) est inclue dans le Site Alsacien. Elle est membre de la LERU, de la CURIF, de l'EUA, du Réseau d'Utrecht, de COUPERIN et de RENATER. Elle est également lauréate de l'IDEX»
@@ -45,8 +45,8 @@ Exemple de lecture : « L'Université de Strasbourg (Unistra) est inclue dans le
 ### Diagramme de composition
 
 ```{r, out.width = "100%", echo = FALSE, warning = FALSE}
-wdesr_load_and_plot(wdid, c('composante_de', 'associé_de', 'membre_de'), depth=2, 
-                      legend_position="none", margin_y = 0.1)
+wdesr_load_and_plot(wdid, c('composante','associé'), depth=2,
+                      legend_position="left")
 ```
 
 Exemple de lecture : « L'Université de Strasbourg (Unistra) a de nombreuses composantes. »
