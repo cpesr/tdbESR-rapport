@@ -40,46 +40,6 @@
             breaklinks=true}
 \urlstyle{same}  % don't use monospace font for urls
 \usepackage[margin=1.5cm]{geometry}
-\usepackage{color}
-\usepackage{fancyvrb}
-\newcommand{\VerbBar}{|}
-\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
-\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
-% Add ',fontsize=\small' for more characters per line
-\usepackage{framed}
-\definecolor{shadecolor}{RGB}{248,248,248}
-\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
-\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
-\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
-\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
-\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
-\newcommand{\BuiltInTok}[1]{#1}
-\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
-\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
-\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
-\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
-\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
-\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
-\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
-\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
-\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
-\newcommand{\ExtensionTok}[1]{#1}
-\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
-\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
-\newcommand{\ImportTok}[1]{#1}
-\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
-\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
-\newcommand{\NormalTok}[1]{#1}
-\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
-\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
-\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
-\newcommand{\RegionMarkerTok}[1]{#1}
-\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
-\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
-\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
-\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
-\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
-\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
 \usepackage{graphicx,grffile}
 \makeatletter
 \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
@@ -2427,42 +2387,6 @@ UAI : & 0912341A & Décret : & \href{http://legifrance.gouv.fr/affichTexte.do?ci
 \hypertarget{taux-de-ressources-propres}{%
 \section{Taux de ressources propres}\label{taux-de-ressources-propres}}
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{rentrée_hist <-}\StringTok{ }\DecValTok{2012}
-\NormalTok{hist <-}\StringTok{ }\KeywordTok{seq}\NormalTok{(rentrée_hist, rentrée)}
-
-\NormalTok{table_classement <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(rentrée,type,kpis,labels)}
-  \KeywordTok{kpiesr_classement}\NormalTok{(rentrée, type, kpis, labels, hist) }\OperatorTok{%>%}
-\StringTok{    }\KeywordTok{kable}\NormalTok{(}\StringTok{"latex"}\NormalTok{, }\DataTypeTok{longtable =}\NormalTok{ T, }\DataTypeTok{booktabs =}\NormalTok{ T, }\DataTypeTok{align =} \KeywordTok{c}\NormalTok{(}\StringTok{"r"}\NormalTok{,}\StringTok{"r"}\NormalTok{,}\StringTok{"l"}\NormalTok{,}\KeywordTok{rep}\NormalTok{(}\StringTok{"r"}\NormalTok{,}\DecValTok{4}\NormalTok{))) }\OperatorTok{%>%}
-\StringTok{    }\KeywordTok{kable_styling}\NormalTok{(}\DataTypeTok{latex_options =} \KeywordTok{c}\NormalTok{(}\StringTok{"striped"}\NormalTok{, }\StringTok{"repeat_header"}\NormalTok{)) }\OperatorTok{%>%}
-\StringTok{    }\KeywordTok{add_header_above}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\StringTok{"Rang et écart à la moyenne"}\NormalTok{ =}\StringTok{ }\DecValTok{3}\NormalTok{, }\StringTok{"Détails"}\NormalTok{ =}\StringTok{ }\KeywordTok{length}\NormalTok{(kpis), }\StringTok{"Historique"}\NormalTok{=}\KeywordTok{length}\NormalTok{(hist)))}
-
-\NormalTok{table_classement_slice <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(rentrée,type,kpis,labels,rows)}
-  \KeywordTok{kpiesr_classement}\NormalTok{(rentrée, type, kpis, labels) }\OperatorTok{%>%}
-\StringTok{    }\KeywordTok{slice}\NormalTok{(rows) }\OperatorTok{%>%}
-\StringTok{    }\KeywordTok{mutate}\NormalTok{(Libellé =}\StringTok{ }\KeywordTok{str_replace}\NormalTok{(Libellé,}\StringTok{"Université"}\NormalTok{,}\StringTok{"UN."}\NormalTok{)) }\OperatorTok{%>%}
-\StringTok{    }\KeywordTok{kable}\NormalTok{(}\StringTok{"latex"}\NormalTok{, }\DataTypeTok{longtable =}\NormalTok{ T, }\DataTypeTok{booktabs =}\NormalTok{ T, }
-          \DataTypeTok{align =} \KeywordTok{c}\NormalTok{(}\StringTok{"r"}\NormalTok{,}\StringTok{"r"}\NormalTok{,}\StringTok{"l"}\NormalTok{,}\KeywordTok{rep}\NormalTok{(}\StringTok{"r"}\NormalTok{,}\DecValTok{4}\NormalTok{)),}
-          \DataTypeTok{col.names =} \KeywordTok{c}\NormalTok{(}\StringTok{""}\NormalTok{,}\StringTok{"Ecart"}\NormalTok{,}\StringTok{"Libellé"}\NormalTok{,labels)) }\OperatorTok{%>%}
-\StringTok{    }\KeywordTok{kable_styling}\NormalTok{(}\DataTypeTok{latex_options =} \KeywordTok{c}\NormalTok{(}\StringTok{"striped"}\NormalTok{), }\DataTypeTok{full_width =}\NormalTok{ F, }\DataTypeTok{font_size =} \DecValTok{7}\NormalTok{) }
-
-\NormalTok{table_classement_sbs <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(rentrée,type,kpis,labels,row) \{}
-  \KeywordTok{cat}\NormalTok{(}\StringTok{"}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{begin\{minipage\}\{0.50}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{textwidth\}   }\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
-  \KeywordTok{print}\NormalTok{(}\KeywordTok{table_classement_slice}\NormalTok{(rentrée,type,kpis,labels, }\DecValTok{1}\OperatorTok{:}\DecValTok{34}\NormalTok{))}
-  \KeywordTok{cat}\NormalTok{(}\StringTok{"}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{end\{minipage\}  }\CharTok{\textbackslash{}\textbackslash{}}\StringTok{begin\{minipage\}\{0.50}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{textwidth\}  }\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
-  \KeywordTok{print}\NormalTok{(}\KeywordTok{table_classement_slice}\NormalTok{(rentrée,type,kpis,labels, }\DecValTok{35}\OperatorTok{:}\DecValTok{70}\NormalTok{))}
-  \KeywordTok{cat}\NormalTok{(}\StringTok{"}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{end\{minipage\}"}\NormalTok{)}
-\NormalTok{\}}
-
-\KeywordTok{table_classement}\NormalTok{(rentrée, }\StringTok{"Université"}\NormalTok{,}
-                  \KeywordTok{c}\NormalTok{(}\StringTok{"kpi.K.proPres"}\NormalTok{, }
-                    \StringTok{"kpi.FIN.P.ressources"}\NormalTok{, }
-                    \StringTok{"kpi.FIN.S.ressourcesPropres"}\NormalTok{),}
-                  \KeywordTok{c}\NormalTok{(}\StringTok{"Taux"}\NormalTok{,}\StringTok{"Ressources"}\NormalTok{,}\StringTok{"Res. Propres"}\NormalTok{)) }
-\end{Highlighting}
-\end{Shaded}
-
 \begin{longtable}{rrlrrrrrrlrr}
 \toprule
 \multicolumn{3}{c}{Rang et écart à la moyenne} & \multicolumn{3}{c}{Détails} & \multicolumn{6}{c}{Historique} \\
@@ -2568,14 +2492,6 @@ NA & NA\% & Université Sorbonne Nouvelle - Paris 3 & NA & NA M€ & NA M€ & 1
 \section{Taux de ressources par étudiant (inscrit en cycles 1 (L) et 2
 (M))}\label{taux-de-ressources-par-uxe9tudiant-inscrit-en-cycles-1-l-et-2-m}}
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{table_classement}\NormalTok{(rentrée, }\StringTok{"Université"}\NormalTok{,}
-                  \KeywordTok{c}\NormalTok{(}\StringTok{"kpi.K.resPetu"}\NormalTok{, }\StringTok{"kpi.FIN.P.ressources"}\NormalTok{,}\StringTok{"kpi.ETU.S.cycle.1.L"}\NormalTok{,}\StringTok{"kpi.ETU.S.cycle.2.M"}\NormalTok{),}
-                  \KeywordTok{c}\NormalTok{(}\StringTok{"Taux"}\NormalTok{,}\StringTok{"Ressources"}\NormalTok{,}\StringTok{"Effectif L"}\NormalTok{,}\StringTok{"Effectif M"}\NormalTok{))}
-\end{Highlighting}
-\end{Shaded}
-
 \begin{longtable}{rrlrrrrrrlrrr}
 \toprule
 \multicolumn{3}{c}{Rang et écart à la moyenne} & \multicolumn{4}{c}{Détails} & \multicolumn{6}{c}{Historique} \\
@@ -2680,14 +2596,6 @@ NA & NA\% & Université Sorbonne Nouvelle - Paris 3 & NA k€ & NA M€ & 10 418
 \hypertarget{taux-dencadrement}{%
 \section{Taux d'encadrement}\label{taux-dencadrement}}
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{table_classement}\NormalTok{(rentrée, }\StringTok{"Université"}\NormalTok{,}
-                  \KeywordTok{c}\NormalTok{(}\StringTok{"kpi.K.titPetu"}\NormalTok{, }\StringTok{"kpi.ENS.S.titulaires"}\NormalTok{,}\StringTok{"kpi.ETU.P.effectif"}\NormalTok{),}
-                  \KeywordTok{c}\NormalTok{(}\StringTok{"Taux"}\NormalTok{,}\StringTok{"Ens. titulaires"}\NormalTok{,}\StringTok{"Etudiants"}\NormalTok{))}
-\end{Highlighting}
-\end{Shaded}
-
 \begin{longtable}{rrlrrrrrrlrr}
 \toprule
 \multicolumn{3}{c}{Rang et écart à la moyenne} & \multicolumn{3}{c}{Détails} & \multicolumn{6}{c}{Historique} \\
@@ -2791,14 +2699,6 @@ Rang & Ecart & Libellé & Taux & Ens. titulaires & Etudiants & 2012 & 2013 & 201
 
 \hypertarget{taux-de-titularituxe9}{%
 \section{Taux de titularité}\label{taux-de-titularituxe9}}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{table_classement}\NormalTok{(rentrée, }\StringTok{"Université"}\NormalTok{,}
-                  \KeywordTok{c}\NormalTok{(}\StringTok{"kpi.K.titPens"}\NormalTok{, }\StringTok{"kpi.ENS.P.effectif"}\NormalTok{, }\StringTok{"kpi.ENS.S.titulaires"}\NormalTok{),}
-                  \KeywordTok{c}\NormalTok{(}\StringTok{"Taux"}\NormalTok{,}\StringTok{"Enseignants"}\NormalTok{,}\StringTok{"Titulaires"}\NormalTok{))}
-\end{Highlighting}
-\end{Shaded}
 
 \begin{longtable}{rrlrrrrrrlrr}
 \toprule

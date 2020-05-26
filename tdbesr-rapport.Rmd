@@ -204,7 +204,7 @@ for (i in seq(1,nrow(etabs))) {
 
 
 # Taux de ressources propres
-```{r classement.functions}
+```{r classement.functions, echo = FALSE, warning = FALSE}
 rentrée_hist <- 2012
 hist <- seq(rentrée_hist, rentrée)
 
@@ -241,7 +241,7 @@ table_classement(rentrée, "Université",
 
 \newpage
 # Taux de ressources par étudiant (inscrit en cycles 1 (L) et 2 (M))
-```{r classement.RpE}
+```{r classement.RpE, echo = FALSE, warning = FALSE}
 table_classement(rentrée, "Université",
                   c("kpi.K.resPetu", "kpi.FIN.P.ressources","kpi.ETU.S.cycle.1.L","kpi.ETU.S.cycle.2.M"),
                   c("Taux","Ressources","Effectif L","Effectif M"))
@@ -258,7 +258,7 @@ table_classement(rentrée, "Université",
 
 \newpage
 # Taux d'encadrement
-```{r classement.EpE}
+```{r classement.EpE, echo = FALSE, warning = FALSE}
 table_classement(rentrée, "Université",
                   c("kpi.K.titPetu", "kpi.ENS.S.titulaires","kpi.ETU.P.effectif"),
                   c("Taux","Ens. titulaires","Etudiants"))
@@ -267,7 +267,7 @@ table_classement(rentrée, "Université",
 
 \newpage
 # Taux de titularité
-```{r classement.TpE}
+```{r classement.TpE, echo = FALSE, warning = FALSE}
 table_classement(rentrée, "Université",
                   c("kpi.K.titPens", "kpi.ENS.P.effectif", "kpi.ENS.S.titulaires"),
                   c("Taux","Enseignants","Titulaires"))

@@ -52,7 +52,7 @@ uai.bordeaux <- "0333298F"
 uai.ehess <- "0753742K"
 uai.dauphine <- "0750736T"
 
-etabs <- subset(esr,Type %in% c("Université", "Grand établissement"), c(UAI,Libellé:url.legifrance) ) %>% unique %>% arrange(desc(Type),Académie)
+etabs <- subset(esr,Type %in% c("Université", "Grand établissement"), c(UAI,Libellé:url.legifrance) ) %>% unique %>% arrange(Type,Académie)
 #etabs <- subset(esr,Type %in% c("Grand établissement"), c(UAI,Libellé:url.legifrance) ) %>% unique %>% arrange(desc(Type),Académie)
 #etabs <- filter(etabs, UAI %in% c(uai.unistra,uai.uha))
 
@@ -126,3 +126,4 @@ for (i in seq(1,nrow(etabs))) {
 }
 
 wdesr_save_cache()
+
