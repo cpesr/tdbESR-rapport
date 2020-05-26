@@ -44,7 +44,7 @@ Exemple de lecture : « L'Université de Strasbourg (Unistra) est inclue dans le
 
 ### Diagramme de composition
 
-```{r, out.width = "100%", echo = FALSE, warning = FALSE}
+```{r, out.width = "100%", fig.height=4, fig.width=8, echo = FALSE, warning = FALSE}
 wdesr_load_and_plot(wdid, c('composante','associé'), depth=2,
                       legend_position="left")
 ```
