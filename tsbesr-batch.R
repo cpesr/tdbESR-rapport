@@ -121,7 +121,7 @@ for (i in seq(1,nrow(etabs))) {
   
   p <- missingdataplot
   try(
-    kpiesr_plot_tdb(rentrée, etab$UAI, style.kpi.k=big_style, style.kpi=small_style)
+    p <- kpiesr_plot_tdb(rentrée, etab$UAI, style.kpi.k=big_style, style.kpi=small_style)
   )
   ggsave(
     paste0(path,"/",etab$UAI,"-kpi.pdf"),
