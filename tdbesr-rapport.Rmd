@@ -14,7 +14,7 @@ output:
     keep_tex:  true
 urlcolor: blue
 linkcolor: blue
-fontsize: 12pt
+fontsize: 11pt
 lang: "fr-FR"
 geometry: margin=1.5cm
 #documentclass: book
@@ -59,15 +59,10 @@ strvar <- function(var) {
 knitr::include_graphics("files/589px-Knowledge-Reid-Highsmith.png")
 ```
 
-___ATTENTION : Les informations présentées dans ce document sont issues de traitements entièrement automatisés. Leur validité dépend de la validité de ces traitements, comme de la validité des données sources.___
-
-```{=latex}
-\begin{multicols}{2}
-```
-
 
 ```{=latex}
 \newpage
+\begin{multicols}{2}
 \tableofcontents
 \newpage
 \part{Présentation des données}
