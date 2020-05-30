@@ -2,7 +2,7 @@
 \PassOptionsToPackage{hyphens}{url}
 \PassOptionsToPackage{dvipsnames,svgnames*,x11names*}{xcolor}
 %
-\documentclass[12pt,french,landscape]{article}
+\documentclass[11pt,french,landscape]{article}
 \usepackage{lmodern}
 \usepackage{amssymb,amsmath}
 \usepackage{ifxetex,ifluatex}
@@ -242,14 +242,8 @@ sens.
 
 \begin{center}\includegraphics[width=200px,height=0.3\textheight]{files/589px-Knowledge-Reid-Highsmith} \end{center}
 
-\textbf{\emph{ATTENTION : Les informations présentées dans ce document
-sont issues de traitements entièrement automatisés. Leur validité dépend
-de la validité de ces traitements, comme de la validité des données
-sources.}}
-
-\begin{multicols}{2}
-
 \newpage
+\begin{multicols}{2}
 \tableofcontents
 \newpage
 \part{Présentation des données}
@@ -288,6 +282,14 @@ Ce travail s'appuie à la fois sur ces deux types de données : WikiData
 pour décrire les organisations, et les données gouvernementales pour les
 indicateurs de performance.
 
+\textbf{\emph{ATTENTION : Les informations présentées dans ce document
+sont issues de traitements entièrement automatisés. Leur validité dépend
+de la validité de ces traitements, comme de la validité des données
+sources.}}
+
+\textbf{Observations et suggestions sont bienvenues dans cette
+\href{https://github.com/cpesr/tdbESR-rapport/issues}{interface}.}
+
 \hypertarget{description-des-organisations}{%
 \section{Description des
 organisations}\label{description-des-organisations}}
@@ -306,6 +308,21 @@ Les descriptions d'organisation sont de trois ordres, pour chaque
   le diagramme de composition modélise ses relations internes, avec ses
   composantes et laboratoires.
 \end{itemize}
+
+Dans ces diagrammes :
+
+\begin{itemize}
+\tightlist
+\item
+  les nœuds cerclés sont actifs, alors que les autres sont dissouts ;
+\item
+  les couleurs dépendent des types d'établissement ;
+\item
+  les types de traits dépendent des relations entre les nœuds.
+\end{itemize}
+
+Pour des raisons de lisibilité, les légendes ne sont pas
+systématiquement inclues dans les tableaux de bord.
 
 \hypertarget{exemples-de-lectures}{%
 \subsection{Exemples de lectures}\label{exemples-de-lectures}}

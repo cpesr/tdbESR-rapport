@@ -70,7 +70,7 @@ for (i in seq(1,nrow(etabs))) {
   p <- missingdataplot
   try(
   p <- wdesr_load_and_plot(wdid, c('composante','associé'), depth=2,
-                      legend_position="left")
+                      legend_position="left", arrow_gap = 0)
   )
   ggsave(
     paste0(path,"/",etab$UAI,"-composition.pdf"),
@@ -87,7 +87,7 @@ for (i in seq(1,nrow(etabs))) {
   p <- missingdataplot
   try(  
   p <- wdesr_load_and_plot(wdid, c('composante_de', 'associé_de', 'membre_de'), depth=2, 
-                      legend_position="none", margin_y = 0.1)
+                      legend_position="none", margin_y = 0.1, arrow_gap = 0)
   )
   ggsave(
     paste0(path,"/",etab$UAI,"-association.pdf"),
@@ -106,7 +106,7 @@ for (i in seq(1,nrow(etabs))) {
   p <- wdesr_load_and_plot(wdid, c('prédécesseur', 'séparé_de'), depth=10, 
                       node_label = "alias_date",
                       legend_position="none",
-                      node_sizes = 40, arrow_gap = 0.17, margin_y = 0.15)
+                      node_sizes = 40, arrow_gap = 0, margin_y = 0.15)
   )
   ggsave(
     paste0(path,"/",etab$UAI,"-filiation.pdf"),
@@ -114,6 +114,12 @@ for (i in seq(1,nrow(etabs))) {
     width= 7, height=5,
     device = cairo_pdf)
 }
+
+wdesr_save_cache()
+
+
+
+
 
 for (i in seq(1,nrow(etabs))) {
   etab <- etabs[i,]
@@ -129,6 +135,4 @@ for (i in seq(1,nrow(etabs))) {
     width= 9, height=13,
     device = cairo_pdf)
 }
-
-wdesr_save_cache()
 
