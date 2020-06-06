@@ -160,10 +160,10 @@ for (i in seq(1,nrow(etabs))) {
   pandoc.p("")
    
   cat("\\maketdb",
-      "{tdbesr-batch/",etab$UAI,"-filiation}",
-      "{tdbesr-batch/",etab$UAI,"-association}",
-      "{tdbesr-batch/",etab$UAI,"-composition}",
-      "{tdbesr-batch/",etab$UAI,"-kpi}", 
+      "{plot/",etab$UAI,"-filiation}",
+      "{plot/",etab$UAI,"-association}",
+      "{plot/",etab$UAI,"-composition}",
+      "{plot/",etab$UAI,"-kpi}", 
       sep='')
   
   pandoc.p("")
