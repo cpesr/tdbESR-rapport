@@ -138,8 +138,6 @@ for (i in seq(1,nrow(etabs))) {
   message("\nProcessing ",i,"/",nrow(etabs)," : ",strvar(etab$Libellé))
 
   cat("\\newpage   \n")  
-  #cat("\\checkoddpage  \n")
-  #cat("\\ifoddpage \\fi \\ \\newpage  \n")
 
   if(etab$Type != type) {
     cat("\\vspace*{5cm}   \n")
@@ -160,26 +158,29 @@ for (i in seq(1,nrow(etabs))) {
   pandoc.p("")
    
   cat("\\maketdb",
-      "{tdbesr-batch/",etab$UAI,"-filiation}",
-      "{tdbesr-batch/",etab$UAI,"-association}",
-      "{tdbesr-batch/",etab$UAI,"-composition}",
-      "{tdbesr-batch/",etab$UAI,"-kpi}", 
+      "{plot/",etab$UAI,"-filiation}",
+      "{plot/",etab$UAI,"-association}",
+      "{plot/",etab$UAI,"-composition}",
+      "{plot/",etab$UAI,"-kpi}", 
       sep='')
   
   pandoc.p("")
 }
 ```
 
-\newpage
-
 
 ```{=latex}
+\newpage
+\checkoddpage \ifoddpage ~\\\newpage  \fi
+
 \vspace*{5cm}
 \part{Classements des universités}
 \newpage
+
 \scriptsize
 \def\arraystretch{1.2}
 ```
+
 
 
 # Taux de ressources propres
@@ -235,7 +236,6 @@ table_classement(rentrée, "Université",
 <!-- ``` -->
 
 
-\newpage
 # Taux d'encadrement
 ```{r classement.EpE, echo = FALSE, warning = FALSE}
 table_classement(rentrée, "Université",

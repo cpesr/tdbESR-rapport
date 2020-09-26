@@ -3,7 +3,8 @@ library(kpiESR)
 library(wikidataESR)
 library(tidyverse)
 
-path <- "tdbesr-batch"
+path <- "plot"
+logpath <- "log"
 
 missingdataplot <- ggplot(data=NULL,aes(x=1,y=1,label="Données manquantes")) + geom_text() + theme_void()
 
@@ -32,33 +33,19 @@ strvar <- function(var) {
 wdesr_load_cache()
 
 
-wdesr_load_and_plot("Q4027", c('prédécesseur', 'séparé_de'), depth=10, 
-                    node_label = "alias_date",
-                    legend_position="none",
-                    node_sizes = 40, arrow_gap = 0.17, margin_y = 0.2)
+# wdesr_load_and_plot("Q4027", c('prédécesseur', 'séparé_de'), depth=10, 
+#                     node_label = "alias_date",
+#                     legend_position="none",
+#                     node_sizes = 40, arrow_gap = 0.17, margin_y = 0.2)
 
 
 
 rentrée <- 2018
 
-uai.unistra <- "0673021V"
-uai.uha <- "0681166Y"
-uai.ubm <- "0331766R"
-uai.nimes <- "0301687W"
-uai.lorraine <- "0542493S"
-uai.guyanne <- "9730429D"
-uai.bordeaux <- "0333298F"
-
-uai.ehess <- "0753742K"
-uai.dauphine <- "0750736T"
-
 etabs <- subset(esr,Type %in% c("Université", "Grand établissement"), c(UAI,Libellé:url.legifrance) ) %>% unique %>% arrange(Type,Académie)
 etabs <- subset(esr,Rentrée==2018, c(UAI,Libellé:url.legifrance) ) %>% unique %>% arrange(Type,Académie)
 #etabs <- subset(esr,Type %in% c("Grand établissement"), c(UAI,Libellé:url.legifrance) ) %>% unique %>% arrange(desc(Type),Académie)
 #etabs <- filter(etabs, UAI %in% c(uai.unistra,uai.uha))
-
-aca <- ""
-type <- ""
 
 
 
@@ -68,10 +55,15 @@ for (i in seq(1,nrow(etabs))) {
   message("\nProcessing ",i,"/",nrow(etabs)," : ",strvar(etab$Libellé))
 
   p <- missingdataplot
+  
+  sink(paste0(logpath,"/",etab$UAI,"-composition.log"))
   try(
   p <- wdesr_load_and_plot(wdid, c('composante','associé'), depth=2,
                       legend_position="left", arrow_gap = 0)
   )
+  warnings()
+  sink(NULL)
+  
   ggsave(
     paste0(path,"/",etab$UAI,"-composition.pdf"),
     plot = p,
@@ -85,10 +77,15 @@ for (i in seq(1,nrow(etabs))) {
   message("\nProcessing ",i,"/",nrow(etabs)," : ",strvar(etab$Libellé))
   
   p <- missingdataplot
+  
+  sink(paste0(logpath,"/",etab$UAI,"-association.log"))
   try(  
   p <- wdesr_load_and_plot(wdid, c('composante_de', 'associé_de', 'membre_de'), depth=2, 
                       legend_position="none", margin_y = 0.1, arrow_gap = 0)
   )
+  warnings()
+  sink(NULL)
+  
   ggsave(
     paste0(path,"/",etab$UAI,"-association.pdf"),
     plot = p,
@@ -102,12 +99,17 @@ for (i in seq(1,nrow(etabs))) {
   message("\nProcessing ",i,"/",nrow(etabs)," : ",strvar(etab$Libellé))
   
   p <- missingdataplot
+  
+  sink(paste0(logpath,"/",etab$UAI,"-filiation.log"))
   try(  
   p <- wdesr_load_and_plot(wdid, c('prédécesseur', 'séparé_de'), depth=10, 
                       node_label = "alias_date",
                       legend_position="none",
                       node_sizes = 40, arrow_gap = 0, margin_y = 0.15)
   )
+  warnings()
+  sink(NULL)
+  
   ggsave(
     paste0(path,"/",etab$UAI,"-filiation.pdf"),
     plot = p,
