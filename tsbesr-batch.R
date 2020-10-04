@@ -4,7 +4,9 @@ library(wikidataESR)
 library(tidyverse)
 
 path <- "plot"
+dir.create(path)
 logpath <- "log"
+dir.create(logpath)
 
 missingdataplot <- ggplot(data=NULL,aes(x=1,y=1,label="Données manquantes")) + geom_text() + theme_void()
 
@@ -46,7 +48,6 @@ etabs <- subset(esr,Type %in% c("Université", "Grand établissement"), c(UAI,Li
 etabs <- subset(esr,Rentrée==2018, c(UAI,Libellé:url.legifrance) ) %>% unique %>% arrange(Type,Académie)
 #etabs <- subset(esr,Type %in% c("Grand établissement"), c(UAI,Libellé:url.legifrance) ) %>% unique %>% arrange(desc(Type),Académie)
 #etabs <- filter(etabs, UAI %in% c(uai.unistra,uai.uha))
-
 
 
 for (i in seq(1,nrow(etabs))) {
