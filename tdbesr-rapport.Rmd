@@ -143,7 +143,7 @@ for (i in seq(1,nrow(etabs))) {
   
   if(etab$Groupe != groupe) {
     groupe <- as.character(etab$Groupe)
-    cat("# ",groupe,"\n\n")
+    cat("\n\n# ",groupe,"\n\n")
   }
   cat_slide(etab)
 }

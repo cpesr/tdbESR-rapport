@@ -16,17 +16,13 @@ small_style <- kpiesr_style(
   point_size = 12,
   line_size = 0.7,
   text_size = 3,
-  primaire_plot.margin = ggplot2::unit(c(0.25,0,0,0), "cm"),
-  bp_width = 1,
-  bp_text_x = -0.21 )
+  primaire_margin = 1.25
+  )
 
 big_style <- kpiesr_style(
   point_size = 16,
   line_size = 1,
-  text_size = 4,
-  primaire_plot.margin = ggplot2::unit(c(0.3,0,0,0), "cm"),
-  bp_width = 0.9,
-  bp_text_x = -0.21 )
+  text_size = 4)
 
 strvar <- function(var) {
   s <- as.character(var)
@@ -34,7 +30,10 @@ strvar <- function(var) {
 }
 
 
-theme_set(ggcpesrthemes::theme_cpesr() + theme(panel.spacing = unit(1,"lines")))
+theme_set(ggcpesrthemes::theme_cpesr() + 
+            theme(panel.spacing = unit(0.5,"lines"), 
+                  strip.text = element_text(size=rel(0.7), 
+                                            margin=margin(c(2,0,2,0)))))
 
 
 
@@ -48,9 +47,11 @@ for (i in seq(1,nrow(etabs))) {
   etab <- etabs[i,]
   message("\nProcessing ",i,"/",nrow(etabs)," : ",strvar(etab$Etablissement))
   
+  grp <- ifelse(etab$Groupe == "Université","Université","Ensemble")
+  
   p <- missingdataplot
   try(
-    p <- kpiesr_plot_tdb(rentrée, etab$UAI, "Université", style.kpi.k=big_style, style.kpi=small_style)
+    p <- kpiesr_plot_tdb(rentrée, etab$UAI, grp, style.kpi.k=big_style, style.kpi=small_style)
   )
   ggsave(
     paste0(path,"/",etab$UAI,"-kpi.pdf"),
@@ -58,17 +59,6 @@ for (i in seq(1,nrow(etabs))) {
     width= 9, height=9,
     device = cairo_pdf)
 }
-
-
-
-
-
-
-
-
-
-
-
 
 
 
