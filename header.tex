@@ -5,11 +5,16 @@
 \usepackage[strict]{changepage}
 \usepackage{multicol}
 \usepackage{calc}
+\usepackage{hyphenat}
+\usepackage[absolute,overlay]{textpos}
+  \setlength{\TPHorizModule}{1mm}
+  \setlength{\TPVertModule}{1mm}
 \usepackage{tikz}
 \usetikzlibrary{
   calc,
   positioning
 }
+
 
 \def\arraystretch{1.5}
 
@@ -17,3 +22,72 @@
 % \makeatletter
 % \renewcommand{\@chapapp}{Partie}
 % \makeatother
+
+
+
+\DeclareUnicodeCharacter{22C5}{\textperiodcentered}
+
+\def\arraystretch{1.5}
+
+\usepackage{fancyhdr}
+\makeatletter
+\renewcommand{\@chapapp}{Partie}
+\renewcommand\tableofcontents{%
+    \if@twocolumn
+      \@restonecoltrue\onecolumn
+    \else
+      \@restonecolfalse
+    \fi
+    \section*{\contentsname
+        \@mkboth{%
+           \MakeUppercase\contentsname}{\MakeUppercase\contentsname}}%
+      {%\footnotesize
+      \@starttoc{toc}}%
+    \if@restonecol\twocolumn\fi
+    }
+\makeatother
+
+
+
+\definecolor{royalblue(traditional)}{rgb}{0.0, 0.14, 0.4}
+\definecolor{royalblue(web)}{rgb}{0.25, 0.41, 0.88}
+
+
+\newcommand\vshift{0.15\paperheight}
+
+\usepackage[explicit]{titlesec}
+
+% \makeatletter
+% \renewcommand\section{\@startsection {section}{1}{\z@}%
+%                                    {-3.5ex \@plus -1ex \@minus -.2ex}%
+%                                    {2.3ex \@plus.2ex}%
+%                                    {\normalfont\Large\bfseries\raggedright}}
+% \renewcommand\subsection{\@startsection{subsection}{2}{\z@}%
+%                                      {-3.25ex\@plus -1ex \@minus -.2ex}%
+%                                      {1.5ex \@plus .2ex}%
+%                                      {\normalfont\large\bfseries\raggedright}}
+% \makeatother
+
+\titleformat{\chapter}
+  {\gdef\chapterlabel{}
+   \Huge\bfseries}
+  {\gdef\chapterlabel{\thechapter\ }}{0pt}
+  {\begin{tikzpicture}[remember picture,overlay]
+    \node (bandeauTop) at (current page) 
+      [draw, yshift=\vshift,anchor=south, minimum width=\paperwidth, minimum height=0.5\paperheight, color=royalblue(traditional), fill=royalblue(traditional)] {};
+    \node (chapterNul) at (bandeauTop.south west) 
+      [anchor=south west, xshift=3cm, yshift=-0.5cm, font=\Huge, color=white, scale=10, inner sep=0] {\chapterlabel};
+    \node (bandeauBottom) at (current page) 
+      [draw, yshift=\vshift, anchor=north, minimum width=\paperwidth, minimum height=0.65\paperheight, color=white, fill=white] {};
+    \node (chapterNul) at (bandeauBottom.east) 
+      [anchor=south east, xshift=-3cm, font=\Huge, color=royalblue(traditional), scale=1.5] {#1};
+   \end{tikzpicture}
+   \newpage
+  }
+\titlespacing*{\chapter}{0pt}{50pt}{-60pt}
+
+
+
+\titleformat{\section}[display]{\normalfont\Large\bfseries\raggedright}{\thesection}{0pt}{#1}
+
+

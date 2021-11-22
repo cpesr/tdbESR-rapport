@@ -1,9 +1,9 @@
 
 \newcommand\titre{Tableaux de bord \\ des établissements de \\ l'Enseignement Supérieur \\ et de la Recherche}
 \newcommand\auteur{Julien Gossa}
-\newcommand\rentree{Edition 2018-2019}
-\newcommand\ladate{Septembre 2020}
-\newcommand\reportid{tdbesr-2018-v1.1}
+\newcommand\rentree{Edition 2019-2020}
+\newcommand\ladate{Novembre 2021}
+\newcommand\reportid{tdbesr-2021-v1.0}
 
 \definecolor{royalblue(traditional)}{rgb}{0.0, 0.14, 0.4}
 \definecolor{royalblue(web)}{rgb}{0.25, 0.41, 0.88}
@@ -52,24 +52,32 @@
 
 
 
+
 \newlength{\graphesX}
-\setlength{\graphesX}{30pt}
+\setlength{\graphesX}{0.33\textheight}
 \newlength{\graphesY}
-\setlength{\graphesY}{-7cm}
+\setlength{\graphesY}{-0.04\textheight}
 \newlength{\graphesW}
-\setlength{\graphesW}{0.52\textwidth}
+\setlength{\graphesW}{0.3\paperwidth}
+\newlength{\graphesH}
+\setlength{\graphesH}{0.9\paperheight}
+\newlength{\kpiW}
+\setlength{\kpiW}{0.6\paperwidth}
+\newlength{\kpiH}
+\setlength{\kpiH}{0.9\paperheight}
+
 
 \newcommand\maketdb[4]{
   \begin{tikzpicture}[overlay,remember picture]
     \node (ancetres) [inner sep=0pt, anchor=north west, xshift=\graphesX, yshift=\graphesY] at (current page.north west)
-      {\includegraphics[width=0.5\graphesW]{#1}};
-    \node (associations) [inner sep=0pt, anchor=west] at (ancetres.east)
-      {\includegraphics[width=0.5\graphesW]{#2}};
-    \node (composantes) [inner sep=0pt, anchor=north west,yshift=-30pt] at (ancetres.south west)
-      {\includegraphics[width=\graphesW]{#3}};
+      {\includegraphics[height=0.33\graphesH]{#1}};
+    \node (associations) [inner sep=0pt, anchor=north] at (ancetres.south)
+      {\includegraphics[height=0.33\graphesH]{#2}};
+    \node (composantes) [inner sep=0pt, anchor=north,yshift=-0pt] at (associations.south)
+      {\includegraphics[height=0.33\graphesH]{#3}};
       
-    \node (kpi) [inner sep=30pt, anchor=north east] at (current page.north east)
-      {\includegraphics[width=\graphesW]{#4}};
+    \node (kpi) [inner sep=0pt, anchor=north east, color=red, minimum height=\kpiH, yshift=\graphesY, xshift=\graphesY] at (current page.north east)
+      {\includegraphics[height=\kpiH]{#4}};
 
     \node (ancetres-tit) [inner sep=0pt, anchor=south] at (ancetres.north) {\bf Filiation};
     \node (associations-tit) [inner sep=0pt, anchor=south] at (associations.north) {\bf Association};
@@ -77,3 +85,42 @@
 
   \end{tikzpicture}
 }
+
+
+%%%%%%%%%%%%%%%%%%%%%%%% 
+
+
+
+\newcommand\etabheader[7] {%
+  \newpage
+  \begin{tikzpicture}[overlay,remember picture]
+    \node (combandeau) at (current page.north west) 
+      [draw, minimum width=60mm, minimum height=\paperheight, anchor=north west, color=royalblue(web), fill=royalblue(traditional)] {};
+    \node (titre) at (combandeau.center) [color=red, anchor=center, yshift=+3cm, rotate=90, scale=2] {
+      \begin{minipage}{0.33\paperheight} \color{white} \section{#1} \end{minipage}};
+    \node (infos) at (current page.south west) [anchor=south west, yshift=+2cm] {
+      \begin{minipage}[t]{60mm}
+      \footnotesize
+      \centering
+      \color{white}
+      \hypersetup{%
+      colorlinks=white,% hyperlinks will be black
+      urlbordercolor=white,% hyperlink borders will be red
+      pdfborderstyle={/S/U/W 1}% border style will be underline of width 1pt
+      }
+      \mbox{#5} 
+      \newline ~ \newline
+      \begin{tabular*}{\textwidth}{rl}
+        Type :      & #2  \\ 
+        Décret :    & \mbox{#7} \\
+        UAI :       & #4 \\
+        Wikidata :  & \mbox{#6} \\
+      \end{tabular*}
+      
+      \end{minipage}
+    };
+  \end{tikzpicture}
+  
+
+}%
+  
