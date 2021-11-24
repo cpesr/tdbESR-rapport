@@ -110,21 +110,19 @@ cat_slide <- function(etab) {
   info <- etab_info(etab)
   cat(sep = '',"
   
-\\etabheader{",etab$Etablissement,"}{",
-info$type,"}{",
-info$ratt,"}{",
-info$uai,"}{",
-info$swurl,"}{",
-info$wdurl,"}{",
-info$lfurl,"}"
+\\etabheader[section]{",etab$Etablissement,"}{",
+info$type,"}{",info$ratt,"}{",info$uai,"}{",
+info$swurl,"}{",info$wdurl,"}{",info$lfurl,"}{",
+"plot/",etab$UAI,"-kpi}"
 )
 
-cat("\\maketdb",
-    "{plot/",etab$UAI,"-filiation}",
-    "{plot/",etab$UAI,"-association}",
-    "{plot/",etab$UAI,"-composition}",
-    "{plot/",etab$UAI,"-kpi}",
-    sep='')
+  cat(sep = '',"
+  
+\\etabheader{",etab$Etablissement,"}{",
+info$type,"}{",info$ratt,"}{",info$uai,"}{",
+info$swurl,"}{",info$wdurl,"}{",info$lfurl,"}{",
+"plot/",etab$UAI,"-series}"
+)
 
 
 }
@@ -161,7 +159,6 @@ for (i in seq(1,nrow(etabs))) {
 \scriptsize
 \def\arraystretch{1.2}
 ```
-
 
 
 # Taux de ressources propres
