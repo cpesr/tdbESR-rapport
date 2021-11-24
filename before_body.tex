@@ -89,38 +89,49 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%% 
 
+\newlength{\widthB}
+\setlength{\widthB}{0.17\paperwidth}
+\newlength{\widthG}
+\setlength{\widthG}{0.8\paperwidth}
+\newif\ifsection
 
 
-\newcommand\etabheader[7] {%
+\newcommand\etabheader[9][false] {%
+  \ifthenelse{\equal{#1}{section}}{\sectiontrue}{\sectionfalse}
+
   \newpage
   \begin{tikzpicture}[overlay,remember picture]
     \node (combandeau) at (current page.north west) 
-      [draw, minimum width=60mm, minimum height=\paperheight, anchor=north west, color=royalblue(web), fill=royalblue(traditional)] {};
-    \node (titre) at (combandeau.center) [color=red, anchor=center, yshift=+3cm, rotate=90, scale=2] {
-      \begin{minipage}{0.33\paperheight} \color{white} \section{#1} \end{minipage}};
+      [draw, minimum width=\widthB, minimum height=\paperheight, anchor=north west, color=royalblue(web), fill=royalblue(traditional)] {};
+    \ifsection
+      \node (section) at (combandeau.north west) [color=red, anchor=north west, inner sep=1cm, scale=1] {
+        \begin{minipage}{2cm} \color{white} \section{#2} \end{minipage}};
+    \fi
+    \node (titre) at (combandeau.center) [color=red, anchor=center, yshift=2.5cm, rotate=90, scale=1] {
+      \begin{minipage}{12cm} \color{white} \bf \Huge \raggedright #2 \end{minipage}};
     \node (infos) at (current page.south west) [anchor=south west, yshift=+2cm] {
-      \begin{minipage}[t]{60mm}
-      \footnotesize
-      \centering
-      \color{white}
-      \hypersetup{%
-      colorlinks=white,% hyperlinks will be black
-      urlbordercolor=white,% hyperlink borders will be red
-      pdfborderstyle={/S/U/W 1}% border style will be underline of width 1pt
-      }
-      \mbox{#5} 
-      \newline ~ \newline
-      \begin{tabular*}{\textwidth}{rl}
-        Type :      & #2  \\ 
-        Décret :    & \mbox{#7} \\
-        UAI :       & #4 \\
-        Wikidata :  & \mbox{#6} \\
-      \end{tabular*}
-      
+      \begin{minipage}[t]{\widthB}
+        \footnotesize
+        \centering
+        \color{white}
+        \hypersetup{%
+        colorlinks=white,% hyperlinks will be black
+        urlbordercolor=white,% hyperlink borders will be red
+        pdfborderstyle={/S/U/W 1}% border style will be underline of width 1pt
+        }
+        \mbox{#6} 
+        \newline ~ \newline
+        \begin{tabular*}{\textwidth}{rl}
+          Type :      & #3  \\ 
+          Décret :    & \mbox{#8} \\
+          UAI :       & #5 \\
+          Wikidata :  & \mbox{#7} \\
+        \end{tabular*}
       \end{minipage}
     };
+    \node (graphiques) [inner sep=0pt, anchor=east] at (current page.east) [xshift=-0.5cm]
+      {\includegraphics[width=\widthG]{#9}};
+    
   \end{tikzpicture}
-  
-
 }%
   

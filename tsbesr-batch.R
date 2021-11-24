@@ -3,6 +3,10 @@ library(kpiESR)
 library(wikidataESR)
 library(tidyverse)
 library(ggcpesrthemes)
+library(cowplot)
+
+source("tsbesr-plots.R")
+source("tdbesr-wdesr.R")
 
 path <- "plot"
 dir.create(path)
@@ -29,115 +33,55 @@ strvar <- function(var) {
   ifelse(str_length(s)>0,s,"N/A")
 }
 
-
 theme_set(ggcpesrthemes::theme_cpesr() + 
-            theme(panel.spacing = unit(0.5,"lines"), 
+            theme(plot.title = element_text(hjust=1),
+                  panel.spacing = unit(2,"lines"), 
                   strip.text = element_text(size=rel(0.7), 
                                             margin=margin(c(2,0,2,0)))))
 
 
+wdesr_load_cache()
 
 rentrée <- 2019
 
 etabs <- esr.etab %>% filter(Etablissement %in% c("Université de Strasbourg","Université de Lorraine","Université de Haute-Alsace"))
+etabs <- esr.etab %>% filter(Etablissement == "Université Paris sciences et lettres")
 etabs <- esr.etab
 
 
+
 for (i in seq(1,nrow(etabs))) {
   etab <- etabs[i,]
   message("\nProcessing ",i,"/",nrow(etabs)," : ",strvar(etab$Etablissement))
-  
   grp <- ifelse(etab$Groupe == "Université","Université","Ensemble")
+  wdid <- substr(etab$url.wikidata,33,50)
+  plots <- list()
   
-  p <- missingdataplot
+  message("kpi")
   try(
-    p <- kpiesr_plot_tdb(rentrée, etab$UAI, grp, style.kpi.k=big_style, style.kpi=small_style)
+    plots <- kpiesr_plot_all(rentrée, etab$UAI, grp, style.kpi.k=big_style, style.kpi=small_style)
   )
+  
+  message("wikidata")
+  plots <- c(plots, wdesr_plots(wdid))
+    
+  message("combine")
+  plot.kpi <- combine_plots_kpi(plots)
   ggsave(
     paste0(path,"/",etab$UAI,"-kpi.pdf"),
-    plot = p,
-    width= 9, height=9,
+    plot = plot.kpi,
+    width= 12, height=8,
     device = cairo_pdf)
-}
-
-
-
-# wdesr_load_and_plot("Q4027", c('prédécesseur', 'séparé_de'), depth=10, 
-#                     node_label = "alias_date",
-#                     legend_position="none",
-#                     node_sizes = 40, arrow_gap = 0.17, margin_y = 0.2)
-
-wdesr_load_cache()
-
-
-
-for (i in seq(1,nrow(etabs))) {
-  etab <- etabs[i,]
-  wdid <- substr(etab$url.wikidata,33,50)
-  message("\nProcessing ",i,"/",nrow(etabs)," : ",strvar(etab$Etablissement))
   
-  p <- missingdataplot
-  
-  sink(paste0(logpath,"/",etab$UAI,"-composition.log"))
-  try(
-    p <- wdesr_load_and_plot(wdid, c('composante','associé'), depth=2,
-                             legend_position="right", arrow_gap = 0)
-  )
-  warnings()
-  sink(NULL)
-  
+  plot.series <- combine_plots_series(plots)
   ggsave(
-    paste0(path,"/",etab$UAI,"-composition.pdf"),
-    plot = p,
-    width= 7, height=5,
+    paste0(path,"/",etab$UAI,"-series.pdf"),
+    plot = plot.series,
+    width= 12, height=8,
     device = cairo_pdf)
+  
 }
 
-for (i in seq(1,nrow(etabs))) {
-  etab <- etabs[i,]
-  wdid <- substr(etab$url.wikidata,33,50)
-  message("\nProcessing ",i,"/",nrow(etabs)," : ",strvar(etab$Etablissement))
-  
-  p <- missingdataplot
-  
-  sink(paste0(logpath,"/",etab$UAI,"-association.log"))
-  try(  
-    p <- wdesr_load_and_plot(wdid, c('composante_de', 'associé_de', 'membre_de', 'affilié_à'), depth=2, 
-                             legend_position="none", margin_y = 0.1, arrow_gap = 0)
-  )
-  warnings()
-  sink(NULL)
-  
-  ggsave(
-    paste0(path,"/",etab$UAI,"-association.pdf"),
-    plot = p,
-    width= 7, height=5,
-    device = cairo_pdf)
-}
-
-for (i in seq(1,nrow(etabs))) {
-  etab <- etabs[i,]
-  wdid <- substr(etab$url.wikidata,33,50)
-  message("\nProcessing ",i,"/",nrow(etabs)," : ",strvar(etab$Etablissement))
-  
-  p <- missingdataplot
-  
-  sink(paste0(logpath,"/",etab$UAI,"-filiation.log"))
-  try(  
-    p <- wdesr_load_and_plot(wdid, c('prédécesseur', 'séparé_de'), depth=10, 
-                             node_label = "alias_date",
-                             legend_position="none",
-                             arrow_gap = 0, margin_y = 0.15)
-  )
-  warnings()
-  sink(NULL)
-  
-  ggsave(
-    paste0(path,"/",etab$UAI,"-filiation.pdf"),
-    plot = p,
-    width= 7, height=5,
-    device = cairo_pdf)
-}
 
 wdesr_save_cache()
 
