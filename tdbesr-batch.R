@@ -5,7 +5,7 @@ library(tidyverse)
 library(ggcpesrthemes)
 library(cowplot)
 
-source("tsbesr-plots.R")
+source("tdbesr-plots.R")
 source("tdbesr-wdesr.R")
 
 path <- "plot"
@@ -16,17 +16,33 @@ dir.create(logpath)
 missingdataplot <- ggplot(data=NULL,aes(x=1,y=1,label="Données manquantes")) + geom_text() + theme_void()
 
 
-small_style <- kpiesr_style(
-  point_size = 12,
-  line_size = 0.7,
-  text_size = 3,
-  primaire_margin = 1.25
-  )
-
-big_style <- kpiesr_style(
+k_style <- kpiesr_style(
   point_size = 16,
   line_size = 1,
   text_size = 4)
+
+o_style <- kpiesr_style(
+  point_size = 12,
+  line_size = 0.7,
+  text_size = 3,
+  primaire_margin = 1.25,
+  strip_labeller = lfc_dont_labeller
+  )
+
+lfc_pc_labeller_custom <- function(labels) {
+  return(
+    stringr::str_replace(lfc_pc_labeller(labels),"\\(","\n (")
+  )
+}
+onorm_style <- kpiesr_style(
+  point_size = 12,
+  line_size = 0.7,
+  text_size = 3,
+  primaire_margin = 1.25,
+  strip_labeller = lfc_pc_labeller_custom,
+  label_wrap = 12
+)
+
 
 strvar <- function(var) {
   s <- as.character(var)
@@ -37,7 +53,7 @@ theme_set(ggcpesrthemes::theme_cpesr() +
             theme(plot.title = element_text(hjust=1),
                   panel.spacing = unit(2,"lines"), 
                   plot.margin = margin(0,0,0,0),
-                  strip.text = element_text(size=rel(0.8), 
+                  strip.text = element_text(size=rel(0.7), 
                                             margin=margin(c(2,0,2,0)))))
 
 
@@ -60,7 +76,7 @@ for (i in seq(1,nrow(etabs))) {
   
   message("kpi")
   try(
-    plots <- kpiesr_plot_all(rentrée, etab$UAI, grp, style.kpi.k=big_style, style.kpi=small_style)
+    plots <- kpiesr_plot_all(rentrée, etab$UAI, grp, style.k=k_style, style.o=o_style, style.o.norm = onorm_style)
   )
   
   message("wikidata")

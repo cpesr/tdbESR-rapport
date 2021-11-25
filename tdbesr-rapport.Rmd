@@ -130,7 +130,7 @@ info$swurl,"}{",info$wdurl,"}{",info$lfurl,"}{",
 uai.unistra <- "0673021V"
 
 etabs <- esr.etab %>% filter(Etablissement %in% c("Université de Strasbourg","Université de Lorraine","Université de Haute-Alsace"))
-etabs <- esr.etab %>% arrange(Groupe,Etablissement)
+etabs <- esr.etab %>% arrange(Groupe,Académie,Etablissement)
 aca <- ""
 groupe <- ""
 
