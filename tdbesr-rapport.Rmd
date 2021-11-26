@@ -105,24 +105,26 @@ etab_info <- function(etab) {
     lfurl = strvar(etab$url.legifrance, "Legifrance"))
 }
 
+r2tex <- function(command, ...) {
+  paste0("\\",command,
+         paste0('{',list(...),'}', collapse=""))
+}
 
 cat_slide <- function(etab) {
   info <- etab_info(etab)
-  cat(sep = '',"
-  
-\\etabheader[section]{",etab$Etablissement,"}{",
-info$type,"}{",info$ratt,"}{",info$uai,"}{",
-info$swurl,"}{",info$wdurl,"}{",info$lfurl,"}{",
-"plot/",etab$UAI,"-kpi}"
-)
+  cat(sep = '',"\n\n",
+    r2tex("etabpage[section]",
+          etab$Etablissement,
+          paste0("plot/",etab$UAI,"-kpi"),
+          r2tex("makeinfo",info$swurl,info$type,info$lfurl,info$uai,info$wdurl,etab$Académie))
+  )
 
-  cat(sep = '',"
-  
-\\etabheader{",etab$Etablissement,"}{",
-info$type,"}{",info$ratt,"}{",info$uai,"}{",
-info$swurl,"}{",info$wdurl,"}{",info$lfurl,"}{",
-"plot/",etab$UAI,"-series}"
-)
+  cat(sep = '',"\n\n",
+    r2tex("etabpage",
+          etab$Etablissement,
+          paste0("plot/",etab$UAI,"-series"),
+          r2tex("makeinfo",info$swurl,info$type,info$lfurl,info$uai,info$wdurl,etab$Académie))
+  )
 
 
 }

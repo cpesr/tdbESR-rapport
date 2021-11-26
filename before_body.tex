@@ -67,23 +67,16 @@
 \setlength{\kpiH}{0.9\paperheight}
 
 
-\newcommand\maketdb[4]{
-  \begin{tikzpicture}[overlay,remember picture]
-    \node (ancetres) [inner sep=0pt, anchor=north west, xshift=\graphesX, yshift=\graphesY] at (current page.north west)
-      {\includegraphics[height=0.33\graphesH]{#1}};
-    \node (associations) [inner sep=0pt, anchor=north] at (ancetres.south)
-      {\includegraphics[height=0.33\graphesH]{#2}};
-    \node (composantes) [inner sep=0pt, anchor=north,yshift=-0pt] at (associations.south)
-      {\includegraphics[height=0.33\graphesH]{#3}};
-      
-    \node (kpi) [inner sep=0pt, anchor=north east, color=red, minimum height=\kpiH, yshift=\graphesY, xshift=\graphesY] at (current page.north east)
-      {\includegraphics[height=\kpiH]{#4}};
-
-    \node (ancetres-tit) [inner sep=0pt, anchor=south] at (ancetres.north) {\bf Filiation};
-    \node (associations-tit) [inner sep=0pt, anchor=south] at (associations.north) {\bf Association};
-    \node (composantes-tit) [inner sep=0pt, anchor=south] at (composantes.north) {\bf Composition};
-
-  \end{tikzpicture}
+\newcommand\makeinfo[6]{
+  \mbox{#1} 
+  \newline ~ \newline
+  \begin{tabular*}{\textwidth}{rl}
+    Type :      & #2  \\ 
+    Académie :  & #6 \\
+    Décret :    & \mbox{#3} \\
+    UAI :       & #4 \\
+    Wikidata :  & \mbox{#5} \\
+  \end{tabular*}
 }
 
 
@@ -92,11 +85,11 @@
 \newlength{\widthB}
 \setlength{\widthB}{0.17\paperwidth}
 \newlength{\widthG}
-\setlength{\widthG}{0.8\paperwidth}
+\setlength{\widthG}{\paperwidth}
 \newif\ifsection
 
 
-\newcommand\etabheader[9][false] {%
+\newcommand\etabpage[4][false] {%
   \ifthenelse{\equal{#1}{section}}{\sectiontrue}{\sectionfalse}
 
   \newpage
@@ -119,18 +112,11 @@
         urlbordercolor=white,% hyperlink borders will be red
         pdfborderstyle={/S/U/W 1}% border style will be underline of width 1pt
         }
-        \mbox{#6} 
-        \newline ~ \newline
-        \begin{tabular*}{\textwidth}{rl}
-          Type :      & #3  \\ 
-          Décret :    & \mbox{#8} \\
-          UAI :       & #5 \\
-          Wikidata :  & \mbox{#7} \\
-        \end{tabular*}
+        #4
       \end{minipage}
     };
-    \node (graphiques) [inner sep=0pt, anchor=east] at (current page.east) [xshift=-0.5cm]
-      {\includegraphics[width=\widthG]{#9}};
+    \node (graphiques) [inner sep=0pt, anchor=center] at ($ (combandeau.east)!0.50!(current page.east) $)
+      {\includegraphics[width=\widthG]{#3}};
     
   \end{tikzpicture}
 }%

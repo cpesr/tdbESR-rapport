@@ -87,14 +87,14 @@ for (i in seq(1,nrow(etabs))) {
   ggsave(
     paste0(path,"/",etab$UAI,"-kpi.pdf"),
     plot = plot.kpi,
-    width= 12, height=8,
+    width= 12, height=9,
     device = cairo_pdf)
   
   plot.series <- combine_plots_series(plots)
   ggsave(
     paste0(path,"/",etab$UAI,"-series.pdf"),
     plot = plot.series,
-    width= 12, height=8,
+    width= 12, height=9,
     device = cairo_pdf)
   
 }
