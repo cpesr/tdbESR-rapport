@@ -13,21 +13,32 @@ dir.create(path)
 logpath <- "log"
 dir.create(logpath)
 
+
+slugify <- function(x, alphanum_replace="", space_replace="_", tolower=TRUE) {
+  x <- gsub("[^[:alnum:] ]", alphanum_replace, x)
+  x <- gsub(" ", space_replace, x)
+  if(tolower) { x <- tolower(x) }
+  
+  return(x)
+}
+
+
 missingdataplot <- ggplot(data=NULL,aes(x=1,y=1,label="Données manquantes")) + geom_text() + theme_void()
 
 
 k_style <- kpiesr_style(
   point_size = 16,
   line_size = 1,
-  text_size = 4)
+  text_size = 4,
+  yaxis_position = "right")
 
 o_style <- kpiesr_style(
   point_size = 12,
   line_size = 0.7,
   text_size = 3,
   primaire_margin = 1.25,
-  strip_labeller = lfc_dont_labeller
-  )
+  strip_labeller = lfc_dont_labeller,
+  yaxis_position = "left")
 
 lfc_pc_labeller_custom <- function(labels) {
   return(
@@ -63,20 +74,19 @@ rentrée <- 2019
 
 etabs <- esr.etab %>% filter(Etablissement %in% c("Université de Strasbourg","Université de Lorraine","Université de Haute-Alsace"))
 etabs <- esr.etab %>% filter(Etablissement == "Université Paris sciences et lettres")
-etabs <- esr.etab
+etabs <- esr.etab %>% filter(UAI %in% esr.uais$dans.tdb)
 
 
 
 for (i in seq(1,nrow(etabs))) {
   etab <- etabs[i,]
-  message("\nProcessing ",i,"/",nrow(etabs)," : ",strvar(etab$Etablissement))
-  grp <- ifelse(etab$Groupe == "Université","Université","Ensemble")
+  message("\nProcessing ",i,"/",nrow(etabs)," : ",strvar(etab$Etablissement), " ", etab$UAI)
   wdid <- substr(etab$url.wikidata,33,50)
   plots <- list()
   
   message("kpi")
   try(
-    plots <- kpiesr_plot_all(rentrée, etab$UAI, grp, style.k=k_style, style.o=o_style, style.o.norm = onorm_style)
+    plots <- kpiesr_plot_all(rentrée, etab$UAI, etab$Groupe, style.k=k_style, style.o=o_style, style.o.norm = onorm_style)
   )
   
   message("wikidata")
@@ -99,6 +109,40 @@ for (i in seq(1,nrow(etabs))) {
   
 }
 
-
 wdesr_save_cache()
+
+
+
+
+
+## Groupes
+groupes <- c("Ensemble",esr.etab %>% 
+               filter(esr.etab$UAI %in% esr.uais$dans.tdb) %>%
+               select(Groupe) %>% unique() %>% pull(Groupe) %>% as.character())
+
+for (grp in groupes) {
+  grpfn <- slugify(grp)
+  message("\nProcessing ",grp)
+
+  message("kpi")
+  try(
+    plots <- kpiesr_plot_all(rentrée, grp, grp, style.k=k_style, style.o=o_style, style.o.norm = onorm_style)
+  )
+  
+  message("combine")
+  plot.kpi <- combine_plots_groupe(plots)
+  ggsave(
+    paste0(path,"/",grpfn,"-kpi.pdf"),
+    plot = plot.kpi,
+    width= 12, height=6,
+    device = cairo_pdf)
+  
+  plot.series <- combine_plots_series(plots)
+  ggsave(
+    paste0(path,"/",grpfn,"-series.pdf"),
+    plot = plot.series,
+    width= 12, height=9,
+    device = cairo_pdf)
+  
+}
 

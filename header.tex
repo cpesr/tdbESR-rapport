@@ -70,26 +70,43 @@
 %                                      {\normalfont\large\bfseries\raggedright}}
 % \makeatother
 
-\titleformat{\chapter}
-  {\gdef\chapterlabel{}
+% \titleformat{\chapter}
+%   {\gdef\chapterlabel{}
+%    \Huge\bfseries}
+%   {\gdef\chapterlabel{\thechapter\ }}{0pt}
+%   {\begin{tikzpicture}[remember picture,overlay]
+%     \node (bandeauTop) at (current page) 
+%       [draw, yshift=\vshift,anchor=south, minimum width=\paperwidth, minimum height=0.5\paperheight, color=royalblue(traditional), fill=royalblue(traditional)] {};
+%     \node (chapterNul) at (bandeauTop.south west) 
+%       [anchor=south west, xshift=3cm, yshift=-0.5cm, font=\Huge, color=white, scale=10, inner sep=0] {\chapterlabel};
+%     \node (bandeauBottom) at (current page) 
+%       [draw, yshift=\vshift, anchor=north, minimum width=\paperwidth, minimum height=0.65\paperheight, color=white, fill=white] {};
+%     \node (chapterNul) at (bandeauBottom.east) 
+%       [anchor=south east, xshift=-3cm, font=\Huge, color=royalblue(traditional), scale=1.5] {#1};
+%    \end{tikzpicture}
+%    \newpage
+%   }
+% \titlespacing*{\chapter}{0pt}{50pt}{-60pt}
+
+
+\titleformat{\part}
+  {\gdef\partlabel{}
    \Huge\bfseries}
-  {\gdef\chapterlabel{\thechapter\ }}{0pt}
+  {\gdef\partlabel{\thepart\ }}{0pt}
   {\begin{tikzpicture}[remember picture,overlay]
-    \node (bandeauTop) at (current page) 
+    \node (bandeauTop) at (current page)
       [draw, yshift=\vshift,anchor=south, minimum width=\paperwidth, minimum height=0.5\paperheight, color=royalblue(traditional), fill=royalblue(traditional)] {};
-    \node (chapterNul) at (bandeauTop.south west) 
-      [anchor=south west, xshift=3cm, yshift=-0.5cm, font=\Huge, color=white, scale=10, inner sep=0] {\chapterlabel};
-    \node (bandeauBottom) at (current page) 
+    \node (chapterNul) at (bandeauTop.south west)
+      [anchor=south west, xshift=3cm, yshift=-0.5cm, font=\Huge, color=white, scale=10, inner sep=0] {\partlabel};
+    \node (bandeauBottom) at (current page)
       [draw, yshift=\vshift, anchor=north, minimum width=\paperwidth, minimum height=0.65\paperheight, color=white, fill=white] {};
-    \node (chapterNul) at (bandeauBottom.east) 
+    \node (chapterNul) at (bandeauBottom.east)
       [anchor=south east, xshift=-3cm, font=\Huge, color=royalblue(traditional), scale=1.5] {#1};
    \end{tikzpicture}
-   \newpage
   }
-\titlespacing*{\chapter}{0pt}{50pt}{-60pt}
+\titlespacing*{\part}{0pt}{50pt}{-60pt}
 
 
-
+\titleformat{\chapter}{\normalfont\Huge\bfseries}{\thechapter}{0pt}{}
 \titleformat{\section}[display]{\normalfont\Large\bfseries\raggedright}{\thesection}{0pt}{}
-
 
