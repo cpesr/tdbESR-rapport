@@ -106,11 +106,16 @@ strvar <- function(var, linkname=NA) {
 etab_info <- function(etab) {
   list(
     type = strvar(etab$Type),
-    ratt =  strvar(etab$Rattachement),
+    ratt = strvar(etab$Rattachement),
     uai  = strvar(etab$UAI),
     swurl = strvar(etab$url.siteweb,etab$url.siteweb),
     wdurl = strvar(paste0("https://github.com/cpesr/wikidataESR/blob/master/plots/etablissements/",substr(etab$url.wikidata,33,50),".md"), substr(etab$url.wikidata,33,50)),
-    lfurl = strvar(etab$url.legifrance, "Legifrance"))
+    lfurl = strvar(etab$url.legifrance, "Legifrance"),
+    dans.tdb = ifelse(etab$UAI %in% esr.uais$dans.tdb,"Oui","Non"),
+    dans.evol = ifelse(etab$UAI %in% esr.uais$dans.evol,"Oui","Non"),
+    hors.norm = ifelse(etab$UAI %in% esr.uais$hors.norm,"Oui","Non")
+    )
+  
 }
 
 r2tex <- function(command, ...) {
@@ -124,14 +129,14 @@ cat_etab_slide <- function(etab) {
     r2tex("etabpage[section]",
           etab$Etablissement,
           paste0("plot/",etab$UAI,"-kpi"),
-          r2tex("makeinfo",info$swurl,info$type,info$lfurl,info$uai,info$wdurl,etab$Académie))
+          r2tex("makeinfo",info$swurl,info$type,info$lfurl,info$uai,info$wdurl,etab$Académie,info$dans.tdb,info$dans.evol,info$hors.norm))
   )
 
   cat(sep = '',"\n\n",
     r2tex("etabpage",
           etab$Etablissement,
           paste0("plot/",etab$UAI,"-series"),
-          r2tex("makeinfo",info$swurl,info$type,info$lfurl,info$uai,info$wdurl,etab$Académie))
+          r2tex("makeinfo",info$swurl,info$type,info$lfurl,info$uai,info$wdurl,etab$Académie,info$dans.tdb,info$dans.evol,info$hors.norm))
   )
 }
 
@@ -147,14 +152,15 @@ cat_groupe_slide <- function(groupe) {
     r2tex("etabpage",
           groupe,
           paste0("plot/",groupefn,"-series"),
-          "placeholder")
+          "")
   )
 }
 
 uai.unistra <- "0673021V"
 
 etabs <- esr.etab %>% filter(Etablissement %in% c("Université de Strasbourg","Université de Lorraine","Sciences Po Aix"))
-etabs <- esr.etab %>% filter(UAI %in% esr.uais$dans.tdb) %>% arrange(Groupe,Académie,Etablissement)
+etabs <- esr.etab %>% filter(UAI %in% esr.uais$dans.tdb) %>% arrange(Groupe,Etablissement)
+etabs <- esr.etab %>% filter(dataset == "CPESR") %>% arrange(Groupe,Etablissement)
 aca <- ""
 groupe <- ""
 

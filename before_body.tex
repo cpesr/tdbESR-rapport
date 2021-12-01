@@ -67,7 +67,7 @@
 \setlength{\kpiH}{0.9\paperheight}
 
 
-\newcommand\makeinfo[6]{
+\newcommand\makeinfo[9]{
   \mbox{#1} 
   \newline ~ \newline
   \begin{tabular*}{\textwidth}{rl}
@@ -76,6 +76,9 @@
     Décret :    & \mbox{#3} \\
     UAI :       & #4 \\
     Wikidata :  & \mbox{#5} \\
+    Dans TDB :  & #7 \\
+    Dans Stat :  & #8 \\
+    Hors norm :  & #9 \\
   \end{tabular*}
 }
 
@@ -95,8 +98,10 @@
   \newpage
   \begin{tikzpicture}[overlay,remember picture]
     \node (combandeau) at (current page.north west) 
-      [draw, minimum width=\widthB, minimum height=\paperheight, anchor=north west, color=royalblue(web), fill=royalblue(traditional)] {};
+      [draw, minimum width=\widthB, minimum height=\paperheight, anchor=north west, color=royalblue(traditional), fill=royalblue(traditional)] {};
     \ifsection
+      \node (sepbandeau) at (current page.north west) 
+        [draw, minimum width=\paperwidth, minimum height=1cm, anchor=north west, color=royalblue(traditional), fill=royalblue(traditional)] {};
       \node (section) at (combandeau.north west) [color=red, anchor=north west, inner sep=1cm, scale=1] {
         \begin{minipage}{2cm} \color{white} \section{#2} \end{minipage}};
     \fi
