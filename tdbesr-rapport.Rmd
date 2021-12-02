@@ -37,7 +37,7 @@ library(kpiESR)
 library(wikidataESR)
 
 rentrée <- 2019
-type <- "Université"
+rentrée.deb <- 2013
 
 strvar <- function(var) {
   s <- as.character(var)
@@ -136,20 +136,28 @@ list2texcom <- function(x,titre="") {
          "}")
 }
 
+note2texcom <- function(etab) {
+  paste0("\\pdfcomment[icon=Note]{",stringr::str_replace_all(etab$Notes,";","\\textCR"),"}")
+}
+
 cat_etab_slide <- function(etab) {
   info <- etab_info(etab)
   cat(sep = '',"\n\n",
     r2tex("etabpage[section]",
           etab$Etablissement,
           paste0("plot/",etab$UAI,"-kpi"),
-          r2tex("makeinfo",info$swurl,info$type,info$lfurl,info$uai,info$wdurl,etab$Académie,info$dans.tdb,info$dans.evol,info$hors.norm))
+          r2tex("makeinfo",info$swurl,info$type,info$lfurl,info$uai,info$wdurl,etab$Académie,
+                note2texcom(etab),
+                paste(info$dans.tdb,info$dans.evol,info$hors.norm)))
   )
 
   cat(sep = '',"\n\n",
     r2tex("etabpage",
           etab$Etablissement,
           paste0("plot/",etab$UAI,"-series"),
-          r2tex("makeinfo",info$swurl,info$type,info$lfurl,info$uai,info$wdurl,etab$Académie,info$dans.tdb,info$dans.evol,info$hors.norm))
+          r2tex("makeinfo",info$swurl,info$type,info$lfurl,info$uai,info$wdurl,etab$Académie,
+                note2texcom(etab),
+                paste(info$dans.tdb,info$dans.evol,info$hors.norm)))
   )
 }
 
@@ -184,10 +192,8 @@ cat_groupe_slide <- function(groupe) {
 
 uai.unistra <- "0673021V"
 
-esr.etab[esr.etab$UAI=="0352305R",]$url.siteweb <- "https://www.rennes-sb.fr"
-
 etabs <- esr.etab %>% filter(Etablissement %in% c("Université de Strasbourg","Université de Lorraine","Sciences Po Aix"))
-#etabs <- esr.etab %>% filter(UAI %in% esr.uais$dans.tdb) %>% arrange(Groupe,Etablissement)
+etabs <- esr.etab %>% filter(UAI %in% esr.uais$dans.tdb) %>% arrange(Groupe,Etablissement)
 etabs <- esr.etab %>% filter(dataset == "CPESR") %>% arrange(Groupe,Etablissement)
 aca <- ""
 groupe <- ""
@@ -224,16 +230,17 @@ cat("\n\n```")
 ```
 
 
-# Taux de ressources propres
-```{r classement.functions, echo = FALSE, warning = FALSE, eval=FALSE}
-rentrée_hist <- 2012
-hist <- seq(rentrée_hist, rentrée)
+```{r classement.functions, echo = FALSE, warning = FALSE, eval=TRUE}
+table_classement <- function(groupe,kpis,labels) {
+  kpiesr_classement(rentrée, rentrée.deb, groupe, kpis) %>%
+    kable("latex", longtable = T, booktabs = T, align = c("l",rep("r",length(kpis)+2)), 
+          col.names=c("Etablissement","Rang","Diff. \n 2013",labels)) %>%
+    kable_styling(latex_options = c("striped", "repeat_header")) 
+  
+     #add_header_above(c("Rang et écart à la moyenne" = 3, "Détails" = length(kpis), "Historique"=length(hist)))
+}
 
-table_classement <- function(rentrée,type,kpis,labels)
-  kpiesr_classement(rentrée, type, kpis, labels, hist) %>%
-    kable("latex", longtable = T, booktabs = T, align = c("r","r","l",rep("r",4))) %>%
-    kable_styling(latex_options = c("striped", "repeat_header")) %>%
-    add_header_above(c("Rang et écart à la moyenne" = 3, "Détails" = length(kpis), "Historique"=length(hist)))
+ 
 
 table_classement_slice <- function(rentrée,type,kpis,labels,rows)
   kpiesr_classement(rentrée, type, kpis, labels) %>%
@@ -252,44 +259,72 @@ table_classement_sbs <- function(rentrée,type,kpis,labels,row) {
   cat("\\end{minipage}")
 }
 
-table_classement(rentrée, "Université",
-                  c("kpi.K.proPres", 
-                    "kpi.FIN.P.ressources", 
-                    "kpi.FIN.S.ressourcesPropres"),
-                  c("Taux","Ressources","Res. Propres")) 
 ```
 
+
+# Taux de ressources propres
+
+\vspace{-5cm}
+
+```{r classement.dotPres, echo = FALSE, warning = FALSE, eval=TRUE}
+table_classement("Universités et assimilés",
+                 c("kpi.K.dotPres", "kpi.FIN.P.ressources","kpi.FIN.S.SCSP"),
+                 c("Taux de SCSP","Ressources totales","SCSP")) 
+```
 
 \newpage
 # Taux de ressources par étudiant (inscrit en cycles 1 (L) et 2 (M))
-```{r classement.RpE, echo = FALSE, warning = FALSE, eval=FALSE}
-table_classement(rentrée, "Université",
-                  c("kpi.K.resPetu", "kpi.FIN.P.ressources","kpi.ETU.S.cycle.1.L","kpi.ETU.S.cycle.2.M"),
+
+\vspace{-5cm}
+
+```{r classement.RpE, echo = FALSE, warning = FALSE, eval=TRUE}
+table_classement("Universités et assimilés",
+                  c("kpi.K.resPetu", "kpi.FIN.P.ressources","kpi.ETU.S.cycle1_L","kpi.ETU.S.cycle2_M"),
                   c("Taux","Ressources","Effectif L","Effectif M"))
 ```
 
-<!-- ## Taux de formations sélectives -->
-
-<!-- ```{r classement.FS} -->
-<!-- table_classement(rentrée, "Université", -->
-<!--                   c("kpi.K.selPfor", "kpi.ADM.P.formations","kpi.ADM.S.sélective"), -->
-<!--                   c("Taux","Formations","Formations sélectives")) -->
-<!-- ``` -->
-
 
 # Taux d'encadrement
-```{r classement.EpE, echo = FALSE, warning = FALSE, eval=FALSE}
-table_classement(rentrée, "Université",
-                  c("kpi.K.titPetu", "kpi.ENS.S.titulaires","kpi.ETU.P.effectif"),
-                  c("Taux","Ens. titulaires","Etudiants"))
+
+\vspace{-5cm}
+
+```{r classement.EpE, echo = FALSE, warning = FALSE, eval=TRUE}
+table_classement("Universités et assimilés",
+                  c("kpi.K.ensPetu", "kpi.ENS.P.effectif","kpi.ETU.S.cycle1_L","kpi.ETU.S.cycle2_M"),
+                  c("Taux","Enseignants","Effectif L","Effectif M"))
 ```
 
 
 \newpage
 # Taux de titularité
-```{r classement.TpE, echo = FALSE, warning = FALSE, eval=FALSE}
-table_classement(rentrée, "Université",
+
+\vspace{-5cm}
+
+```{r classement.TpE, echo = FALSE, warning = FALSE, eval=TRUE}
+table_classement("Universités et assimilés",
                   c("kpi.K.titPens", "kpi.ENS.P.effectif", "kpi.ENS.S.titulaires"),
                   c("Taux","Enseignants","Titulaires"))
 ```
 
+\newpage
+# Recette formation par étudiant
+
+\vspace{-5cm}
+
+```{r classement.fPe, echo = FALSE, warning = FALSE, eval=TRUE}
+table_classement("Universités et assimilés",
+                  c("kpi.K.forPetu","kpi.FIN.S.recettesFormation","kpi.ETU.P.effectif"),
+                  c("Taux","Recettes formation","Effectifs étudiants"))
+```
+
+
+\newpage
+# Recette recherche par EC titulaire
+
+\vspace{-5cm}
+
+```{r classement.rPe, echo = FALSE, warning = FALSE, eval=TRUE}
+table_classement("Universités et assimilés",
+                  c("kpi.K.recPect","kpi.FIN.S.recettesFormation","kpi.ENS.S.ECtitulaires"),
+                  c("Taux","Recettes recherche","Effectifs EC titulaires"))
+```
