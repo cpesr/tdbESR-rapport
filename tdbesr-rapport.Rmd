@@ -12,6 +12,7 @@ output:
       in_header: header.tex
       before_body: before_body.tex
     keep_tex:  true
+    keep_md: yes
 #urlcolor: blue
 #linkcolor: blue
 fontsize: 11pt
@@ -93,8 +94,13 @@ knitr::include_graphics("files/589px-Knowledge-Reid-Highsmith.png")
 
 ```{r etab.loop, results="asis", message=FALSE, error=FALSE, echo = FALSE, warning = FALSE}
 
+cat("```{=latex}")
+
 strvar <- function(var, linkname=NA) {
   s <- as.character(var)
+  s <- stringr::str_replace_all(s,'_','\\\\_')
+  linkname <- stringr::str_replace_all(linkname,'_','\\\\_')
+  
   if(is.na(s) | str_length(s)==0) {
     s <- "N/A"
   } else if (!is.na(linkname)) {
@@ -121,6 +127,13 @@ etab_info <- function(etab) {
 r2tex <- function(command, ...) {
   paste0("\\",command,
          paste0('{',list(...),'}', collapse=""))
+}
+
+list2texcom <- function(x,titre="") {
+  paste0(length(x)," \\pdfcomment[icon=Note]{",
+         titre," \\textCR\\textCR ",
+         paste(x, collapse=" \\textCR "),
+         "}")
 }
 
 cat_etab_slide <- function(etab) {
@@ -152,14 +165,29 @@ cat_groupe_slide <- function(groupe) {
     r2tex("etabpage",
           groupe,
           paste0("plot/",groupefn,"-series"),
-          "")
-  )
+          r2tex("makegrpinfo",
+            list2texcom(esr.etab %>% filter(Groupe == groupe) %>% pull(Etablissement), 
+                        "Liste des établisssement du groupe (y compris disparus)"),
+            list2texcom(esr.etab %>% filter(Groupe == groupe, 
+                                            !UAI %in% esr.uais$dans.tdb) %>% pull(Etablissement),
+                        "Liste des établissements exclus des tableaux de bord (disparus ou données trop partielles"),
+            list2texcom(esr.etab %>% filter(Groupe == groupe, 
+                                            UAI %in% esr.uais$dans.evol) %>% pull(Etablissement),
+                        "Liste des établissements inclus dans les statistiques du groupe (données complètes)"),
+                      list2texcom(esr.etab %>% filter(Groupe == groupe, 
+                                                      UAI %in% esr.uais$hors.norm) %>% pull(Etablissement),
+                        "Liste des établissements exclus des représentations des distributions (données trop hors normes)")
+            )
+    )
+    )
 }
 
 uai.unistra <- "0673021V"
 
+esr.etab[esr.etab$UAI=="0352305R",]$url.siteweb <- "https://www.rennes-sb.fr"
+
 etabs <- esr.etab %>% filter(Etablissement %in% c("Université de Strasbourg","Université de Lorraine","Sciences Po Aix"))
-etabs <- esr.etab %>% filter(UAI %in% esr.uais$dans.tdb) %>% arrange(Groupe,Etablissement)
+#etabs <- esr.etab %>% filter(UAI %in% esr.uais$dans.tdb) %>% arrange(Groupe,Etablissement)
 etabs <- esr.etab %>% filter(dataset == "CPESR") %>% arrange(Groupe,Etablissement)
 aca <- ""
 groupe <- ""
@@ -178,6 +206,8 @@ for (i in seq(1,nrow(etabs))) {
   
   cat_etab_slide(etab)
 }
+
+cat("\n\n```")
 ```
 
 

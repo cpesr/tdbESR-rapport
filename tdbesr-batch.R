@@ -118,7 +118,7 @@ wdesr_save_cache()
 
 ## Groupes
 groupes <- c("Ensemble",esr.etab %>% 
-               filter(esr.etab$UAI %in% esr.uais$dans.tdb) %>%
+               filter(dataset == "CPESR") %>%
                select(Groupe) %>% unique() %>% pull(Groupe) %>% as.character())
 
 for (grp in groupes) {
