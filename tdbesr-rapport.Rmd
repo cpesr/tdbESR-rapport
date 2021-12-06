@@ -2,17 +2,15 @@
 #title: "Tableaux de bord des universités  \nv0.5"
 author: "Julien Gossa  \n gossa@unistra.fr"
 date: "09/01/2020"
-
 output: 
-  pdf_document:
-    # toc: true
-    # toc_depth: 3
-    number_sections: true
+  pdf_document: 
+    number_sections: yes
     includes:
       in_header: header.tex
       before_body: before_body.tex
-    keep_tex:  true
+    keep_tex: yes
     keep_md: yes
+    latex_engine: xelatex
 #urlcolor: blue
 #linkcolor: blue
 fontsize: 11pt
@@ -54,6 +52,7 @@ slugify <- function(x, alphanum_replace="", space_replace="_", tolower=TRUE) {
 ```
 
 
+
 # Avant-propos {-}
 
 ```{r child = 'avantpropos.Rmd', echo = FALSE, warning = FALSE}
@@ -63,7 +62,7 @@ slugify <- function(x, alphanum_replace="", space_replace="_", tolower=TRUE) {
 \vspace*{\fill}
 ```
 
-```{r, out.width = "200px"}
+```{r, out.width = "200pt"}
 knitr::include_graphics("files/589px-Knowledge-Reid-Highsmith.png")
 ```
 
@@ -130,7 +129,7 @@ r2tex <- function(command, ...) {
 }
 
 list2texcom <- function(x,titre="") {
-  paste0(length(x)," \\pdfcomment[icon=Note]{",
+  paste0(length(x)," \\pdfcomment[icon=Note, color=royalblue(traditional)]{",
          titre," \\textCR\\textCR ",
          paste(x, collapse=" \\textCR "),
          "}")
@@ -193,8 +192,8 @@ cat_groupe_slide <- function(groupe) {
 uai.unistra <- "0673021V"
 
 etabs <- esr.etab %>% filter(Etablissement %in% c("Université de Strasbourg","Université de Lorraine","Sciences Po Aix"))
-etabs <- esr.etab %>% filter(UAI %in% esr.uais$dans.tdb) %>% arrange(Groupe,Etablissement)
-etabs <- esr.etab %>% filter(dataset == "CPESR") %>% arrange(Groupe,Etablissement)
+#etabs <- esr.etab %>% filter(UAI %in% esr.uais$dans.tdb) %>% arrange(Groupe,Etablissement)
+#etabs <- esr.etab %>% filter(dataset == "CPESR") %>% arrange(Groupe,Etablissement)
 aca <- ""
 groupe <- ""
 
@@ -233,11 +232,12 @@ cat("\n\n```")
 ```{r classement.functions, echo = FALSE, warning = FALSE, eval=TRUE}
 table_classement <- function(groupe,kpis,labels) {
   kpiesr_classement(rentrée, rentrée.deb, groupe, kpis) %>%
-    kable("latex", longtable = T, booktabs = T, align = c("l",rep("r",length(kpis)+2)), 
-          col.names=c("Etablissement","Rang","Diff. \n 2013",labels)) %>%
-    kable_styling(latex_options = c("striped", "repeat_header")) 
-  
-     #add_header_above(c("Rang et écart à la moyenne" = 3, "Détails" = length(kpis), "Historique"=length(hist)))
+    kable("latex", longtable = T, booktabs = T, align = c("r","l",rep("r",length(kpis)),"r","r"),
+          col.names=NULL) %>%
+    add_header_above(c("Rang","Etablissement",labels,"Rang 2013" = 2)) %>%
+    kable_styling(latex_options = c("striped", "repeat_header")) %>% 
+    column_spec(c(1,3:7), monospace = TRUE)
+    # add_header_above(c("Rang et écart à la moyenne" = 3, "Détails" = length(kpis), "Historique"=length(hist)))
 }
 
  

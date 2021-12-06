@@ -8,10 +8,11 @@
 \definecolor{royalblue(traditional)}{rgb}{0.0, 0.14, 0.4}
 \definecolor{royalblue(web)}{rgb}{0.25, 0.41, 0.88}
 
-\newcommand\titleY{0cm}
+
 \newcommand\titleS{3}
-\newcommand\titleBoxW{19cm}
-\newcommand\titleBoxH{11cm}
+\newlength{\titleY} \setlength{\titleY}{0cm}
+\newlength{\titleBoxW} \setlength{\titleBoxW}{9cm}
+\newlength{\titleBoxH} \setlength{\titleBoxH}{5cm}
 \newcommand\titleBoxR{7}
 
 
@@ -22,24 +23,37 @@
   \coordinate (logo) at (current page.north west);
   \coordinate (title) at ($(current page.center) + (0,\titleY)$);
   \coordinate (author) at (current page.south east);
-
+  
 \node (nlogo) [inner sep=20pt, anchor=north west] at (logo)
   {\includegraphics[width=8cm]{files/logo_cpesr_sackersgothic}};
 
-\node (bandeau) at (title) 
-  [draw, minimum width=\titleBoxW, minimum height=\titleBoxH, rotate=\titleBoxR, color=royalblue(web), fill=royalblue(web)] {};
+\begin{scope}[line width=4pt, color=royalblue(web), fill=royalblue(web), line cap=round, rotate around={\titleBoxR:(title)}]
+  \coordinate (btl) at ($(title) + (-\titleBoxW,\titleBoxH)$);
+  \coordinate (btr) at ($(title) + (\titleBoxW,\titleBoxH)$);
+  \coordinate (bbr) at ($(title) + (\titleBoxW,-\titleBoxH)$);
+  \coordinate (bbl) at ($(title) + (-\titleBoxW,-\titleBoxH)$);
+
+  %\draw [fill=royalblue(web)] (btl) rectangle (bbr);
+
+  \draw [shorten <=-10cm,shorten >=-14cm, transform shape](btl) -- (btr);
+  \draw [shorten <=-15cm,shorten >=-10cm](bbl) -- (bbr);
+  \draw [shorten <=-2cm,shorten >=-10cm](btl) -- (bbl);
+  \draw [shorten <=-10cm,shorten >=-2cm](btr) -- (bbr);
+
+  \node (nrentree) at (bbr)
+    [inner sep=10pt, anchor=north east, font=\Huge, color=royalblue(traditional), rotate=\titleBoxR]
+    {\rentree};
+  
+  \node (num) at (bbr)
+    [inner sep=10pt, anchor=south west, font=\large, color=royalblue(traditional), rotate=\titleBoxR]
+    {\reportid};
+
+\end{scope}  
+
 
 \node (ntitle) at (title) 
-  [inner sep=0pt, anchor=center, align=center, font=\bfseries, scale=\titleS, align=center, color=white]  
+  [inner sep=0pt, anchor=center, align=center, font=\bfseries, scale=\titleS, align=center, color=royalblue(traditional)]  
   {\titre};
-
-\node (nrentree) at ($(bandeau.south west)!0.95!(bandeau.south east)$)
-  [inner sep=10pt, anchor=south east, rotate=\titleBoxR, font=\Huge, color=white]
-  {\rentree};
-
-\node (num) at ($(bandeau.south west)!0.94!(bandeau.south east)$)
-  [inner sep=5pt, anchor=north east, rotate=\titleBoxR, font=\large]
-  {\reportid};
 
 \node (nauteur) at (author) 
   [inner sep=50pt, anchor=south east, align=center, font=\huge, align=left, color =black]
