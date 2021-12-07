@@ -162,7 +162,7 @@ cat_etab_slide <- function(etab) {
 cat_groupe_verticalinfo <- function(groupe) {
 
   cat(r2tex("verticalinfo",
-          groupe, "",
+          "Données agrégées", groupe,
           r2tex("makegrpinfo",
             list2texcom(esr.etab %>% filter(Groupe == groupe) %>% pull(Etablissement), 
                         "Liste des établisssement du groupe (y compris disparus)"),
