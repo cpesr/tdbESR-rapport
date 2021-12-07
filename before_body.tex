@@ -149,19 +149,9 @@
   
 
 \newcommand\groupepage[3][false] {%
-  \ifthenelse{\equal{#1}{section}}{\sectiontrue}{\sectionfalse}
-
   \newpage
   \begin{tikzpicture}[overlay,remember picture]
-    \node (combandeau) at (current page.north west) 
-      [draw, minimum width=\paperwidth, minimum height=\widthB, anchor=north west, color=royalblue(web), fill=royalblue(traditional)] {};
-    \ifsection
-      \node (section) at (combandeau.west) [color=red, anchor=west, scale=8, yshift=0.11cm] {
-        \begin{minipage}{2cm} \color{white} \chapter{#2} \end{minipage}};
-    \fi
-    \node (titre) at (combandeau.center) [xshift=3cm, color=red, anchor=center, scale=2] {
-      \begin{minipage}{10cm} \color{white} \bf \Huge \raggedright #2 \end{minipage}};
-    \node (graphiques) [inner sep=0pt, anchor=center] at ($ (combandeau.south)!0.50!(current page.south) $)
+    \node (graphiques) [inner sep=0pt, anchor=south] at (current page.south)
       {\includegraphics[width=\paperwidth]{#3}};
     
   \end{tikzpicture}
