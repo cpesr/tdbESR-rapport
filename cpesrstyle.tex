@@ -1,6 +1,7 @@
 \usepackage{tikz}
 \usetikzlibrary{calc,positioning}
 \usepackage[explicit]{titlesec}
+\usepackage{afterpage}
 
 \definecolor{royalblue(traditional)}{rgb}{0.0, 0.14, 0.4}
 \definecolor{royalblue(web)}{rgb}{0.25, 0.41, 0.88}
@@ -12,7 +13,7 @@
 \newlength{\chapbandheight}\setlength{\chapbandheight}{0.15\paperheight}
 \newlength{\secbandheight}\setlength{\secbandheight}{0.05\paperheight}
 \newlength{\numxshift}\setlength{\numxshift}{-3cm}
-\newlength{\titxshift}\setlength{\titxshift}{0.20\paperwidth}
+\newlength{\titxshift}\setlength{\titxshift}{0.25\paperwidth}
 \def\numscale{8}
 \def\titscale{3}
 
@@ -42,18 +43,16 @@
   {\gdef\chapterlabel{\thechapter\ }}
   {0pt}
   {\begin{tikzpicture}[remember picture,overlay]
-    % \node (combandeau) at (current page.north west) 
-    %   [draw, anchor=north west, 
-    %   minimum width=\verticalinfowidth, minimum height=\paperheight, 
-    %   color=bandcol, fill=bandcol] {};  
-    \node (bandeauTop) at (current page.north)
-      [draw, anchor=north, 
-      minimum width=\paperwidth, minimum height=\chapbandheight, 
-      color=bandcol, fill=bandcol] {};
-    \node (num) at ($ (bandeauTop.south east) + (\numxshift,-0.1cm) $)
-      [anchor=south east, color=white, scale=\numscale, inner sep=0] {\chapterlabel};
-    \node (tit) at ($ (bandeauTop.west) + (\titxshift,0) $)
-      [anchor=west, scale=\titscale, color=white] {#1};
+    % \node (bandeauTop) at (current page.north)
+    %   [draw, anchor=north,
+    %   minimum width=\paperwidth, minimum height=0pt, %yshift=-\chapbandheight,
+    %   color=bandcol, fill=bandcol] {};
+    \draw ([yshift=-\chapbandheight]current page.north east) -- ([yshift=-\chapbandheight]current page.north west)
+      [color=bandcol, fill=bandcol, line width=0.2cm] {};
+    \node (num) at ($ (current page.north east) + (\numxshift,-\chapbandheight-0.1cm) $)
+      [anchor=south east, color=royalblue(web), scale=\numscale, inner sep=0] {\chapterlabel};
+    \node (tit) at ($ (current page.north west) + (\titxshift,-0.5\chapbandheight) $)
+      [anchor=west, scale=\titscale, color=royalblue(web), inner sep=0] {#1};
    \end{tikzpicture}
   }
 \titlespacing*\chapter{0cm}{1cm}{0cm}
@@ -83,7 +82,7 @@
       [draw, anchor=north west, 
       minimum width=\verticalinfowidth, minimum height=\paperheight, 
       color=bandcol, fill=bandcol] {};
-    \node (titre) at ($ (combandeau.north) + (0,-\chapbandheight) $)
+    \node (titre) at ($ (combandeau.north) + (0,-\secbandheight) $)
       [anchor=east, rotate=90, scale=1.5, 
       color=white, text width=0.4\paperheight, align=flush right] 
       {\bf #2 \\ \Huge #1};
@@ -95,4 +94,22 @@
         #3
       \end{minipage}};
   \end{tikzpicture}
+}
+
+
+
+\newcommand\autoviBig{}
+\newcommand\autoviSmall{}
+\newcommand\setautovi[2]{
+  \renewcommand\autoviBig{#1}
+  \renewcommand\autoviSmall{#2}
+}
+\newif\ifautovirun
+
+\newcommand\startautovi[2]{\setautovi{#1}{#2} \autoviruntrue \autovi}
+\newcommand\stopautovi{\autovirunfalse}
+
+\newcommand\autovi{%
+  \verticalinfo{\autoviBig}{\autoviSmall}{}
+  \ifautovirun \afterpage{\autovi} \fi
 }

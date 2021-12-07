@@ -75,7 +75,7 @@ rentrée <- 2019
 etabs <- esr.etab %>% filter(Etablissement %in% c("Université de Strasbourg","Université de Lorraine","Université de Haute-Alsace"))
 etabs <- esr.etab %>% filter(Etablissement == "Université Paris sciences et lettres")
 etabs <- esr.etab %>% filter(UAI %in% esr.uais$dans.tdb)
-#etabs <- esr.etab %>% filter(dataset == "CPESR")
+etabs <- esr.etab %>% filter(dataset == "CPESR")
 
 start <- 1
 
@@ -135,7 +135,7 @@ for (grp in groupes) {
   ggsave(
     paste0(path,"/",grpfn,"-kpi.pdf"),
     plot = plot.kpi,
-    width= 12, height=8,
+    width= 12, height=7,
     device = cairo_pdf)
   
   plot.series <- combine_plots_series(plots)

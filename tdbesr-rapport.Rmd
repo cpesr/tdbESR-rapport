@@ -184,11 +184,11 @@ cat_groupe_slide <- function(groupe) {
   groupefn <- slugify(groupe)
   
   cat("\\chapter{",groupe,"}\n\n")
-  cat("\\includegraphics[width=0.7\\paperwidth]{plot/",slugify(groupe),"-kpi}", sep='')
+  cat("\\includegraphics[width=\\textwidth]{plot/",slugify(groupe),"-kpi}", sep='')
   cat_groupe_verticalinfo(groupe)
 
   cat("\\newpage")
-  cat("\\includegraphics[width=\\paperwidth]{plot/",slugify(groupe),"-series}", sep='')
+  cat("\\includegraphics[width=\\textwidth]{plot/",slugify(groupe),"-series}", sep='')
   cat_groupe_verticalinfo(groupe)
   
 }
@@ -196,8 +196,8 @@ cat_groupe_slide <- function(groupe) {
 uai.unistra <- "0673021V"
 
 etabs <- esr.etab %>% filter(Etablissement %in% c("Université de Strasbourg","Université de Lorraine","Sciences Po Aix"))
-etabs <- esr.etab %>% filter(UAI %in% esr.uais$dans.tdb) %>% arrange(Groupe,Etablissement)
-#etabs <- esr.etab %>% filter(dataset == "CPESR") %>% arrange(Groupe,Etablissement)
+#etabs <- esr.etab %>% filter(UAI %in% esr.uais$dans.tdb) %>% arrange(Groupe,Etablissement)
+etabs <- esr.etab %>% filter(dataset == "CPESR") %>% arrange(Groupe,Etablissement)
 aca <- ""
 groupe <- ""
 
@@ -234,6 +234,8 @@ cat("\n\n")
 
 
 ```{r classement.functions, echo = FALSE, warning = FALSE, eval=TRUE}
+knitr::knit_exit()
+
 table_classement <- function(groupe,kpis,labels) {
   kpiesr_classement(rentrée, rentrée.deb, groupe, kpis) %>%
     kable("latex", longtable = T, booktabs = T, align = c("r","l",rep("r",length(kpis)),"r","r"),
@@ -266,8 +268,20 @@ table_classement_sbs <- function(rentrée,type,kpis,labels,row) {
 ```
 
 
-# Taux de ressources propres
+\startautovi{}{`r kpiesr_lfc$K$desc[1]`}
+\newpage
+\section{Taux de titularité}
 
+```{r classement.TpE, echo = FALSE, warning = FALSE, eval=TRUE}
+table_classement("Universités et assimilés",
+                  c("kpi.K.titPens", "kpi.ENS.P.effectif", "kpi.ENS.S.titulaires"),
+                  c("Taux","Enseignants","Titulaires"))
+```
+
+
+\setautovi{}{`r kpiesr_lfc$K$desc[2]`}
+\newpage
+\section{Taux de SCSP}
 
 ```{r classement.dotPres, echo = FALSE, warning = FALSE, eval=TRUE}
 table_classement("Universités et assimilés",
@@ -276,17 +290,9 @@ table_classement("Universités et assimilés",
 ```
 
 
+\setautovi{`r kpiesr_lfc$K$labels[3]`}{`r kpiesr_lfc$K$desc[3]`}
 \newpage
-# Taux de ressources par étudiant (inscrit en cycles 1 (L) et 2 (M))
-
-```{r classement.RpE, echo = FALSE, warning = FALSE, eval=TRUE}
-table_classement("Universités et assimilés",
-                  c("kpi.K.resPetu", "kpi.FIN.P.ressources","kpi.ETU.S.cycle1_L","kpi.ETU.S.cycle2_M"),
-                  c("Taux","Ressources","Effectif L","Effectif M"))
-```
-
-
-# Taux d'encadrement
+\section{Taux d'encadrement}
 
 ```{r classement.EpE, echo = FALSE, warning = FALSE, eval=TRUE}
 table_classement("Universités et assimilés",
@@ -295,17 +301,22 @@ table_classement("Universités et assimilés",
 ```
 
 
+\setautovi{`r kpiesr_lfc$K$labels[4]`}{`r kpiesr_lfc$K$desc[3]`}
 \newpage
-# Taux de titularité
+\section{Ressources par étudiant}
 
-```{r classement.TpE, echo = FALSE, warning = FALSE, eval=TRUE}
+```{r classement.RpE, echo = FALSE, warning = FALSE, eval=TRUE}
 table_classement("Universités et assimilés",
-                  c("kpi.K.titPens", "kpi.ENS.P.effectif", "kpi.ENS.S.titulaires"),
-                  c("Taux","Enseignants","Titulaires"))
+                  c("kpi.K.resPetu", "kpi.FIN.P.ressources","kpi.ETU.S.cycle1_L","kpi.ETU.S.cycle2_M"),
+                  c("Taux","Ressources","Effectif L","Effectif M"))
 ```
 
+
+
+
+\setautovi{`r kpiesr_lfc$K$labels[5]`}{`r kpiesr_lfc$K$desc[5]`}
 \newpage
-# Recette formation par étudiant
+\section{Recette formation par étudiant}
 
 ```{r classement.fPe, echo = FALSE, warning = FALSE, eval=TRUE}
 table_classement("Universités et assimilés",
@@ -314,8 +325,9 @@ table_classement("Universités et assimilés",
 ```
 
 
+\setautovi{`r kpiesr_lfc$K$labels[6]`}{`r kpiesr_lfc$K$desc[6]`}
 \newpage
-# Recette recherche par EC titulaire
+\section{Recette recherche par EC titulaire}
 
 
 ```{r classement.rPe, echo = FALSE, warning = FALSE, eval=TRUE}
@@ -323,3 +335,6 @@ table_classement("Universités et assimilés",
                   c("kpi.K.recPect","kpi.FIN.S.recettesFormation","kpi.ENS.S.ECtitulaires"),
                   c("Taux","Recettes recherche","Effectifs EC titulaires"))
 ```
+
+
+\stopautovi
