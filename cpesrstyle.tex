@@ -1,7 +1,8 @@
 \usepackage{tikz}
-\usetikzlibrary{calc,positioning}
+\usetikzlibrary{calc,fit,positioning}
 \usepackage[explicit]{titlesec}
 \usepackage{afterpage}
+\usepackage{adjustbox}
 
 \definecolor{royalblue(traditional)}{rgb}{0.0, 0.14, 0.4}
 \definecolor{royalblue(web)}{rgb}{0.25, 0.41, 0.88}
@@ -11,7 +12,7 @@
 \newlength{\verticalinfowidth}\setlength{\verticalinfowidth}{0.20\paperwidth}
 \newlength{\partbandheight}\setlength{\partbandheight}{0.40\paperheight}
 \newlength{\chapbandheight}\setlength{\chapbandheight}{0.15\paperheight}
-\newlength{\secbandheight}\setlength{\secbandheight}{0.05\paperheight}
+\newlength{\secbandheight}\setlength{\secbandheight}{0.06\paperheight}
 \newlength{\numxshift}\setlength{\numxshift}{-3cm}
 \newlength{\titxshift}\setlength{\titxshift}{0.25\paperwidth}
 \def\numscale{8}
@@ -58,19 +59,26 @@
 \titlespacing*\chapter{0cm}{1cm}{0cm}
 
 \newcommand*\sectionlabel{}
+%\newcommand\sbh{2\secbandheight}
 \titleformat{\section}
   {\small\bfseries}
   {\gdef\sectionlabel{\thesection\ }}
   {0pt}
-  {\begin{tikzpicture}[remember picture,overlay]
+  {
+  %\renewcommand\sbh{\ifthenelse{\numchars{#1} > 40}{2\secbandheight}{\secbanheight}}
+  %\pgfmathsetmacro\revscale{1/\titscale}
+  %\pgfmathsetmacro\tscale{\titscale/2}
+  \begin{tikzpicture}[remember picture,overlay]
     \node (bandeauTop) at (current page.north)
-      [draw, anchor=north, 
+      [anchor=north, 
       minimum width=\paperwidth, minimum height=\secbandheight, 
-      color=bandcol, fill=bandcol] {};
+      color=white, fill=bandcol] {};
     \node (num) at ($ (bandeauTop.east) + (\numxshift,0cm) $)
       [anchor=east, color=white, scale=\titscale, inner sep=0] {\sectionlabel};
     \node (tit) at ($ (bandeauTop.west) + (\titxshift,0) $)
-      [anchor=west, scale=\titscale, color=white] {#1};
+      [anchor=west, scale=\titscale, color=white] {
+        \maxsizebox{0.18\paperwidth}{\secbandheight}{#1} 
+      };
    \end{tikzpicture}
   }
 \titlespacing*\section{0cm}{0cm}{0cm}

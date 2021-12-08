@@ -196,8 +196,8 @@ cat_groupe_slide <- function(groupe) {
 uai.unistra <- "0673021V"
 
 etabs <- esr.etab %>% filter(Etablissement %in% c("Université de Strasbourg","Université de Lorraine","Sciences Po Aix"))
-#etabs <- esr.etab %>% filter(UAI %in% esr.uais$dans.tdb) %>% arrange(Groupe,Etablissement)
-etabs <- esr.etab %>% filter(dataset == "CPESR") %>% arrange(Groupe,Etablissement)
+etabs <- esr.etab %>% filter(UAI %in% esr.uais$dans.tdb) %>% arrange(Groupe,Etablissement)
+#etabs <- esr.etab %>% filter(dataset == "CPESR") %>% arrange(Groupe,Etablissement)
 aca <- ""
 groupe <- ""
 
