@@ -9,7 +9,7 @@
 \definecolor{bandcol}{rgb}{0.25, 0.41, 0.88}
 \definecolor{textcol}{rgb}{0.25, 0.41, 0.88}
 
-\newlength{\verticalinfowidth}\setlength{\verticalinfowidth}{0.20\paperwidth}
+
 \newlength{\partbandheight}\setlength{\partbandheight}{0.40\paperheight}
 \newlength{\chapbandheight}\setlength{\chapbandheight}{0.15\paperheight}
 \newlength{\secbandheight}\setlength{\secbandheight}{0.06\paperheight}
@@ -17,7 +17,8 @@
 \newlength{\titxshift}\setlength{\titxshift}{0.25\paperwidth}
 \def\numscale{8}
 \def\titscale{3}
-
+\newlength{\verticalinfowidth}\setlength{\verticalinfowidth}{0.20\paperwidth}
+\newlength{\lineswidth}\setlength{\lineswidth}{0.1cm}
 
 \newcommand*\partlabel{}
 \titleformat{\part}
@@ -49,11 +50,12 @@
     %   minimum width=\paperwidth, minimum height=0pt, %yshift=-\chapbandheight,
     %   color=bandcol, fill=bandcol] {};
     \draw ([yshift=-\chapbandheight]current page.north east) -- ([yshift=-\chapbandheight]current page.north west)
-      [color=bandcol, fill=bandcol, line width=0.2cm] {};
+      [color=bandcol, fill=bandcol, line width=\lineswidth] {};
     \node (num) at ($ (current page.north east) + (\numxshift,-\chapbandheight-0.1cm) $)
       [anchor=south east, color=royalblue(web), scale=\numscale, inner sep=0] {\chapterlabel};
     \node (tit) at ($ (current page.north west) + (\titxshift,-0.5\chapbandheight) $)
-      [anchor=west, scale=\titscale, color=royalblue(web), inner sep=0] {#1};
+      [anchor=west, scale=\titscale, color=royalblue(web), inner sep=0] 
+      {\maxsizebox{0.18\paperwidth}{\secbandheight}{#1}};
    \end{tikzpicture}
   }
 \titlespacing*\chapter{0cm}{1cm}{0cm}

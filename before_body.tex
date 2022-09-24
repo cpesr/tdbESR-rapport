@@ -1,9 +1,9 @@
 
 \newcommand\titre{Tableaux de bord \\ des établissements de \\ l'Enseignement Supérieur \\ et de la Recherche}
 \newcommand\auteur{Pauline Boyer et Julien Gossa}
-\newcommand\rentree{Edition 2019-2020}
-\newcommand\ladate{Novembre 2021}
-\newcommand\reportid{tdbesr-2021-v1.0}
+\newcommand\rentree{Edition 2020-2021}
+\newcommand\ladate{Septembre 2022}
+\newcommand\reportid{tdbesr-2022-v1.0}
 
 \definecolor{royalblue(traditional)}{rgb}{0.0, 0.14, 0.4}
 \definecolor{royalblue(web)}{rgb}{0.25, 0.41, 0.88}
@@ -27,7 +27,7 @@
 \node (nlogo) [inner sep=20pt, anchor=north west] at (logo)
   {\includegraphics[width=8cm]{files/logo_cpesr_sackersgothic}};
 
-\begin{scope}[line width=4pt, color=royalblue(web), fill=royalblue(web), line cap=round, rotate around={\titleBoxR:(title)}]
+\begin{scope}[line width=\lineswidth, color=royalblue(web), fill=royalblue(web), line cap=round, rotate around={\titleBoxR:(title)}]
   \coordinate (btl) at ($(title) + (-\titleBoxW,\titleBoxH)$);
   \coordinate (btr) at ($(title) + (\titleBoxW,\titleBoxH)$);
   \coordinate (bbr) at ($(title) + (\titleBoxW,-\titleBoxH)$);
@@ -82,8 +82,6 @@
 
 
 \newcommand\makeinfo[8]{
-  \mbox{#1} 
-  \newline ~ \newline
   \begin{tabular*}{\textwidth}{rl}
     Type :      & #2  \\ 
     Académie :  & #6 \\
@@ -93,6 +91,8 @@
     TDB/Stat/Norm :  & #8 \\
     Notes :     & #7 \\
   \end{tabular*}
+  \newline ~ \newline
+  \mbox{#1} 
 }
 
 \newcommand\makegrpinfo[4]{

@@ -115,9 +115,9 @@ etab_info <- function(etab) {
     swurl = strvar(etab$url.siteweb,etab$url.siteweb),
     wdurl = strvar(paste0("https://github.com/cpesr/wikidataESR/blob/master/plots/etablissements/",substr(etab$url.wikidata,33,50),".md"), substr(etab$url.wikidata,33,50)),
     lfurl = strvar(etab$url.legifrance, "Legifrance"),
-    dans.tdb = ifelse(etab$UAI %in% esr.uais$dans.tdb,"Oui","Non"),
-    dans.evol = ifelse(etab$UAI %in% esr.uais$dans.evol,"Oui","Non"),
-    hors.norm = ifelse(etab$UAI %in% esr.uais$hors.norm,"Oui","Non")
+    dans.tdb = ifelse(etab$Comparable,"Oui","Non"),
+    dans.evol = ifelse(etab$Comparable,"Oui","Non"),
+    hors.norm = ifelse(etab$Comparable,"Oui","Non")
     )
   
 }
@@ -151,11 +151,18 @@ cat_etab_verticalinfo <- function(etab) {
 cat_etab_slide <- function(etab) {
   
   cat("\\section{",etab$Etablissement,"}\n\n")
-  cat("\\includegraphics[width=\\paperwidth]{plot/",etab$UAI,"-kpi}", sep='')
+  cat("\\includegraphics[width=\\paperwidth]{plot/",etab$pid,"-kpi}", sep='')
   cat_etab_verticalinfo(etab)
 
   cat("\\newpage")
-  cat("\\includegraphics[width=\\paperwidth]{plot/",etab$UAI,"-series}", sep='')
+  cat("\\includegraphics[width=\\paperwidth]{plot/",etab$pid,"-series}", sep='')
+  cat_etab_verticalinfo(etab)
+}  
+
+cat_regroupement_slide <- function(etab) {
+  
+  cat("\\section{",etab$Etablissement,"}\n\n")
+  cat("\\includegraphics[width=\\paperwidth]{plot/",etab$pid,"-unique}", sep='')
   cat_etab_verticalinfo(etab)
 }  
 
@@ -166,14 +173,14 @@ cat_groupe_verticalinfo <- function(groupe) {
           r2tex("makegrpinfo",
             list2texcom(esr.etab %>% filter(Groupe == groupe) %>% pull(Etablissement), 
                         "Liste des établisssement du groupe (y compris disparus)"),
-            list2texcom(esr.etab %>% filter(Groupe == groupe, 
-                                            !UAI %in% esr.uais$dans.tdb) %>% pull(Etablissement),
+            list2texcom(esr.etab %>% filter(Groupe == groupe,
+                                            !Comparable) %>% pull(Etablissement),
                         "Liste des établissements exclus des tableaux de bord (disparus ou données trop partielles"),
-            list2texcom(esr.etab %>% filter(Groupe == groupe, 
-                                            UAI %in% esr.uais$dans.evol) %>% pull(Etablissement),
+            list2texcom(esr.etab %>% filter(Groupe == groupe,
+                                            !Comparable) %>% pull(Etablissement),
                         "Liste des établissements inclus dans les statistiques du groupe (données complètes)"),
                       list2texcom(esr.etab %>% filter(Groupe == groupe, 
-                                                      UAI %in% esr.uais$hors.norm) %>% pull(Etablissement),
+                                                      !Comparable) %>% pull(Etablissement),
                         "Liste des établissements exclus des représentations des distributions (données trop hors normes)")
             )
     )
@@ -193,10 +200,20 @@ cat_groupe_slide <- function(groupe) {
   
 }
 
+cat_groupe_regroupements_slide <- function(groupe) {
+  groupefn <- slugify(groupe)
+  
+  cat("\\chapter{",groupe,"}\n\n")
+  cat("\\includegraphics[width=\\textwidth]{plot/",slugify(groupe),"-unique}", sep='')
+  cat_groupe_verticalinfo(groupe)
+  
+}
+
+
 uai.unistra <- "0673021V"
 
 etabs <- esr.etab %>% filter(Etablissement %in% c("Université de Strasbourg","Université de Lorraine","Sciences Po Aix"))
-etabs <- esr.etab %>% filter(UAI %in% esr.uais$dans.tdb) %>% arrange(Groupe,Etablissement)
+etabs <- esr.etab %>% arrange(Groupe,Etablissement) %>% filter(Plotable)
 #etabs <- esr.etab %>% filter(dataset == "CPESR") %>% arrange(Groupe,Etablissement)
 aca <- ""
 groupe <- ""
@@ -210,10 +227,16 @@ for (i in seq(1,nrow(etabs))) {
   
   if(etab$Groupe != groupe) {
     groupe <- as.character(etab$Groupe)
-    cat_groupe_slide(groupe)
+    if(etab$Groupe != "Regroupements")
+      cat_groupe_slide(groupe)
+    else
+      cat_groupe_regroupements_slide(groupe)
   }
   
-  cat_etab_slide(etab)
+  if(etab$Groupe != "Regroupements")
+    cat_etab_slide(etab)
+  else
+    cat_regroupement_slide(etab)
 }
 
 cat("\n\n")
