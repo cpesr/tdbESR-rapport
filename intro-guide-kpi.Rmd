@@ -1,0 +1,191 @@
+
+```{r setup.manual, include = FALSE}
+source("tdbesr-plots.R")
+
+k_style <- kpiesr_style(
+  point_size = 16,
+  line_size = 1,
+  text_size = 4,
+  yaxis_position = "left")
+
+o_style <- kpiesr_style(
+  point_size = 12,
+  line_size = 0.7,
+  text_size = 3,
+  primaire_margin = 1.25,
+  strip_labeller = lfc_dont_labeller,
+  yaxis_position = "left")
+
+lfc_pc_labeller_custom <- function(labels) {
+  return(
+    stringr::str_replace(lfc_pc_labeller(labels),"\\(","\n (")
+  )
+}
+onorm_style <- kpiesr_style(
+  point_size = 12,
+  line_size = 0.7,
+  text_size = 3,
+  primaire_margin = 1.25,
+  strip_labeller = lfc_pc_labeller_custom,
+  label_wrap = 12
+)
+
+
+theme_set(ggcpesrthemes::theme_cpesr() + 
+            theme(plot.title = element_text(hjust=1),
+                  panel.spacing = unit(2,"lines"), 
+                  plot.margin = margin(0,0,0,0),
+                  axis.title.x = element_blank(),
+                  axis.title.y = element_blank(),
+                  strip.text = element_text(size=rel(0.7), 
+                                            margin=margin(c(2,0,2,0)))))
+
+
+grp <- "Ensemble"
+pid <- "Universités et assimilés"
+pid <- "Ensemble"
+
+
+plots <- kpiesr_plot_all(rentrée, pid, grp, style.k=k_style, style.o=o_style, style.o.norm = onorm_style)
+```
+
+
+Dans ce travail, les indicateurs retenus sont de quatre ordres\ : effectifs étudiants, effectifs BIATSS, effectifs enseignants et données financières.
+
+Ces indicateurs sont déclinés en deux types :
+
+- __Les indicateurs primaires et secondaires__ : au plus proche des jeux de données ouvertes, ils présentent les effectifs étudiants et personnels, ainsi que les finances. 
+  - Premier dans les listes, l'indicateur primaire est le plus global possible.
+  - Seconds dans les listes, les indicateurs secondaires sont plus précis, et peuvent se recouper (i.e. la somme des indicateurs secondaires ne correspond pas à l'indicateur principal).
+
+- __Les indicateurs clés de performance__ : combinaisons des précédents, plus représentatives des missions.
+
+
+### Dictionnaire des données
+
+  - __Rentrée__ : rentrée universitaire
+  - __UAI__ : Unité Administrative Immatriculée
+  - __Libellé__ : libellé de l'établissement
+  - __Sigle__ : nom court ou sigle de l'établissement
+  - __Groupe__ : ensemble d'établissements comparables, à gros grain
+  - __Groupe détaillé__ : ensemble d'établissements
+  - __Académie__ : académie de l'établissement
+  - __Rattachement__ : établissement de rattachement
+  - __Site web__ : adresse du site web de l'établissement
+  - __wikidata__ : adresse wikidata des données de l'établissement
+  - __légifrance__ : adresse du texte de loi créant l'établissement
+
+```{r observations, include = FALSE}
+print_lfc <-function(lfc) {
+  for(i in seq(1,length(lfc$labels)))
+    cat("  - __",lfc$labels[i],"__ : ",lfc$desc[i],"\n",sep = '')
+}
+```
+
+
+#### Effectifs étudiants
+
+```{r dico.etu, echo = FALSE, results='asis'}
+print_lfc(kpiESR::kpiesr_lfc$ETU)
+```
+
+```{=latex}
+\vfill
+```
+
+#### Personnels d'enseignement et de rechercher
+
+```{r dico.ens, echo = FALSE, results='asis'}
+print_lfc(kpiESR::kpiesr_lfc$ENS)
+```
+
+#### Personnels BIATSS
+
+```{r dico.bia, echo = FALSE, results='asis'}
+print_lfc(kpiESR::kpiesr_lfc$BIA)
+```
+
+#### Indicateurs financiers
+
+```{r dico.fin, echo = FALSE, results='asis'}
+print_lfc(kpiESR::kpiesr_lfc$FIN)
+```
+
+#### Indicateurs clés de performance
+
+```{r dico.kpi, echo = FALSE, results='asis'}
+print_lfc(kpiESR::kpiesr_lfc$K)
+```
+
+
+### Représentations et exemples de lecture
+
+Trois représentations sont utilisées dans ce document :
+
+- __Valeurs absolues__\ : permettant de connaitre les valeurs à la dernière année ;
+- __Evolutions normalisées__\ : permettant de percevoir l'évolution dans le temps,
+en valeur 100 pour une année de référence ;
+- __Valeurs normalisées__\ : permettant connaitre un rapport et de le comparer aux
+autres établissements.
+
+Les exemples suivants utilisent l'ensemble des établissements dans le périmètre du 
+MESRI.
+
+
+### Valeurs absolues
+
+Les valeurs absolues sont représentées en colonne, avec en première colonne l'indicateur primaire, et ensuite les indicateurs secondaires. 
+
+
+```{r etu.raw, fig.width = 6, fig.height = 3, out.width="100%", out.height=NULL}
+plots$etu.abs + rm_xytext + rm_ymingrid + rm_xgrid + rm_facetmargins
+```
+
+Exemple de lecture : « Les données recensent 1,8 millions d'étudiants, dont 1,1 million en premier cycle (Licence) ».
+
+```{=latex}
+\vfill
+```
+
+### Evolution normalisées
+
+Les évolutions normalisées sont calculées en valeur 100 pour une rentrée de référence.
+
+- la courbe colorée concerne l'établissement ou le groupe ;
+- deux courbes grises concernent l'ensemble et le groupe ;
+- l'aire grise en fond concerne la moitié des établissements du groupe.
+
+```{r etu.evol, fig.width = 6, fig.height = 3, out.width="100%", out.height=NULL}
+plots$etu.evol+ sats + rm_ytext  + rm_ygrid + shrink_xtext + rl_margin
+```
+
+Exemple de lecture : « Les données recensent une augmentation de 19% de tous les étudiants, et de 24% en premier cycle (Licence) ».
+
+```{=latex}
+\vfill
+```
+
+### Valeurs normalisées
+
+Les valeurs normalisées sont calculées comme le rapport entre les indicateurs secondaires et l'indicateur primaire. L'avantage principal de ces rapport est d'être comparables d'un établissement à l'autre. 
+
+- Le disque central contient la valeur propre à l'établissement ou au groupe ;
+- chaque point correspond à un établissement du groupe ;
+- le violon représente la distribution des établissements du groupe ;
+- une ou deux lignes horizontales représentent les valeurs de l'ensemble et du groupe.
+
+
+```{r etu.norm, fig.width = 6, fig.height = 3, out.width="100%", out.height=NULL}
+plots$etu.norm  + rm_lt  + rm_ymingrid
+```
+
+Exemple de lecture : « Le taux d'encadrement pédagogique global est de 4,2 enseignants pour 100 étudiants, 
+et peut varier de 2 à plus de 10 selon les établissements, et même au delà ».
+
+NB : Pour des raisons de pertinence, des établissements hors-normes sont exclus
+des représentations. Par exemple, certains taux d'encadrement montent à plus de 
+100 dans des établissements de recherche inscrivants très peu d'étudiants.
+
+
+
+

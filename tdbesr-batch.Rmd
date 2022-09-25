@@ -1,6 +1,7 @@
 ---
 title: "Batch de création des graphiques"
 output: github_document
+date: "`r Sys.Date()`"
 ---
 
 ```{r setup, include=FALSE}
@@ -42,50 +43,6 @@ strvar <- function(var) {
 
 ```{r wdesr.load}
 wdesr_load_cache()
-```
-
-## Styles
-
-```{r style, echo=TRUE}
-
-rentrée <- 2020
-
-k_style <- kpiesr_style(
-  point_size = 16,
-  line_size = 1,
-  text_size = 4,
-  yaxis_position = "left")
-
-o_style <- kpiesr_style(
-  point_size = 12,
-  line_size = 0.7,
-  text_size = 3,
-  primaire_margin = 1.25,
-  strip_labeller = lfc_dont_labeller,
-  yaxis_position = "left")
-
-lfc_pc_labeller_custom <- function(labels) {
-  return(
-    stringr::str_replace(lfc_pc_labeller(labels),"\\(","\n (")
-  )
-}
-onorm_style <- kpiesr_style(
-  point_size = 12,
-  line_size = 0.7,
-  text_size = 3,
-  primaire_margin = 1.25,
-  strip_labeller = lfc_pc_labeller_custom,
-  label_wrap = 12
-)
-
-
-theme_set(ggcpesrthemes::theme_cpesr() + 
-            theme(plot.title = element_text(hjust=1),
-                  panel.spacing = unit(2,"lines"), 
-                  plot.margin = margin(0,0,0,0),
-                  strip.text = element_text(size=rel(0.7), 
-                                            margin=margin(c(2,0,2,0)))))
-
 ```
 
 ## Etablissements

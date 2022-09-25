@@ -1,7 +1,7 @@
 ---
 #title: "Tableaux de bord des universités  \nv0.5"
 author: "Julien Gossa  \n gossa@unistra.fr"
-date: "09/01/2020"
+date: "`r Sys.Date()`"
 output: 
   pdf_document: 
     number_sections: yes
@@ -25,6 +25,7 @@ knitr::opts_chunk$set(echo = FALSE, warning = FALSE)
 knitr::opts_chunk$set(fig.width = 6, fig.height = 4, fig.align = "center", out.height="30%")
 
 knitr::opts_chunk$set(pdf.options(encoding = "CP1250"))
+knitr::opts_chunk$set(dev = "cairo_pdf")
 
 library(kableExtra)
 library(tidyverse)
@@ -34,7 +35,7 @@ library(pander)
 library(kpiESR)
 library(wikidataESR)
 
-rentrée <- 2019
+rentrée <- 2020
 rentrée.deb <- 2013
 
 strvar <- function(var) {
@@ -55,7 +56,7 @@ slugify <- function(x, alphanum_replace="", space_replace="_", tolower=TRUE) {
 
 # Avant-propos {-}
 
-```{r child = 'avantpropos.Rmd', echo = FALSE, warning = FALSE}
+```{r child = 'intro-avantpropos.Rmd', echo = FALSE, warning = FALSE}
 ```
 
 ```{=latex}
@@ -72,15 +73,47 @@ knitr::include_graphics("files/589px-Knowledge-Reid-Highsmith.png")
 \begin{multicols}{2}
 \tableofcontents
 \newpage
-\part{Présentation des données}
+%\part{Introduction}
+```
+
+# Guide de lecture des données
+
+```{r child = 'intro-source.Rmd', echo = FALSE, warning = FALSE}
+```
+
+```{=latex}
+\vfill
+
+\vspace*{2.1cm}
 ```
 
 
-<!-- ```{r child = 'guide.Rmd', echo = FALSE, warning = FALSE} -->
-<!-- ``` -->
+```{r child = 'intro-maindata.Rmd', echo = FALSE, warning = FALSE}
+```
 
 
 ```{=latex}
+\newpage
+```
+
+
+## Description des organisations
+
+```{r child = 'intro-guide-wd.Rmd', echo = FALSE, warning = FALSE}
+```
+
+```{=latex}
+\newpage
+```
+
+## Indicateurs de performance
+
+```{r child = 'intro-guide-kpi.Rmd', echo = FALSE, warning = FALSE}
+```
+
+
+```{=latex}
+\newpage
 \end{multicols}
 %\begin{changemargin}{-1cm}{-1cm}
 ```
@@ -213,7 +246,7 @@ cat_groupe_regroupements_slide <- function(groupe) {
 uai.unistra <- "0673021V"
 
 etabs <- esr.etab %>% filter(Etablissement %in% c("Université de Strasbourg","Université de Lorraine","Sciences Po Aix"))
-etabs <- esr.etab %>% arrange(Groupe,Etablissement) %>% filter(Plotable)
+#etabs <- esr.etab %>% arrange(Groupe,Etablissement) %>% filter(Plotable)
 #etabs <- esr.etab %>% filter(dataset == "CPESR") %>% arrange(Groupe,Etablissement)
 aca <- ""
 groupe <- ""
