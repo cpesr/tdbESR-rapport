@@ -156,7 +156,7 @@ Les évolutions normalisées sont calculées en valeur 100 pour une rentrée de 
 - l'aire grise en fond concerne la moitié des établissements du groupe.
 
 ```{r etu.evol, fig.width = 6, fig.height = 3, out.width="100%", out.height=NULL}
-plots$etu.evol+ sats + rm_ytext  + rm_ygrid + shrink_xtext + rl_margin
+plots$etu.evol+ sats + rm_ytext  + shrink_xtext + rl_margin
 ```
 
 Exemple de lecture : « Les données recensent une augmentation de 19% de tous les étudiants, et de 24% en premier cycle (Licence) ».
