@@ -31,8 +31,6 @@ slugify <- function(x, alphanum_replace="", space_replace="_", tolower=TRUE) {
   return(x)
 }
 
-missingdataplot <- ggplot(data=NULL,aes(x=1,y=1,label="Données manquantes")) + geom_text() + theme_void()
-
 strvar <- function(var) {
   s <- as.character(var)
   ifelse(str_length(s)>0,s,"N/A")

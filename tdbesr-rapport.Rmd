@@ -246,7 +246,7 @@ cat_groupe_regroupements_slide <- function(groupe) {
 uai.unistra <- "0673021V"
 
 etabs <- esr.etab %>% filter(Etablissement %in% c("Université de Strasbourg","Université de Lorraine","Sciences Po Aix"))
-etabs <- esr.etab %>% arrange(Groupe,Etablissement) %>% filter(Plotable)
+etabs <- esr.etab %>% arrange(Groupe,Académie,Etablissement) %>% filter(Plotable)
 aca <- ""
 groupe <- ""
 
@@ -351,7 +351,7 @@ table_classement("Universités et assimilés",
 
 
 \newpage
-## Taux de titularité
+## Taux de SCSP (dotations publiques)
 
 ```{r classement.dotPres, echo = FALSE, warning = FALSE, eval=TRUE}
 table_classement("Universités et assimilés",
@@ -403,7 +403,7 @@ table_classement("Universités et assimilés",
 ```
 
 \newpage
-## Recette recherche par EC titulaire
+## Recette recherche par EC
 
 
 ```{r classement.rPe, echo = FALSE, warning = FALSE, eval=TRUE}

@@ -1,4 +1,7 @@
 
+missingdataplot <- ggplot(data=NULL,aes(x=1,y=1,label="Données manquantes")) + geom_text() + theme_void()
+
+
 wdesr_dynsize <- function(df.g, ...) {
   
   nv <- nrow(df.g$vertices)
