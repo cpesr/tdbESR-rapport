@@ -388,28 +388,28 @@ table_classement("Universités et assimilés",
 ```{r classement.RpE, echo = FALSE, warning = FALSE, eval=TRUE}
 table_classement("Universités et assimilés",
                   c("kpi.K.resPetu", "kpi.FIN.P.ressources","kpi.ETU.S.cycle1_L","kpi.ETU.S.cycle2_M"),
-                  c("Taux","Ressources","Etudiants\nCycle 1 (L)","Etudiants\nCycle 2 (M)"))
+                  c("Ressources\npar étudiant","Ressources","Etudiants\nCycle 1 (L)","Etudiants\nCycle 2 (M)"))
 ```
 
 
 
 \newpage
-## Recette formation par étudiant
+## Recettes formation par étudiant
 
 ```{r classement.fPe, echo = FALSE, warning = FALSE, eval=TRUE}
 table_classement("Universités et assimilés",
                   c("kpi.K.forPetu","kpi.FIN.S.recettesFormation","kpi.ETU.P.effectif"),
-                  c("Taux","Recettes\nformation","Effectifs\nétudiants"))
+                  c("Recettes formation\npar étudiant","Recettes\nformation","Effectifs\nétudiants"))
 ```
 
 \newpage
-## Recette recherche par EC
+## Recettes recherche par EC
 
 
 ```{r classement.rPe, echo = FALSE, warning = FALSE, eval=TRUE}
 table_classement("Universités et assimilés",
                   c("kpi.K.recPect","kpi.FIN.S.recettesRecherche","kpi.ENS.S.EC"),
-                  c("Taux","Recettes\nrecherche","Effectifs\nE-C"))
+                  c("Recettes recherche\npar EC","Recettes\nrecherche","Effectifs\nE-C"))
 ```
 
 

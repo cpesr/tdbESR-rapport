@@ -2,6 +2,8 @@
 title: "Batch de création des graphiques"
 output: github_document
 date: "`r Sys.Date()`"
+editor_options:
+  chunk_output_type: console
 ---
 
 ```{r setup, include=FALSE}
@@ -46,12 +48,13 @@ wdesr_load_cache()
 ## Etablissements
 
 ```{r etab.list, results='asis'}
-etabs <- esr.etab %>% filter(Etablissement %in% c("Université de Strasbourg","Université de Lorraine","Université de Haute-Alsace"))
-etabs <- esr.etab %>% filter(Etablissement %in% c("Université de Strasbourg"))
-etabs <- esr.etab %>% filter(Etablissement == "Université Paris sciences et lettres")
+#etabs <- esr.etab %>% filter(Etablissement %in% c("Université de Strasbourg","Université de Lorraine","Université de Haute-Alsace"))
+#etabs <- esr.etab %>% filter(Etablissement %in% c("Université de Strasbourg"))
+#etabs <- esr.etab %>% filter(Etablissement == "Université Paris sciences et lettres")
 #etabs <- esr.etab %>% filter(UAI %in% esr.uais$dans.tdb)
-etabs <- esr.etab %>% filter(dataset == "CPESR")
+#etabs <- esr.etab %>% filter(dataset == "CPESR")
 etabs <- esr.etab %>% filter(Plotable, Groupe != "Regroupements")
+#etabs <- esr.etab %>% filter(pid == "Z2FY5")
 
 etabs %>% spoiler_table("Liste des établissements")
 ```
@@ -133,6 +136,7 @@ for (grp in groupes) {
 
 ```
 
+
 ## Regroupements
 
 ```{r regrp.liste, results='asis'}
@@ -192,4 +196,5 @@ ggsave(
 ```{r save}
 wdesr_save_cache()
 ```
+
 

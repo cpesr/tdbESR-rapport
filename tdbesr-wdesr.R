@@ -61,7 +61,8 @@ wdesr_plots <- function(wdid) {
         theme(legend.position = "bottom", 
               legend.direction = "vertical", 
               legend.box = "horizontal",
-              legend.text = element_text(size=rel(0.7)))
+              legend.text = element_text(size=rel(0.7)),
+              legend.title = element_blank())
     )
   })
   
