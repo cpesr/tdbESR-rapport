@@ -1,25 +1,23 @@
 ---
 #title: "Tableaux de bord des universités  \nv0.5"
 author: "Julien Gossa  \n gossa@unistra.fr"
-date: "09/01/2020"
-
+date: "`r Sys.Date()`"
 output: 
-  pdf_document:
-    # toc: true
-    # toc_depth: 3
-    number_sections: true
+  pdf_document: 
+    number_sections: yes
     includes:
       in_header: header.tex
       before_body: before_body.tex
-    keep_tex:  true
-urlcolor: blue
-linkcolor: blue
+    keep_tex: yes
+    keep_md: yes
+    latex_engine: xelatex
+#urlcolor: blue
+#linkcolor: blue
 fontsize: 11pt
 lang: "fr-FR"
 geometry: margin=1.5cm
-#documentclass: book
-classoption: landscape
-
+documentclass: report
+classoption: landscape, legalpaper
 ---
 
 ```{r setup, include=FALSE, warning = FALSE}
@@ -27,6 +25,7 @@ knitr::opts_chunk$set(echo = FALSE, warning = FALSE)
 knitr::opts_chunk$set(fig.width = 6, fig.height = 4, fig.align = "center", out.height="30%")
 
 knitr::opts_chunk$set(pdf.options(encoding = "CP1250"))
+knitr::opts_chunk$set(dev = "cairo_pdf")
 
 library(kableExtra)
 library(tidyverse)
@@ -36,26 +35,35 @@ library(pander)
 library(kpiESR)
 library(wikidataESR)
 
-rentrée <- 2017
-type <- "Université"
+rentrée <- 2020
+rentrée.deb <- 2013
 
 strvar <- function(var) {
   s <- as.character(var)
   ifelse(str_length(s)>0,s,"N/A")
 }
+
+slugify <- function(x, alphanum_replace="", space_replace="_", tolower=TRUE) {
+  x <- gsub("[^[:alnum:] ]", alphanum_replace, x)
+  x <- gsub(" ", space_replace, x)
+  if(tolower) { x <- tolower(x) }
+  
+  return(x)
+}
 ```
+
 
 
 # Avant-propos {-}
 
-```{r child = 'avantpropos.Rmd', echo = FALSE, warning = FALSE}
+```{r child = 'intro-avantpropos.Rmd', echo = FALSE, warning = FALSE}
 ```
 
 ```{=latex}
 \vspace*{\fill}
 ```
 
-```{r, out.width = "200px"}
+```{r, out.width = "200pt"}
 knitr::include_graphics("files/589px-Knowledge-Reid-Highsmith.png")
 ```
 
@@ -65,107 +73,205 @@ knitr::include_graphics("files/589px-Knowledge-Reid-Highsmith.png")
 \begin{multicols}{2}
 \tableofcontents
 \newpage
-\part{Présentation des données}
+%\part{Introduction}
 ```
 
-```{r child = 'guide.Rmd', echo = FALSE, warning = FALSE}
+# Guide de lecture des données
+
+```{r child = 'intro-source.Rmd', echo = FALSE, warning = FALSE}
+```
+
+```{=latex}
+\vfill
+
+\vspace*{2.1cm}
+```
+
+
+```{r child = 'intro-maindata.Rmd', echo = FALSE, warning = FALSE}
 ```
 
 
 ```{=latex}
+\newpage
+```
+
+
+## Description des organisations
+
+```{r child = 'intro-guide-wd.Rmd', echo = FALSE, warning = FALSE}
+```
+
+```{=latex}
+\newpage
+```
+
+## Indicateurs de performance
+
+```{r child = 'intro-guide-kpi.Rmd', echo = FALSE, warning = FALSE}
+```
+
+
+```{=latex}
+\newpage
 \end{multicols}
 %\begin{changemargin}{-1cm}{-1cm}
 ```
 
 ```{=latex}
 \newpage
-\scriptsize
+\part{Etablissements}
+\newgeometry{left=8cm,right=1.5cm,top=1.5cm,bottom=1.5cm}
 ```
 
 
 ```{r etab.loop, results="asis", message=FALSE, error=FALSE, echo = FALSE, warning = FALSE}
-
 strvar <- function(var, linkname=NA) {
   s <- as.character(var)
-  if(str_length(s)==0) {
+  s <- stringr::str_replace_all(s,'_','\\\\_')
+  linkname <- stringr::str_replace_all(linkname,'_','\\\\_')
+  
+  if(is.na(s) | str_length(s)==0) {
     s <- "N/A"
   } else if (!is.na(linkname)) {
-    s <- paste0("\\href{",s,"}{",linkname,"}")
+    s <- paste0("\\mbox{\\href{",s,"}{",linkname,"}}")
   }
   return(s)
 }
 
-etab_header <- function(etab) {
-  swurl <<- strvar(etab$url.siteweb,etab$url.siteweb)
-  wdurl <<- strvar(etab$url.wikidata, substr(etab$url.wikidata,33,50))
-  lfurl <<- strvar(etab$url.legifrance, "Legifrance")
+etab_info <- function(etab) {
+  list(
+    type = strvar(etab$Type),
+    ratt = strvar(etab$Rattachement),
+    uai  = strvar(etab$UAI),
+    groupe = strvar(etab$Groupe),
+    swurl = strvar(etab$url.siteweb,etab$url.siteweb),
+    wdurl = strvar(paste0("https://github.com/cpesr/wikidataESR/blob/master/plots/etablissements/",substr(etab$url.wikidata,33,50),".md"), substr(etab$url.wikidata,33,50)),
+    lfurl = strvar(etab$url.legifrance, "Legifrance"),
+    dans.tdb = ifelse(etab$Comparable,"Oui","Non"),
+    dans.evol = ifelse(etab$Comparable,"Oui","Non"),
+    hors.norm = ifelse(etab$Comparable,"Oui","Non")
+    )
   
-  cat(
-    "\\begin{tabular*}{0.45\\textwidth}{rp{2cm}rl}  \n",
-    "\\hline  \n",
-    "Type : & ", strvar(etab$Type.détaillé)," & Web : &",swurl," \\\\  \n",
-    "Rattachement : & ", strvar(etab$Rattachement)," & Wikidata : & ",wdurl," \\\\  \n",
-    "UAI : & ", strvar(etab$UAI)," & Décret : & ",lfurl," \\\\  \n",
-    "\\hline  \n",
-    "\\end{tabular*}  \n",
-    sep="")
+}
+
+r2tex <- function(command, ...) {
+  paste0("\\",command,
+         paste0('{',list(...),'}', collapse=""))
+}
+
+list2texcom <- function(x,titre="") {
+  paste0(length(x)," \\pdfcomment[icon=Note, color=royalblue(web)]{",
+         titre," \\textCR\\textCR ",
+         paste(x, collapse=" \\textCR "),
+         "}")
+}
+
+note2texcom <- function(etab) {
+  paste0("\\pdfcomment[icon=Note, color=royalblue(web)]{",stringr::str_replace_all(etab$Notes,";","\\textCR"),"}")
+}
+
+cat_etab_verticalinfo <- function(etab) {
+  info <- etab_info(etab)
+  cat(r2tex("verticalinfo",
+          etab$Sigle, info$groupe,
+          r2tex("makeinfo",info$swurl,info$type,info$lfurl,info$uai,info$wdurl,etab$Académie,
+                note2texcom(etab),
+                paste(info$dans.tdb,info$dans.evol,info$hors.norm)))
+  )
+}
+
+cat_etab_slide <- function(etab) {
   
-  cat("\\textit{\\scriptsize Pour améliorer ces graphiques, veuillez éditer", wdurl," selon \\href{https://github.com/cpesr/wikidataESR/blob/master/Rmd/wikidataESR.md}{ce guide}} .")
+  cat("\\section{",etab$Etablissement,"}\n\n")
+  cat("\\includegraphics[width=\\paperwidth]{plot/",etab$pid,"-kpi}", sep='')
+  cat_etab_verticalinfo(etab)
+
+  cat("\\newpage")
+  cat("\\includegraphics[width=\\paperwidth]{plot/",etab$pid,"-series}", sep='')
+  cat_etab_verticalinfo(etab)
+}  
+
+cat_regroupement_slide <- function(etab) {
+  
+  cat("\\section{",etab$Etablissement,"}\n\n")
+  cat("\\includegraphics[width=\\paperwidth]{plot/",etab$pid,"-unique}", sep='')
+  cat_etab_verticalinfo(etab)
+}  
+
+cat_groupe_verticalinfo <- function(groupe) {
+
+  cat(r2tex("verticalinfo",
+          "Données agrégées", groupe,
+          r2tex("makegrpinfo",
+            list2texcom(esr.etab %>% filter(Groupe == groupe) %>% pull(Etablissement), 
+                        "Liste des établisssement du groupe (y compris disparus)"),
+            list2texcom(esr.etab %>% filter(Groupe == groupe,
+                                            !Comparable) %>% pull(Etablissement),
+                        "Liste des établissements exclus des tableaux de bord (disparus ou données trop partielles"),
+            list2texcom(esr.etab %>% filter(Groupe == groupe,
+                                            !Comparable) %>% pull(Etablissement),
+                        "Liste des établissements inclus dans les statistiques du groupe (données complètes)"),
+                      list2texcom(esr.etab %>% filter(Groupe == groupe, 
+                                                      !Comparable) %>% pull(Etablissement),
+                        "Liste des établissements exclus des représentations des distributions (données trop hors normes)")
+            )
+    )
+    )
+}
+
+cat_groupe_slide <- function(groupe) {
+  groupefn <- slugify(groupe)
+  
+  cat("\\chapter{",groupe,"}\n\n")
+  cat("\\includegraphics[width=\\textwidth]{plot/",slugify(groupe),"-kpi}", sep='')
+  cat_groupe_verticalinfo(groupe)
+
+  cat("\\newpage")
+  cat("\\includegraphics[width=\\textwidth]{plot/",slugify(groupe),"-series}", sep='')
+  cat_groupe_verticalinfo(groupe)
+  
+}
+
+cat_groupe_regroupements_slide <- function(groupe) {
+  groupefn <- slugify(groupe)
+  
+  cat("\\chapter{",groupe,"}\n\n")
+  cat("\\includegraphics[width=\\textwidth]{plot/",slugify(groupe),"-unique}", sep='')
+  cat_groupe_verticalinfo(groupe)
+  
 }
 
 
 uai.unistra <- "0673021V"
-uai.uha <- "0681166Y"
-uai.ubm <- "0331766R"
-uai.nimes <- "0301687W"
-uai.lorraine <- "0542493S"
-uai.guyanne <- "9730429D"
-uai.bordeaux <- "0333298F"
 
-uai.ehess <- "0753742K"
-uai.dauphine <- "0750736T"
-
-
-#etabs <- subset(esr,Type %in% c("Université", "Grand établissement"), c(UAI,Libellé:url.legifrance) ) %>% unique %>% arrange(desc(Type),Académie)
-etabs <- subset(esr,Rentrée==2018 & Type != "Autre établissement", c(UAI,Libellé:url.legifrance) ) %>% unique %>% arrange(Type,Académie)
-
-#etabs <- filter(etabs, UAI %in% c(uai.unistra,uai.uha)
-
+etabs <- esr.etab %>% filter(Etablissement %in% c("Université de Strasbourg","Université de Lorraine","Sciences Po Aix"))
+etabs <- esr.etab %>% arrange(Groupe,Académie,Etablissement) %>% filter(Plotable)
 aca <- ""
-type <- ""
+groupe <- ""
+
+cat_groupe_slide("Ensemble")
+
 for (i in seq(1,nrow(etabs))) {
   etab <- etabs[i,]
-  message("\nProcessing ",i,"/",nrow(etabs)," : ",strvar(etab$Libellé))
-
-  cat("\\newpage   \n")  
-
-  if(etab$Type != type) {
-    cat("\\vspace*{5cm}   \n")
-    cat("\\part{Type d'établissement : ", strvar(etab$Type),"}   \n")
-    #pandoc.p(paste0("# Type d'établissement : ", strvar(etab$Type)))
-    type <- etab$Type
-    cat("\\newpage  \n")
+  
+  message("\nProcessing ",i,"/",nrow(etabs)," : ",strvar(etab$Etablissement))
+  
+  if(etab$Groupe != groupe) {
+    groupe <- as.character(etab$Groupe)
+    if(etab$Groupe != "Regroupements")
+      cat_groupe_slide(groupe)
+    else
+      cat_groupe_regroupements_slide(groupe)
   }
   
-  if(etab$Académie != aca) {
-    pandoc.p(paste0("# Académie : ", strvar(etab$Académie)))
-    aca <- etab$Académie
-  }
-
-  pandoc.p(paste0("## ", strvar(etab$Libellé)," (",strvar(etab$Sigle),")"))
-  
-  etab_header(etab)
-  pandoc.p("")
-   
-  cat("\\maketdb",
-      "{plot/",etab$UAI,"-filiation}",
-      "{plot/",etab$UAI,"-association}",
-      "{plot/",etab$UAI,"-composition}",
-      "{plot/",etab$UAI,"-kpi}", 
-      sep='')
-  
-  pandoc.p("")
+  if(etab$Groupe != "Regroupements")
+    cat_etab_slide(etab)
+  else
+    cat_regroupement_slide(etab)
 }
+
+cat("\n\n")
 ```
 
 
@@ -174,25 +280,34 @@ for (i in seq(1,nrow(etabs))) {
 \checkoddpage \ifoddpage ~\\\newpage  \fi
 
 \vspace*{5cm}
-\part{Classements des universités}
+\part{Classements}
 \newpage
-
-\scriptsize
+\newgeometry{left=1.5cm,right=1.5cm,top=1.5cm,bottom=1.5cm}
+\normalsize
 \def\arraystretch{1.2}
 ```
 
 
+```{r classement.functions, echo = FALSE, warning = FALSE, eval=TRUE}
+#knitr::knit_exit()
 
-# Taux de ressources propres
-```{r classement.functions, echo = FALSE, warning = FALSE}
-rentrée_hist <- 2012
-hist <- seq(rentrée_hist, rentrée)
+table_classement <- function(groupe,kpis,labels, rentrée.ref=rentrée.deb) {
+  kpiend <- length(kpis)+2
+  kpiesr_classement(rentrée, rentrée.ref, groupe, kpis) %>%
+    kable("latex", longtable = T, booktabs = T, align = c("r","l",rep("r",length(kpis)),"r","r"),
+          col.names=NULL) %>%
+    add_header_above(c("Rang","Etablissement",labels, paste("Rang\n",rentrée.ref), "+/-" ),
+                     align = c("r","l",rep("r",length(kpis)),"r","r")) %>%
+    kable_styling(latex_options = c("striped", "repeat_header"), repeat_header_text = "\\textit{(suite)}") %>% 
+    column_spec(c(1,3), monospace = TRUE) %>%
+    column_spec(4, monospace = TRUE, width="5cm", italic = TRUE) %>%
+    column_spec(c(5:kpiend), monospace = TRUE, italic = TRUE) %>%
+    column_spec(kpiend+1, monospace = TRUE, width = "4cm") %>%
+    column_spec(kpiend+2, monospace = TRUE) 
+    # add_header_above(c("Rang et écart à la moyenne" = 3, "Détails" = length(kpis), "Historique"=length(hist)))
+}
 
-table_classement <- function(rentrée,type,kpis,labels)
-  kpiesr_classement(rentrée, type, kpis, labels, hist) %>%
-    kable("latex", longtable = T, booktabs = T, align = c("r","r","l",rep("r",4))) %>%
-    kable_styling(latex_options = c("striped", "repeat_header")) %>%
-    add_header_above(c("Rang et écart à la moyenne" = 3, "Détails" = length(kpis), "Historique"=length(hist)))
+ 
 
 table_classement_slice <- function(rentrée,type,kpis,labels,rows)
   kpiesr_classement(rentrée, type, kpis, labels) %>%
@@ -211,44 +326,91 @@ table_classement_sbs <- function(rentrée,type,kpis,labels,row) {
   cat("\\end{minipage}")
 }
 
-table_classement(rentrée, "Université",
-                  c("kpi.K.proPres", 
-                    "kpi.FIN.P.ressources", 
-                    "kpi.FIN.S.ressourcesPropres"),
-                  c("Taux","Ressources","Res. Propres")) 
+```
+
+
+<!-- \setautovi{`r kpiesr_lfc$K$labels[3]`}{`r kpiesr_lfc$K$desc[3]`} -->
+
+# Universités et assimilés
+
+```{r classement.univ, echo = FALSE, out.height="85%"}
+  knitr::include_graphics("plot/universités_et_assimilés-kpi.pdf")
+```
+
+\newpage
+
+## Taux de titularité
+
+
+```{r classement.TpE, echo = FALSE, warning = FALSE, eval=TRUE}
+table_classement("Universités et assimilés",
+                  c("kpi.K.titPper", "kpi.ENS.P.effectif", "kpi.ENS.S.titulaires", "kpi.BIA.P.effectif", "kpi.BIA.S.titulaires"),
+                  c("Taux de\ntitularité","E-EC\ntotal","E-EC\ntitulaires", "BIATSS\ntotal", "BIATSS\ntitulaires"),
+                 rentrée.ref = 2015)
 ```
 
 
 \newpage
-# Taux de ressources par étudiant (inscrit en cycles 1 (L) et 2 (M))
-```{r classement.RpE, echo = FALSE, warning = FALSE}
-table_classement(rentrée, "Université",
-                  c("kpi.K.resPetu", "kpi.FIN.P.ressources","kpi.ETU.S.cycle.1.L","kpi.ETU.S.cycle.2.M"),
-                  c("Taux","Ressources","Effectif L","Effectif M"))
+## Taux de SCSP (dotations publiques)
+
+```{r classement.dotPres, echo = FALSE, warning = FALSE, eval=TRUE}
+table_classement("Universités et assimilés",
+                 c("kpi.K.dotPres", "kpi.FIN.P.ressources","kpi.FIN.S.SCSP"),
+                 c("Taux de SCSP","Ressources totales","SCSP")) 
 ```
 
-<!-- ## Taux de formations sélectives -->
-
-<!-- ```{r classement.FS} -->
-<!-- table_classement(rentrée, "Université", -->
-<!--                   c("kpi.K.selPfor", "kpi.ADM.P.formations","kpi.ADM.S.sélective"), -->
-<!--                   c("Taux","Formations","Formations sélectives")) -->
-<!-- ``` -->
 
 
-# Taux d'encadrement
-```{r classement.EpE, echo = FALSE, warning = FALSE}
-table_classement(rentrée, "Université",
-                  c("kpi.K.titPetu", "kpi.ENS.S.titulaires","kpi.ETU.P.effectif"),
-                  c("Taux","Ens. titulaires","Etudiants"))
+\newpage
+## Taux d'encadrement pédagogique
+
+```{r classement.EpE, echo = FALSE, warning = FALSE, eval=TRUE}
+table_classement("Universités et assimilés",
+                  c("kpi.K.ensPetu", "kpi.ENS.S.titulaires", "kpi.ENS.S.contractuels", "kpi.ETU.S.cycle1_L","kpi.ETU.S.cycle2_M"),
+                  c("Taux d'encadrement\npédagogique","Enseignants\ntitulaires","Enseignants\ncontractuels","Etudiants\nCycle 1 (L)","Etudiants\nCycle 2 (M)"))
 ```
 
 
 \newpage
-# Taux de titularité
-```{r classement.TpE, echo = FALSE, warning = FALSE}
-table_classement(rentrée, "Université",
-                  c("kpi.K.titPens", "kpi.ENS.P.effectif", "kpi.ENS.S.titulaires"),
-                  c("Taux","Enseignants","Titulaires"))
+## Taux d'encadrement administratif
+
+```{r classement.BpP, echo = FALSE, warning = FALSE, eval=TRUE}
+table_classement("Universités et assimilés",
+                  c("kpi.K.biaPper", "kpi.BIA.P.effectif", "kpi.ENS.P.effectif"),
+                  c("Taux d'encadrement\nadministratif","BIATSS","Enseignants"),
+                  rentrée.ref = 2015)
 ```
 
+
+\newpage
+## Ressources par étudiant
+
+```{r classement.RpE, echo = FALSE, warning = FALSE, eval=TRUE}
+table_classement("Universités et assimilés",
+                  c("kpi.K.resPetu", "kpi.FIN.P.ressources","kpi.ETU.S.cycle1_L","kpi.ETU.S.cycle2_M"),
+                  c("Ressources\npar étudiant","Ressources","Etudiants\nCycle 1 (L)","Etudiants\nCycle 2 (M)"))
+```
+
+
+
+\newpage
+## Recettes formation par étudiant
+
+```{r classement.fPe, echo = FALSE, warning = FALSE, eval=TRUE}
+table_classement("Universités et assimilés",
+                  c("kpi.K.forPetu","kpi.FIN.S.recettesFormation","kpi.ETU.P.effectif"),
+                  c("Recettes formation\npar étudiant","Recettes\nformation","Effectifs\nétudiants"))
+```
+
+\newpage
+## Recettes recherche par EC
+
+
+```{r classement.rPe, echo = FALSE, warning = FALSE, eval=TRUE}
+table_classement("Universités et assimilés",
+                  c("kpi.K.recPect","kpi.FIN.S.recettesRecherche","kpi.ENS.S.EC"),
+                  c("Recettes recherche\npar EC","Recettes\nrecherche","Effectifs\nE-C"))
+```
+
+
+\stopautovi

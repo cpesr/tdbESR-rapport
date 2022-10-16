@@ -1,0 +1,26 @@
+
+
+Il existe trois sources principales d'informations sur les établissements de l'ESR français :
+
+- [data.gouv.fr](https://www.data.gouv.fr/fr/) : le portail des données publiques du gouvernement français ;
+- [#DataESR](https://data.enseignementsup-recherche.gouv.fr/pages/home/) : le portail des données publiques du ministère de l'enseignement supérieur, de la recherche et de l'innovation ;
+- [WikiData](https://www.wikidata.org/wiki/Wikidata:Main_Page) : une base de connaissances libre et gratuite, dans la famille Wikimédia, qui compte notamment Wikipédia.
+
+Les deux premières sources sont maintenues par des organes officiels, et proposent essentiellement des jeux de données brutes, très complets et généralement fiables. Cependant, ils sont structurellement rigides (il s'agit seulement de tableaux), et ne visent pas à capturer les _soft data_, comme l'histoire des organisations ou leurs compositions. Ce document utilisent les jeux de données suivants^[Méthodologie et sources des traitements sont disponible à cette adresse : https://github.com/cpesr/kpiESR] : 
+
+- [fr-esr-statistiques-sur-les-effectifs-d-etudiants-inscrits-par-etablissement](https://data.enseignementsup-recherche.gouv.fr/explore/dataset/fr-esr-statistiques-sur-les-effectifs-d-etudiants-inscrits-par-etablissement)
+- [fr-esr-personnels-biatss-etablissements-publics](https://data.enseignementsup-recherche.gouv.fr/explore/dataset/fr-esr-personnels-biatss-etablissements-publics)
+- [fr-esr-enseignants-titulaires-esr-public](https://data.enseignementsup-recherche.gouv.fr/explore/dataset/fr-esr-enseignants-titulaires-esr-public/)
+- [fr-esr-enseignants-nonpermanents-esr-public](https://data.enseignementsup-recherche.gouv.fr/explore/dataset/fr-esr-enseignants-nonpermanents-esr-public/information/)
+- [fr-esr-operateurs-indicateurs-financiers](https://data.enseignementsup-recherche.gouv.fr/explore/dataset/fr-esr-operateurs-indicateurs-financiers/information/)
+- [fr-esr-principaux-etablissements-enseignement-superieur](https://data.enseignementsup-recherche.gouv.fr/explore/dataset/fr-esr-principaux-etablissements-enseignement-superieur/information/?disjunctive.type_d_etablissement)
+
+
+Wikidata s'appuie sur l'édition collaborative, plus adaptée à ce type d'information, en permettant de structurer les données de façon très souple, grâce à un très large choix de relations entre entités. En revanche, les données sont peu fiables, souvent incomplètes, et non-harmonisées.
+
+Ce travail s'appuie sur ces deux bases de données : Wikidata pour décrire les organisations, et les données gouvernementales pour les indicateurs de performance.
+
+
+___ATTENTION : Les informations présentées dans ce document sont issues de traitements entièrement automatisés. Leur validité dépend de la validité de ces traitements, comme de la validité des données sources.___
+
+__Observations et suggestions sont bienvenues dans cette [interface](https://github.com/cpesr/tdbESR-rapport/issues).__ 

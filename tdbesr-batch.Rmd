@@ -1,0 +1,200 @@
+---
+title: "Batch de création des graphiques"
+output: github_document
+date: "`r Sys.Date()`"
+editor_options:
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+
+library(kpiESR)
+library(wikidataESR)
+library(tidyverse)
+library(ggcpesrthemes)
+library(cowplot)
+extrafont::loadfonts(quiet=TRUE)
+
+source("tdbesr-plots.R")
+source("tdbesr-wdesr.R")
+
+path <- "plot"
+dir.create(path)
+logpath <- "log"
+dir.create(logpath)
+
+
+slugify <- function(x, alphanum_replace="", space_replace="_", tolower=TRUE) {
+  x <- gsub("[^[:alnum:] ]", alphanum_replace, x)
+  x <- gsub(" ", space_replace, x)
+  if(tolower) { x <- tolower(x) }
+  
+  return(x)
+}
+
+strvar <- function(var) {
+  s <- as.character(var)
+  ifelse(str_length(s)>0,s,"N/A")
+}
+```
+
+## Lecture du cache wdest
+
+```{r wdesr.load}
+wdesr_load_cache()
+```
+
+## Etablissements
+
+```{r etab.list, results='asis'}
+#etabs <- esr.etab %>% filter(Etablissement %in% c("Université de Strasbourg","Université de Lorraine","Université de Haute-Alsace"))
+#etabs <- esr.etab %>% filter(Etablissement %in% c("Université de Strasbourg"))
+#etabs <- esr.etab %>% filter(Etablissement == "Université Paris sciences et lettres")
+#etabs <- esr.etab %>% filter(UAI %in% esr.uais$dans.tdb)
+#etabs <- esr.etab %>% filter(dataset == "CPESR")
+etabs <- esr.etab %>% filter(Plotable, Groupe != "Regroupements")
+#etabs <- esr.etab %>% filter(pid == "Z2FY5")
+
+etabs %>% spoiler_table("Liste des établissements")
+```
+
+
+```{e etab.batch, warning=FALSE}
+start <- 1
+
+for (i in seq(start,nrow(etabs))) {
+  etab <- etabs[i,]
+  message("\nProcessing ",i,"/",nrow(etabs)," : ",strvar(etab$Etablissement), " ", etab$pid, " ", etab$UAI)
+  wdid <- substr(etab$url.wikidata,33,50)
+  plots <- list()
+  
+  message("kpi")
+  try(
+    plots <- kpiesr_plot_all(rentrée, etab$pid, etab$Groupe, style.k=k_style, style.o=o_style, style.o.norm = onorm_style)
+  )
+  
+  message("wikidata")
+  plots <- c(plots, wdesr_plots(wdid))
+    
+  message("combine")
+  plot.kpi <- combine_plots_kpi(plots)
+  ggsave(
+    paste0(path,"/",etab$pid,"-kpi.pdf"),
+    plot = plot.kpi,
+    width= 12, height=9,
+    device = cairo_pdf)
+  
+  plot.series <- combine_plots_series(plots)
+  ggsave(
+    paste0(path,"/",etab$pid,"-series.pdf"),
+    plot = plot.series,
+    width= 12, height=9,
+    device = cairo_pdf)
+  
+}
+```
+
+## Groupes
+
+```{r grp.list, results='asis'}
+groupes <- c("Ensemble",esr.etab %>% 
+               #filter(dataset == "CPESR") %>%
+               filter(Etablissement != "Regroupements") %>%
+               select(Groupe) %>% unique() %>% pull(Groupe) %>% as.character())
+
+groupes %>% spoiler_table("Liste des groupes")
+```
+
+```{r grp.batch, warning=FALSE}
+
+for (grp in groupes) {
+  grpfn <- slugify(grp)
+  message("\nProcessing ",grp)
+
+  message("kpi")
+  try(
+    plots <- kpiesr_plot_all(rentrée, grp, grp, style.k=k_style, style.o=o_style, style.o.norm = onorm_style)
+  )
+  
+  message("combine")
+  plot.kpi <- combine_plots_groupe(plots)
+  ggsave(
+    paste0(path,"/",grpfn,"-kpi.pdf"),
+    plot = plot.kpi,
+    width= 12, height=7,
+    device = cairo_pdf)
+  
+  plot.series <- combine_plots_series(plots)
+  ggsave(
+    paste0(path,"/",grpfn,"-series.pdf"),
+    plot = plot.series,
+    width= 12, height=9,
+    device = cairo_pdf)
+  
+}
+
+```
+
+
+## Regroupements
+
+```{r regrp.liste, results='asis'}
+etabs <- esr.etab %>% filter(Plotable, Groupe == "Regroupements")
+
+etabs %>% spoiler_table("Liste regroupements")
+```
+
+```{r regrp.batch, warning=FALSE}
+
+for (i in seq(start,nrow(etabs))) {
+  etab <- etabs[i,]
+  message("\nProcessing ",i,"/",nrow(etabs)," : ",strvar(etab$Etablissement), " ", etab$pid, " ", etab$UAI)
+  wdid <- substr(etab$url.wikidata,33,50)
+  plots <- list()
+  
+  message("kpi")
+  try(
+    plots <- kpiesr_plot_all(rentrée, etab$pid, etab$Groupe, style.k=k_style, style.o=o_style, style.o.norm = onorm_style)
+  )
+  
+  message("wikidata")
+  plots <- c(plots, wdesr_plots(wdid))
+  
+  message("combine")
+  plot.kpi <- combine_plots_regroupement(plots)
+  ggsave(
+    paste0(path,"/",etab$pid,"-unique.pdf"),
+    plot = plot.kpi,
+    width= 12, height=9,
+    device = cairo_pdf)
+}
+```
+
+
+```{r regrp.groupe, warning=FALSE}
+grp <- "Regroupements"
+grpfn <- slugify(grp)
+message("\nProcessing ",grp)
+
+message("kpi")
+try(
+  plots <- kpiesr_plot_all(rentrée, grp, grp, style.k=k_style, style.o=o_style, style.o.norm = onorm_style)
+)
+
+message("combine")
+plot.kpi <- plot.series <- combine_plots_series(plots, ens=FALSE)
+ggsave(
+  paste0(path,"/",grpfn,"-unique.pdf"),
+  plot = plot.kpi,
+  width= 12, height=7,
+  device = cairo_pdf)
+```
+
+## Sauvegarde du cache wdesr
+
+```{r save}
+wdesr_save_cache()
+```
+
+

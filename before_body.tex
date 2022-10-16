@@ -1,17 +1,18 @@
 
 \newcommand\titre{Tableaux de bord \\ des établissements de \\ l'Enseignement Supérieur \\ et de la Recherche}
-\newcommand\auteur{Julien Gossa}
-\newcommand\rentree{Edition 2018-2019}
-\newcommand\ladate{Septembre 2020}
-\newcommand\reportid{tdbesr-2018-v1.1}
+\newcommand\auteur{Pauline Boyer et Julien Gossa}
+\newcommand\rentree{Edition 2020-2021}
+\newcommand\ladate{Septembre 2022}
+\newcommand\reportid{tdbesr-2022-v1.0}
 
 \definecolor{royalblue(traditional)}{rgb}{0.0, 0.14, 0.4}
 \definecolor{royalblue(web)}{rgb}{0.25, 0.41, 0.88}
 
-\newcommand\titleY{0cm}
+
 \newcommand\titleS{3}
-\newcommand\titleBoxW{19cm}
-\newcommand\titleBoxH{11cm}
+\newlength{\titleY} \setlength{\titleY}{0cm}
+\newlength{\titleBoxW} \setlength{\titleBoxW}{9cm}
+\newlength{\titleBoxH} \setlength{\titleBoxH}{5cm}
 \newcommand\titleBoxR{7}
 
 
@@ -22,24 +23,37 @@
   \coordinate (logo) at (current page.north west);
   \coordinate (title) at ($(current page.center) + (0,\titleY)$);
   \coordinate (author) at (current page.south east);
-
+  
 \node (nlogo) [inner sep=20pt, anchor=north west] at (logo)
   {\includegraphics[width=8cm]{files/logo_cpesr_sackersgothic}};
 
-\node (bandeau) at (title) 
-  [draw, minimum width=\titleBoxW, minimum height=\titleBoxH, rotate=\titleBoxR, color=royalblue(web), fill=royalblue(web)] {};
+\begin{scope}[line width=\lineswidth, color=royalblue(web), fill=royalblue(web), line cap=round, rotate around={\titleBoxR:(title)}]
+  \coordinate (btl) at ($(title) + (-\titleBoxW,\titleBoxH)$);
+  \coordinate (btr) at ($(title) + (\titleBoxW,\titleBoxH)$);
+  \coordinate (bbr) at ($(title) + (\titleBoxW,-\titleBoxH)$);
+  \coordinate (bbl) at ($(title) + (-\titleBoxW,-\titleBoxH)$);
+
+  %\draw [fill=royalblue(web)] (btl) rectangle (bbr);
+
+  \draw [shorten <=-10cm,shorten >=-14cm, transform shape](btl) -- (btr);
+  \draw [shorten <=-15cm,shorten >=-10cm](bbl) -- (bbr);
+  \draw [shorten <=-2cm,shorten >=-10cm](btl) -- (bbl);
+  \draw [shorten <=-10cm,shorten >=-2cm](btr) -- (bbr);
+
+  \node (nrentree) at (bbr)
+    [inner sep=10pt, anchor=north east, font=\Huge, color=royalblue(traditional), rotate=\titleBoxR]
+    {\rentree};
+  
+  \node (num) at (bbr)
+    [inner sep=10pt, anchor=south west, font=\large, color=royalblue(traditional), rotate=\titleBoxR]
+    {\reportid};
+
+\end{scope}  
+
 
 \node (ntitle) at (title) 
-  [inner sep=0pt, anchor=center, align=center, font=\bfseries, scale=\titleS, align=center, color=white]  
+  [inner sep=0pt, anchor=center, align=center, font=\bfseries, scale=\titleS, align=center, color=royalblue(traditional)]  
   {\titre};
-
-\node (nrentree) at ($(bandeau.south west)!0.95!(bandeau.south east)$)
-  [inner sep=10pt, anchor=south east, rotate=\titleBoxR, font=\Huge, color=white]
-  {\rentree};
-
-\node (num) at ($(bandeau.south west)!0.94!(bandeau.south east)$)
-  [inner sep=5pt, anchor=north east, rotate=\titleBoxR, font=\large]
-  {\reportid};
 
 \node (nauteur) at (author) 
   [inner sep=50pt, anchor=south east, align=center, font=\huge, align=left, color =black]
@@ -52,28 +66,94 @@
 
 
 
+
 \newlength{\graphesX}
-\setlength{\graphesX}{30pt}
+\setlength{\graphesX}{0.33\textheight}
 \newlength{\graphesY}
-\setlength{\graphesY}{-7cm}
+\setlength{\graphesY}{-0.04\textheight}
 \newlength{\graphesW}
-\setlength{\graphesW}{0.52\textwidth}
+\setlength{\graphesW}{0.3\paperwidth}
+\newlength{\graphesH}
+\setlength{\graphesH}{0.9\paperheight}
+\newlength{\kpiW}
+\setlength{\kpiW}{0.6\paperwidth}
+\newlength{\kpiH}
+\setlength{\kpiH}{0.9\paperheight}
 
-\newcommand\maketdb[4]{
-  \begin{tikzpicture}[overlay,remember picture]
-    \node (ancetres) [inner sep=0pt, anchor=north west, xshift=\graphesX, yshift=\graphesY] at (current page.north west)
-      {\includegraphics[width=0.5\graphesW]{#1}};
-    \node (associations) [inner sep=0pt, anchor=west] at (ancetres.east)
-      {\includegraphics[width=0.5\graphesW]{#2}};
-    \node (composantes) [inner sep=0pt, anchor=north west,yshift=-30pt] at (ancetres.south west)
-      {\includegraphics[width=\graphesW]{#3}};
-      
-    \node (kpi) [inner sep=30pt, anchor=north east] at (current page.north east)
-      {\includegraphics[width=\graphesW]{#4}};
 
-    \node (ancetres-tit) [inner sep=0pt, anchor=south] at (ancetres.north) {\bf Filiation};
-    \node (associations-tit) [inner sep=0pt, anchor=south] at (associations.north) {\bf Association};
-    \node (composantes-tit) [inner sep=0pt, anchor=south] at (composantes.north) {\bf Composition};
-
-  \end{tikzpicture}
+\newcommand\makeinfo[8]{
+  \begin{tabular*}{\textwidth}{rl}
+    Type :      & #2  \\ 
+    Académie :  & #6 \\
+    Décret :    & \mbox{#3} \\
+    UAI :       & #4 \\
+    Wikidata :  & \mbox{#5} \\
+    TDB/Stat/Norm :  & #8 \\
+    Notes :     & #7 \\
+  \end{tabular*}
+  \newline ~ \newline
+  \mbox{#1} 
 }
+
+\newcommand\makegrpinfo[4]{
+  \begin{tabular*}{\textwidth}{rr}
+    Etablissements : & #1  \\ 
+    Hors TDB : & #2 \\
+    Statistiques : & #3 \\
+    Hors norme : & #4 \\
+  \end{tabular*}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%% 
+
+\newlength{\widthB}
+\setlength{\widthB}{0.17\paperwidth}
+\newlength{\widthG}
+\setlength{\widthG}{\paperwidth}
+\newif\ifsection
+
+
+\newcommand\etabpage[4][false] {%
+  \ifthenelse{\equal{#1}{section}}{\sectiontrue}{\sectionfalse}
+
+  \newpage
+  \begin{tikzpicture}[overlay,remember picture]
+    \node (combandeau) at (current page.north west) 
+      [draw, minimum width=\widthB, minimum height=\paperheight, anchor=north west, color=royalblue(traditional), fill=royalblue(traditional)] {};
+    \ifsection
+      \node (sepbandeau) at (current page.north west) 
+        [draw, minimum width=\paperwidth, minimum height=1cm, anchor=north west, color=royalblue(traditional), fill=royalblue(traditional)] {};
+      \node (section) at (combandeau.north west) [color=red, anchor=north west, inner sep=1cm, scale=1] {
+        \begin{minipage}{2cm} \color{white} \section{#2} \end{minipage}};
+    \fi
+    \node (titre) at (combandeau.center) [color=red, anchor=center, yshift=2.5cm, rotate=90, scale=1] {
+      \begin{minipage}{12cm} \color{white} \bf \Huge \raggedright #2 \end{minipage}};
+    \node (infos) at (current page.south west) [anchor=south west, yshift=+2cm] {
+      \begin{minipage}[t]{\widthB}
+        \footnotesize
+        \centering
+        \color{white}
+        \hypersetup{%
+        colorlinks=white,% hyperlinks will be black
+        urlbordercolor=white,% hyperlink borders will be red
+        pdfborderstyle={/S/U/W 1}% border style will be underline of width 1pt
+        }
+        #4
+      \end{minipage}
+    };
+    \node (graphiques) [inner sep=0pt, anchor=center] at ($ (combandeau.east)!0.50!(current page.east) $)
+      {\includegraphics[width=\widthG]{#3}};
+    
+  \end{tikzpicture}
+}%
+  
+
+\newcommand\groupepage[3][false] {%
+  \newpage
+  \begin{tikzpicture}[overlay,remember picture]
+    \node (graphiques) [inner sep=0pt, anchor=south] at (current page.south)
+      {\includegraphics[width=\paperwidth]{#3}};
+    
+  \end{tikzpicture}
+}%
+
