@@ -148,9 +148,8 @@ etab_info <- function(etab) {
     swurl = strvar(etab$url.siteweb,etab$url.siteweb),
     wdurl = strvar(paste0("https://github.com/cpesr/wikidataESR/blob/master/plots/etablissements/",substr(etab$url.wikidata,33,50),".md"), substr(etab$url.wikidata,33,50)),
     lfurl = strvar(etab$url.legifrance, "Legifrance"),
-    dans.tdb = ifelse(etab$Comparable,"Oui","Non"),
-    dans.evol = ifelse(etab$Comparable,"Oui","Non"),
-    hors.norm = ifelse(etab$Comparable,"Oui","Non")
+    plotable = ifelse(etab$Plotable,"Oui","Non"),
+    comparable = ifelse(etab$Comparable,"Oui","Non")
     )
   
 }
@@ -168,7 +167,9 @@ list2texcom <- function(x,titre="") {
 }
 
 note2texcom <- function(etab) {
-  paste0("\\pdfcomment[icon=Note, color=royalblue(web)]{",stringr::str_replace_all(etab$Notes,";","\\textCR"),"}")
+  paste0("\\pdfcomment[icon=Note, color=royalblue(web)]{",
+         "Pour ajouter ou modifier une note, envoyer une demande à contact@cpesr.fr",
+         stringr::str_replace_all(etab$Notes,";","\\textCR"),"}")
 }
 
 cat_etab_verticalinfo <- function(etab) {
@@ -177,7 +178,7 @@ cat_etab_verticalinfo <- function(etab) {
           etab$Sigle, info$groupe,
           r2tex("makeinfo",info$swurl,info$type,info$lfurl,info$uai,info$wdurl,etab$Académie,
                 note2texcom(etab),
-                paste(info$dans.tdb,info$dans.evol,info$hors.norm)))
+                info$comparable))
   )
 }
 
@@ -204,20 +205,16 @@ cat_groupe_verticalinfo <- function(groupe) {
   cat(r2tex("verticalinfo",
           "Données agrégées", groupe,
           r2tex("makegrpinfo",
-            list2texcom(esr.etab %>% filter(Groupe == groupe) %>% pull(Etablissement), 
+            list2texcom(esr.etab %>% filter(Groupe == groupe | groupe == "Ensemble") %>% pull(Etablissement), 
                         "Liste des établisssement du groupe (y compris disparus)"),
-            list2texcom(esr.etab %>% filter(Groupe == groupe,
+            list2texcom(esr.etab %>% filter(Groupe == groupe | groupe == "Ensemble",
                                             !Comparable) %>% pull(Etablissement),
                         "Liste des établissements exclus des tableaux de bord (disparus ou données trop partielles"),
-            list2texcom(esr.etab %>% filter(Groupe == groupe,
+            list2texcom(esr.etab %>% filter(Groupe == groupe | groupe == "Ensemble", 
                                             !Comparable) %>% pull(Etablissement),
-                        "Liste des établissements inclus dans les statistiques du groupe (données complètes)"),
-                      list2texcom(esr.etab %>% filter(Groupe == groupe, 
-                                                      !Comparable) %>% pull(Etablissement),
-                        "Liste des établissements exclus des représentations des distributions (données trop hors normes)")
+              "Liste des établissements exclus des représentations des distributions (données trop hors normes)")
             )
-    )
-    )
+    ))
 }
 
 cat_groupe_slide <- function(groupe) {

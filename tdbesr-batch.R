@@ -78,6 +78,7 @@ etabs <- esr.etab %>% filter(Etablissement == "Université Paris sciences et let
 #etabs <- esr.etab %>% filter(UAI %in% esr.uais$dans.tdb)
 etabs <- esr.etab %>% filter(dataset == "CPESR")
 etabs <- esr.etab %>% filter(Plotable, Groupe != "Regroupements")
+etabs <- esr.etab %>% filter(Plotable)
 
 start <- 1
 
