@@ -60,7 +60,7 @@ etabs %>% spoiler_table("Liste des établissements")
 ```
 
 
-```{e etab.batch, warning=FALSE}
+```{r etab.batch, warning=FALSE}
 start <- 1
 
 for (i in seq(start,nrow(etabs))) {
