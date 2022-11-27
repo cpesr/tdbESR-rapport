@@ -13,8 +13,17 @@ library(ggcpesrthemes)
 library(cowplot)
 
 source("tdbesr-plots.R")
-theme_cpesr_setup(authors = "Julien Gossa", source = "https://cpesr.fr/tableau-de-bord-esr/")
+theme_cpesr_setup(authors = "Julien Gossa", source = "données SIES - https://cpesr.fr/tableau-de-bord-esr/")
+
+etabs <- esr.etab %>% filter(Plotable, Groupe == "Universités et assimilés") 
 ```
+
+```
+  - twtexte:[#DataESR #LRU] Indicateurs de performances de l'#ESR.
+  - twalt:@juliengossa LO 2.0 www.cpesr.fr
+  - twurl:1597001250222280704
+  - url:https://cpesr.fr/tableau-de-bord-esr/
+``` 
 
 ```{r fun_serie, include=FALSE}
 combine_plots_series_online <- function(plots, dim, etab, kpi) {
@@ -23,15 +32,15 @@ combine_plots_series_online <- function(plots, dim, etab, kpi) {
   plot_norm <- plots[[paste0(dim,".norm")]]
   
   title <- ggdraw() + 
-    draw_label(paste("Indicateurs",kpi,"de",etab,"en",rentrée), 
+    draw_label(paste(etab$Etablissement," : ",kpi,"en",rentrée), 
                fontface = 'bold', x = 0, hjust = 0, vjust = 0.5) +
     theme(plot.margin = margin(0, 0, 0, 7))
 
   expl <- ggdraw() + 
-    draw_label("En haut : Chaque point représente un établissement.\nLe violon montre leur distribution.\nLes barres indiquent les valeurs globales.\nA gauche : la zone grise représente la moitié des établissements.", 
+    draw_label("En haut : valeurs normalisées. Chaque point représente un établissement.\nLe violon montre leur distribution et les barres les valeurs d'ensemble.\nA gauche : évolution en valeurs 100.\nla zone grise représente la moitié des établissements.\nCes données peuvent contenir des erreurs.", 
                fontfamily = "Raleway", fontface = "italic",
-               size = 8, x = 0, hjust = 0, vjust=0.3) +
-    theme(plot.margin = margin(0, 0, 0, 5))
+               size = 7, x = 0, hjust = 0, vjust=0.4) +
+    theme(plot.margin = margin(0, 0, 0, 2))
 
   legend <- get_legend(plot_evol + 
                    ggplot2::theme(legend.direction = "horizontal", 
@@ -70,16 +79,16 @@ combine_plots_kpi_online <- function(rentrée, etab, lfc, ilfc, style = kpiesr_s
   )
   
   title <- ggdraw() + 
-    draw_label(paste(sublfc$labels[[1]],"de",etab$Etablissement), 
+    draw_label(paste(etab$Etablissement," : ", sublfc$labels[[1]]), 
                fontface = 'bold', x = 0, hjust = 0, vjust = 0.5) +
     theme(plot.margin = margin(0, 0, 0, 7))
 
   expl <- ggdraw() + 
     draw_label(paste0(sublfc$desc[[1]], 
                       "\nA gauche : Evolution pluriannuelle. Attention : l'échelle ne commence pas à zéro.",
-                      "\nA droite : Valeur en ",rentrée,". Chaque point représente un établissement.\nLe violon montre leur distribution. Les barres indiquent les valeurs ensemble et groupe."), 
+                      "\nA droite : Valeur en ",rentrée,". Chaque point représente un établissement.\nLe violon montre leur distribution. Les barres indiquent les valeurs ensemble et groupe.\nCes données peuvent contenir des erreurs."), 
                fontfamily = "Raleway", fontface = "italic",
-               size = 9, x = 0, hjust = 0, vjust=0.3) +
+               size = 9, x = 0, hjust = 0, vjust=0.5) +
     theme(plot.margin = margin(0, 0, 0, 10))
 
 plot_line <- kpiesr_plot_line(id = etab$pid, vars = c(sublfc$factors[[1]]), groupe = "Universités et assimilés") +
@@ -109,34 +118,54 @@ plot_norm <- kpiesr_plot_norm_simple(rentrée, etab$pid, etab$Groupe, sublfc, st
 ```
 
 
-
-
-```{r etab.batch, warning=FALSE, results='asis'}
-etabs <- esr.etab %>% filter(Plotable, Groupe == "Universités et assimilés") %>% head(2)
-
-
-for (i in seq(1,nrow(etabs))) {
-  etab <- etabs[i,]
-  #message("\nProcessing ",i,"/",nrow(etabs)," : ",strvar(etab$Etablissement), " ", etab$pid, " ", etab$UAI)
-  plots <- kpiesr_plot_all(rentrée, etab$pid, etab$Groupe, style.k=k_style, style.o=o_style, style.o.norm = onorm_style, experimental = TRUE)
-
+```{r loop, warning=FALSE, results='asis', cache = FALSE, eval=TRUE}
+plotloop <- function(a,b) {
+  for (i in seq(a,b)) {
+    etab <- etabs[i,]
+    
+    cat("\n\n## ", etab$Etablissement," ", str_replace(etab$twitter,"https://twitter.com/","@"), "\n\n")
+    
+    #message("\nProcessing ",i,"/",nrow(etabs)," : ",strvar(etab$Etablissement), " ", etab$pid, " ", etab$UAI)
+    plots <- kpiesr_plot_all(rentrée, etab$pid, etab$Groupe, style.k=k_style, style.o=o_style, style.o.norm = onorm_style, experimental = TRUE)
   
-  cat("\n## ", etab$Etablissement,"\n\n")  
-  #print(combine_plots_groupe(plots))
-  #print(combine_plots_series(plots))
+    #print(combine_plots_groupe(plots))
+    #print(combine_plots_series(plots))
   
-  for(ilfc in seq(1,length(kpiesr_lfc$K$factors))) {
-    print(combine_plots_kpi_online(rentrée, etab, kpiesr_lfc$K, ilfc, k_style))
+    for(ilfc in seq(1,length(kpiesr_lfc$K$factors))) {
+      print(combine_plots_kpi_online(rentrée, etab, kpiesr_lfc$K, ilfc, k_style))
+      cat("\n\n")
+    }
+  
+    print(combine_plots_series_online(plots, "etu", etab, "Etudiants"))
     cat("\n\n")
-  }
+    print(combine_plots_series_online(plots, "bia", etab, "BIATSS"))
+    cat("\n\n")
+    print(combine_plots_series_online(plots, "ens", etab, "Enseignants"))
+    cat("\n\n")
+    print(combine_plots_series_online(plots, "fin", etab, "Finances"))
+    cat("\n\n")
+    print(combine_plots_series_online(plots, "imo", etab, "Immobiliers"))
+    cat("\n\n")
   
-  print(combine_plots_series_online(plots, "etu", etab$Etablissement, "étudiants"))
-  print(combine_plots_series_online(plots, "bia", etab$Etablissement, "BIATSS"))
-  print(combine_plots_series_online(plots, "ens", etab$Etablissement, "enseignants"))
-  print(combine_plots_series_online(plots, "fin", etab$Etablissement, "financiers"))
-  print(combine_plots_series_online(plots, "imo", etab$Etablissement, "immobiliers"))
-
+    gc()
+  }
 }
 ```
 
 
+
+```{r univ_a, warning=FALSE, results='asis', cache = FALSE, eval=TRUE}
+plotloop(1,20)
+```
+
+```{r univ_b, warning=FALSE, results='asis', cache = FALSE, eval=TRUE}
+plotloop(21,40)
+```
+
+```{r univ_c, warning=FALSE, results='asis', cache = FALSE, eval=TRUE}
+plotloop(41,60)
+```
+
+```{r univ_d, warning=FALSE, results='asis', cache = FALSE, eval=TRUE}
+plotloop(61,nrow(etabs))
+```
