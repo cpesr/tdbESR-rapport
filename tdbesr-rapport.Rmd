@@ -11,8 +11,10 @@ output:
     keep_tex: yes
     keep_md: yes
     latex_engine: xelatex
-#urlcolor: blue
-#linkcolor: blue
+# header-includes:
+#   - \hypersetup{colorlinks=false, allbordercolors={0 0 0}, pdfborderstyle={/S/U/W 1}}
+urlcolor: blue
+linkcolor: blue
 fontsize: 11pt
 lang: "fr-FR"
 geometry: margin=1.5cm
@@ -35,7 +37,7 @@ library(pander)
 library(kpiESR)
 library(wikidataESR)
 
-rentrée <- 2020
+rentrée <- 2021
 rentrée.deb <- 2013
 
 strvar <- function(var) {
@@ -56,21 +58,27 @@ slugify <- function(x, alphanum_replace="", space_replace="_", tolower=TRUE) {
 
 # Avant-propos {-}
 
+```{=latex}
+\begin{multicols}{2}
+```
+
 ```{r child = 'intro-avantpropos.Rmd', echo = FALSE, warning = FALSE}
 ```
 
 ```{=latex}
-\vspace*{\fill}
+\vfill\null
+\columnbreak
 ```
 
-```{r, out.width = "200pt"}
-knitr::include_graphics("files/589px-Knowledge-Reid-Highsmith.png")
+
+```{r child = 'intro-maindata.Rmd', echo = FALSE, warning = FALSE}
 ```
+
 
 
 ```{=latex}
 \newpage
-\begin{multicols}{2}
+%\begin{multicols}{2}
 \tableofcontents
 \newpage
 %\part{Introduction}
@@ -85,16 +93,12 @@ knitr::include_graphics("files/589px-Knowledge-Reid-Highsmith.png")
 \vfill
 
 \vspace*{2.1cm}
-```
 
-
-```{r child = 'intro-maindata.Rmd', echo = FALSE, warning = FALSE}
-```
-
-
-```{=latex}
 \newpage
 ```
+
+
+
 
 
 ## Description des organisations
@@ -411,3 +415,19 @@ table_classement("Universités et assimilés",
 
 
 \stopautovi
+
+```{=latex}
+\pagebreak
+\hspace{0pt}
+\vfill
+```
+
+```{r, out.width = "200pt", echo = FALSE, warning = FALSE}
+knitr::include_graphics("files/589px-Knowledge-Reid-Highsmith.png")
+```
+
+```{=latex}
+\vfill
+\hspace{0pt}
+\pagebreak
+```

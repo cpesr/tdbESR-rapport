@@ -1,5 +1,5 @@
 
-rentrée <- 2020
+rentrée <- 2021
 
 # Style
 
@@ -59,7 +59,7 @@ rm_label <- ggplot2::theme(legend.position = "none",
 rm_xytext <- rm_lt + ggplot2::theme(axis.text.x = element_blank(), axis.ticks.x = element_blank(),
                                     axis.text.y = element_blank(), axis.ticks.y = element_blank())
 rm_ytext <- rm_lt + ggplot2::theme(axis.text.y = element_blank(), axis.ticks.y = element_blank())
-shrink_xtext <- ggplot2::theme(axis.text.x = element_text(margin = margin(-10,0,0,0)))
+shrink_xtext <- ggplot2::theme(axis.text.x = element_text(margin = margin(0,0,0,0)))
 rm_ymingrid <- ggplot2::theme(panel.grid.minor.y = element_blank())
 rm_ygrid <- ggplot2::theme(panel.grid.major.y = element_blank(), panel.grid.minor.y = element_blank())
 rm_xgrid <- ggplot2::theme(panel.grid.major.x = element_blank(), panel.grid.minor.x = element_blank())
@@ -123,7 +123,7 @@ combine_plots_series_sub <- function(plot_abs, plot_evol, plot_norm) {
   plot_grid (nrow = 1, align = "hv", rel_widths = c(1,0.1,1),
              plot_grid(ncol = 1, rel_heights = c(3,2), # align="v", axis = "lr",
                        plot_abs + rm_xytext + rm_ymingrid + rm_xgrid + rm_facetmargins,
-                       plot_evol + sats + rm_ygrid + rm_label + shrink_xtext + rle_margin + rm_ytextmargin + small_facetmargins),
+                       plot_evol + sats + rm_ygrid + rm_label + rle_margin + rm_ytextmargin + small_facetmargins + shrink_xtext), #
              "",
              plot_norm + rm_lt  + rm_ymingrid )
 }

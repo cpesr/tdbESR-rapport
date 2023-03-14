@@ -183,7 +183,7 @@ try(
 )
 
 message("combine")
-plot.kpi <- plot.series <- combine_plots_series(plots, ens=FALSE)
+plot.kpi <- combine_plots_series(plots, ens=FALSE)
 ggsave(
   paste0(path,"/",grpfn,"-unique.pdf"),
   plot = plot.kpi,
