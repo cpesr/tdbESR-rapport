@@ -9,7 +9,8 @@ wdesr_load_cache()
 
 uai.unistra <- "0673021V"
 uai <- uai.unistra
-wdid <- "Q157575"
+wdid <- "Q157575" #Unistra
+#wdid <- "Q2302586" #AMU
 ```
 
 Les descriptions d'organisation sont de trois ordres, pour chaque établissement :
@@ -44,12 +45,13 @@ Le lecteur est invité à le faire chaque fois qu'il le jugera nécessaire, et l
 ```{r, out.width = "100%", out.height=NULL, echo = FALSE, warning = FALSE, fig.width=8, fig.height=5}
 wdesr_load_and_plot(wdid, c('prédécesseur', 'séparé_de'), depth=10, 
                     node_label = "alias_date",
-                    legend_position="left",
-                    node_sizes = 20, 
+                    legend_position="right",
+                    node_sizes = 30,
+                    label_sizes = c(3,5),
                     arrow_gap = 0, margin_y = 0.15)
 ```
 
-Exemple de lecture : « L'Université de Strasbourg (Unistra) a été créée en 2009, par la fusion des universités Louis Pasteur, Robert Schuman et Marc-Bloch. Ces trois universités ont été créées en 1970, par la division de l'Université de Strasbourg (Académia argentinensis), dont les origines remontent à 1528. »
+Exemple de lecture : « L'Université de Strasbourg (Unistra) a été créée en 2009, par la fusion des universités Louis Pasteur, Robert Schuman et Marc-Bloch. Ces trois universités ont été créées en 1970, par la division de l'Université de Strasbourg (Académia argentinensis), dont les origines remontent à 1528, et qui a connu une division entre 1941 et 1945. »
 
 ```{=latex}
 \vfill

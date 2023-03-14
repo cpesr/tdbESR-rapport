@@ -41,7 +41,19 @@ Le projet [WikidataESR](https://github.com/cpesr/WikidataESR) propose une harmon
 
 ### Méthodologie et traitements {-}
 
-Méthodologie et sources des traitements sont disponibles à cette adresse : 
+#### Note sur les périodes de couverture temporelle {-}
+
+Les différents jeux de données agrégés présentent des périodes de couverture temporelle très hétérogènes, 
+commençant en 2006, 2009, 2010, 2015 et 2016, et terminant en 2020, 2021 et 2022.
+Chaque fois que cela est possible, les périodes ont été harmonisées sur 2010-2020.
+
+Au moment de la production de ce document, le jeu de données le plus bloquant est celui des 
+enseignants non permanents, qui termine en 2020, ce qui empêche de présenter la
+période 2010-2021.
+
+#### Codes sources {-}
+
+Méthodologie et codes sources des traitements sont disponibles à cette adresse : 
 
 https://github.com/cpesr/kpiESR
 
