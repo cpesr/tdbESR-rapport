@@ -1,7 +1,7 @@
 Tableau de bord ESR
 ================
 Julien Gossa
-2022-10-17
+2023-03-15
 
 ***ATTENTION : Les informations présentées dans ce document sont issues
 de traitements entièrement automatisés. Leur validité dépend de la
@@ -10,37 +10,37 @@ sources.***
 
 Téléchargement des tableaux de bord :
 
--   [Edition 2020-2021](./tdbesr-rapport.pdf)
+- [Edition 2020-2021](./tdbesr-rapport.pdf)
 
 ## Avant-propos
 
-Apparaissant dès le XIIIe siècle, les universités sont des organisations
-à la durée de vie particulièrement longue. Leur évolution est permanente
-et se fait sous différentes tensions, notamment sociales et politiques,
-culturelles et cultuelles, ou encore démographiques et géographique, qui
-touchent à la profession même des universitaires. Depuis le tournant du
-XXIe siècle, un mouvement de profonde transformation de l’Enseignement
-supérieur et rechercher (ESR) est engagé :
+Apparaissant dès le XIII<sup>e</sup> siècle, les universités sont des
+organisations à la durée de vie particulièrement longue. Leur évolution
+est permanente et se fait sous différentes tensions, notamment sociales
+et politiques, culturelles et cultuelles, ou encore démographiques et
+géographique, qui touchent à la profession même des universitaires.
+Depuis le tournant du XXIe siècle, un mouvement de profonde
+transformation de l’Enseignement supérieur et rechercher (ESR) est
+engagé :
 
--   La création de l’Agence Nationale de la Recherche (ANR) en 2005
-    transforme les modalités d’allocation des moyens aux établissement,
-    et celle de l’Agence d’évaluation de la recherche et de
-    l’enseignement supérieur (AÉRES) en 2006, remplacée par le Haut
-    Conseil de l’évaluation de la recherche et de l’enseignement
-    supérieur (Hcéres) en 2013, modifie leurs modalités d’évaluation.
--   La Loi liberté et responsabilités des universités (LRU) amorce en
-    2007 un mouvement dit d’« autonomie des universités », adossé
-    notamment aux responsabilités et compétences élargies (RCE), qui
-    transfèrent la masse salariale du ministère aux établissements. Les
-    universités sont ainsi invitées à développer leur propre politique
-    d’emploi.
--   Onze universités sont sélectionnées pour l’Initiative d’excellence
-    (IDEX) sur un projet de gouvernance différenciant dans le cadre du
-    Plan d’investissement d’avenir (PIA).
--   Un nombre exceptionnel de fusions et regroupements est organisé,
-    d’abord autour des Pôles de recherche et d’enseignement supérieur
-    (PRES) puis des Communautés d’universités et d’établissements
-    (COMUE). Ces regroupements se poursuivent jusqu’à ce jour.
+- La création de l’Agence Nationale de la Recherche (ANR) en 2005
+  transforme les modalités d’allocation des moyens aux établissement, et
+  celle de l’Agence d’évaluation de la recherche et de l’enseignement
+  supérieur (AÉRES) en 2006, remplacée par le Haut Conseil de
+  l’évaluation de la recherche et de l’enseignement supérieur (Hcéres)
+  en 2013, modifie leurs modalités d’évaluation.
+- La Loi liberté et responsabilités des universités (LRU) amorce en 2007
+  un mouvement dit d’« autonomie des universités », adossé notamment aux
+  responsabilités et compétences élargies (RCE), qui transfèrent la
+  masse salariale du ministère aux établissements. Les universités sont
+  ainsi invitées à développer leur propre politique d’emploi.
+- Onze universités sont sélectionnées pour l’Initiative d’excellence
+  (IDEX) sur un projet de gouvernance différenciant dans le cadre du
+  Plan d’investissement d’avenir (PIA).
+- Un nombre exceptionnel de fusions et regroupements est organisé,
+  d’abord autour des Pôles de recherche et d’enseignement supérieur
+  (PRES) puis des Communautés d’universités et d’établissements (COMUE).
+  Ces regroupements se poursuivent jusqu’à ce jour.
 
 Ces transformations conduisent à des évolutions structurelles locales
 visant à favoriser les divergences entre les établissements de l’ESR,
@@ -106,38 +106,76 @@ représentations exhaustives.
 Il existe trois sources principales d’informations sur les
 établissements de l’ESR français :
 
--   [data.gouv.fr](https://www.data.gouv.fr/fr/) : le portail des
-    données publiques du gouvernement français ;
--   [\#DataESR](https://data.enseignementsup-recherche.gouv.fr/pages/home/)
-    : le portail des données publiques du ministère de l’enseignement
-    supérieur, de la recherche et de l’innovation ;
--   [WikiData](https://www.wikidata.org/wiki/Wikidata:Main_Page) : une
-    base de connaissances libre et gratuite, dans la famille Wikimédia,
-    qui compte notamment Wikipédia.
+- [data.gouv.fr](https://www.data.gouv.fr/fr/) : le portail des données
+  publiques du gouvernement français ;
+- [\#DataESR](https://data.enseignementsup-recherche.gouv.fr/pages/home/)
+  : le portail des données publiques du ministère de l’enseignement
+  supérieur, de la recherche et de l’innovation ;
+- [WikiData](https://www.wikidata.org/wiki/Wikidata:Main_Page) : une
+  base de connaissances libre et gratuite, dans la famille Wikimédia,
+  qui compte notamment Wikipédia.
 
 Les deux premières sources sont maintenues par des organes officiels, et
 proposent essentiellement des jeux de données brutes, très complets et
 généralement fiables. Cependant, ils sont structurellement rigides (il
-s’agit seulement de tableaux), et ne visent pas à capturer les *soft
-data*, comme l’histoire des organisations ou leurs compositions. Ce
-document utilisent les jeux de données suivants[^1] :
-
--   [fr-esr-statistiques-sur-les-effectifs-d-etudiants-inscrits-par-etablissement](https://data.enseignementsup-recherche.gouv.fr/explore/dataset/fr-esr-statistiques-sur-les-effectifs-d-etudiants-inscrits-par-etablissement)
--   [fr-esr-personnels-biatss-etablissements-publics](https://data.enseignementsup-recherche.gouv.fr/explore/dataset/fr-esr-personnels-biatss-etablissements-publics)
--   [fr-esr-enseignants-titulaires-esr-public](https://data.enseignementsup-recherche.gouv.fr/explore/dataset/fr-esr-enseignants-titulaires-esr-public/)
--   [fr-esr-enseignants-nonpermanents-esr-public](https://data.enseignementsup-recherche.gouv.fr/explore/dataset/fr-esr-enseignants-nonpermanents-esr-public/information/)
--   [fr-esr-operateurs-indicateurs-financiers](https://data.enseignementsup-recherche.gouv.fr/explore/dataset/fr-esr-operateurs-indicateurs-financiers/information/)
--   [fr-esr-principaux-etablissements-enseignement-superieur](https://data.enseignementsup-recherche.gouv.fr/explore/dataset/fr-esr-principaux-etablissements-enseignement-superieur/information/?disjunctive.type_d_etablissement)
-
-Wikidata s’appuie sur l’édition collaborative, plus adaptée à ce type
-d’information, en permettant de structurer les données de façon très
-souple, grâce à un très large choix de relations entre entités. En
-revanche, les données sont peu fiables, souvent incomplètes, et
-non-harmonisées.
+s’agit uniquement de tableaux), et ne visent pas à capturer les *soft
+data*, comme l’histoire des organisations ou leurs compositions.
 
 Ce travail s’appuie sur ces deux bases de données : Wikidata pour
 décrire les organisations, et les données gouvernementales pour les
 indicateurs de performance.
+
+### Sources de données ouvertes
+
+Ce document utilisent les jeux de données suivants, maintenus et mis à
+disposition par le
+[SIES](https://www.enseignementsup-recherche.gouv.fr/fr/statistiques-et-analyses-50213)
+:
+
+- [fr-esr-statistiques-sur-les-effectifs-d-etudiants-inscrits-par-etablissement](https://data.enseignementsup-recherche.gouv.fr/explore/dataset/fr-esr-statistiques-sur-les-effectifs-d-etudiants-inscrits-par-etablissement)
+- [fr-esr-personnels-biatss-etablissements-publics](https://data.enseignementsup-recherche.gouv.fr/explore/dataset/fr-esr-personnels-biatss-etablissements-publics)
+- [fr-esr-enseignants-titulaires-esr-public](https://data.enseignementsup-recherche.gouv.fr/explore/dataset/fr-esr-enseignants-titulaires-esr-public/)
+- [fr-esr-enseignants-nonpermanents-esr-public](https://data.enseignementsup-recherche.gouv.fr/explore/dataset/fr-esr-enseignants-nonpermanents-esr-public/information/)
+- [fr-esr-operateurs-indicateurs-financiers](https://data.enseignementsup-recherche.gouv.fr/explore/dataset/fr-esr-operateurs-indicateurs-financiers/information/)
+- [fr-esr-principaux-etablissements-enseignement-superieur](https://data.enseignementsup-recherche.gouv.fr/explore/dataset/fr-esr-principaux-etablissements-enseignement-superieur/information/?disjunctive.type_d_etablissement)
+
+Ces différents jeux de données sont agrégées dans le projet
+[kpiESR](https://github.com/cpesr/kpiESR).
+
+Le compte rendu de la dernière mise à jour des données est disponible
+[ici](https://github.com/cpesr/kpiESR/blob/master/maj-data.md).
+
+### WikidataESR
+
+Wikidata s’appuie sur l’édition collaborative, plus adaptée aux *soft
+data*, en permettant de structurer les données de façon très souple,
+grâce à un très large choix de relations entre entités. En revanche, les
+données sont peu fiables, souvent incomplètes, et non-harmonisées.
+
+Le projet [WikidataESR](https://github.com/cpesr/WikidataESR) propose
+une harmonisation des informations sur l’organisation de l’enseignement
+supérieur français disponibles publiquement sur la base de donnée
+collaborative Wikidata.
+
+### Méthodologie et traitements
+
+#### Note sur les périodes de couverture temporelle
+
+Les différents jeux de données agrégés présentent des périodes de
+couverture temporelle très hétérogènes, commençant en 2006, 2009, 2010,
+2015 et 2016, et terminant en 2020, 2021 et 2022. Chaque fois que cela
+est possible, les périodes ont été harmonisées sur 2010-2020.
+
+Au moment de la production de ce document, le jeu de données le plus
+bloquant est celui des enseignants non permanents, qui termine en 2020,
+ce qui empêche de présenter la période 2010-2021.
+
+#### Codes sources
+
+Méthodologie et codes sources des traitements sont disponibles à cette
+adresse :
+
+<https://github.com/cpesr/kpiESR>
 
 ***ATTENTION : Les informations présentées dans ce document sont issues
 de traitements entièrement automatisés. Leur validité dépend de la
@@ -152,17 +190,17 @@ sources.***
 Les descriptions d’organisation sont de trois ordres, pour chaque
 établissement :
 
--   le diagramme de filiation modélise ses origines ;
--   le diagramme d’association modélise ses relations externes, avec
-    d’autres organismes ;
--   le diagramme de composition modélise ses relations internes, avec
-    ses composantes et laboratoires.
+- le diagramme de filiation modélise ses origines ;
+- le diagramme d’association modélise ses relations externes, avec
+  d’autres organismes ;
+- le diagramme de composition modélise ses relations internes, avec ses
+  composantes et laboratoires.
 
 Dans ces diagrammes :
 
--   les nœuds cerclés sont actifs, alors que les autres sont dissouts ;
--   les couleurs dépendent des types d’établissement ;
--   les types de traits dépendent des relations entre les nœuds.
+- les nœuds cerclés sont actifs, alors que les autres sont dissouts ;
+- les couleurs dépendent des types d’établissement ;
+- les types de traits dépendent des relations entre les nœuds.
 
 Pour des raisons de lisibilité, les légendes ne sont pas
 systématiquement inclues dans les tableaux de bord.
@@ -193,7 +231,8 @@ Exemple de lecture : « L’Université de Strasbourg (Unistra) a été créée
 en 2009, par la fusion des universités Louis Pasteur, Robert Schuman et
 Marc-Bloch. Ces trois universités ont été créées en 1970, par la
 division de l’Université de Strasbourg (Académia argentinensis), dont
-les origines remontent à 1528. »
+les origines remontent à 1528, et qui a connu une division entre 1941 et
+1945. »
 
 #### Diagramme d’association
 
@@ -208,8 +247,7 @@ l’EUA, du Réseau d’Utrecht, de COUPERIN et de RENATER. Elle est
 
 <img src="README_files/figure-gfm/unnamed-chunk-8-1.png" width="100%" style="display: block; margin: auto;" />
 
-Exemple de lecture : « L’Université de Strasbourg (Unistra) a de
-nombreuses composantes. »
+Exemple de lecture : « L’Université de Strasbourg (Unistra) a 3 IUTs. »
 
 ## Données sur les performances
 
@@ -219,97 +257,96 @@ financières.
 
 Ces indicateurs sont déclinés en deux types :
 
--   **Les indicateurs primaires et secondaires** : au plus proche des
-    jeux de données ouvertes, ils présentent les effectifs étudiants et
-    personnels, ainsi que les finances.
-    -   Premier dans les listes, l’indicateur primaire est le plus
-        global possible.
-    -   Seconds dans les listes, les indicateurs secondaires sont plus
-        précis, et peuvent se recouper (i.e. la somme des indicateurs
-        secondaires ne correspond pas à l’indicateur principal).
--   **Les indicateurs clés de performance** : combinaisons des
-    précédents, plus représentatives des missions.
+- **Les indicateurs primaires et secondaires** : au plus proche des jeux
+  de données ouvertes, ils présentent les effectifs étudiants et
+  personnels, ainsi que les finances.
+  - Premier dans les listes, l’indicateur primaire est le plus global
+    possible.
+  - Seconds dans les listes, les indicateurs secondaires sont plus
+    précis, et peuvent se recouper (i.e. la somme des indicateurs
+    secondaires ne correspond pas à l’indicateur principal).
+- **Les indicateurs clés de performance** : combinaisons des précédents,
+  plus représentatives des missions.
 
 ### Dictionnaire des données
 
--   **Rentrée** : rentrée universitaire
--   **UAI** : Unité Administrative Immatriculée
--   **Libellé** : libellé de l’établissement
--   **Sigle** : nom court ou sigle de l’établissement
--   **Groupe** : ensemble d’établissements comparables, à gros grain
--   **Groupe détaillé** : ensemble d’établissements
--   **Académie** : académie de l’établissement
--   **Rattachement** : établissement de rattachement
--   **Site web** : adresse du site web de l’établissement
--   **wikidata** : adresse wikidata des données de l’établissement
--   **légifrance** : adresse du texte de loi créant l’établissement
+- **Rentrée** : rentrée universitaire
+- **UAI** : Unité Administrative Immatriculée
+- **Libellé** : libellé de l’établissement
+- **Sigle** : nom court ou sigle de l’établissement
+- **Groupe** : ensemble d’établissements comparables, à gros grain
+- **Groupe détaillé** : ensemble d’établissements
+- **Académie** : académie de l’établissement
+- **Rattachement** : établissement de rattachement
+- **Site web** : adresse du site web de l’établissement
+- **wikidata** : adresse wikidata des données de l’établissement
+- **légifrance** : adresse du texte de loi créant l’établissement
 
 #### Effectifs étudiants
 
--   **Etudiants** : Effectif total étudiant (Hors double inscription
-    CPGE)
--   **Cycle 1 (L)** : Effectif étudiant inscrit en premier cycle (L,
-    DUT, etc.)
--   **Cycle 2 (M)** : Effectif étudiant inscrit en deuxième cycle (M)
--   **Cycle 3 (D)** : Effectif étudiant inscrit en troisième cycle
-    (Doctorat, HDR)
--   **DU** : Effectif étudiant inscrit en diplôme d’établissement (DU,
-    non-national)
+- **Etudiants** : Effectif total étudiant (Hors double inscription CPGE)
+- **Cycle 1 (L)** : Effectif étudiant inscrit en premier cycle (L, DUT,
+  etc.)
+- **Cycle 2 (M)** : Effectif étudiant inscrit en deuxième cycle (M)
+- **Cycle 3 (D)** : Effectif étudiant inscrit en troisième cycle
+  (Doctorat, HDR)
+- **DU** : Effectif étudiant inscrit en diplôme d’établissement (DU,
+  non-national)
 
 #### Personnels d’enseignement et de rechercher
 
--   **Enseignants** : Effectif total enseignant
--   **Titulaires** : Effectif titulaire
--   **EC** : Effectif enseignant-chercheur
--   **Doc et ATER** : Effectif doctorant et ATER
--   **Autres contractuels** : Effectif autres contractuels
+- **Enseignants** : Effectif total enseignant
+- **Titulaires** : Effectif titulaire
+- **EC** : Effectif enseignant-chercheur
+- **Doc et ATER** : Effectif doctorant et ATER
+- **Autres contractuels** : Effectif autres contractuels
 
 #### Personnels BIATSS
 
--   **BIATSS** : Effectif total BIATSS
--   **Titulaires** : Effectif BIATSS titulaires
--   **A** : Effectif BIATSS catégorie A
--   **B** : Effectif BIATSS catégorie B
--   **C** : Effectif BIATSS catégorie C
+- **BIATSS** : Effectif total BIATSS
+- **Titulaires** : Effectif BIATSS titulaires
+- **A** : Effectif BIATSS catégorie A
+- **B** : Effectif BIATSS catégorie B
+- **C** : Effectif BIATSS catégorie C
 
 #### Indicateurs financiers
 
--   **Ressources** : Ressources totales (produits encaissables)
--   **Masse salariale** : Masse salariale (dépenses de personnels)
--   **SCSP** : Subvention pour charge de service public (dotation d’Etat
-    directe)
--   **Recettes formation** : Droits d’inscription, Diplôme
-    d’établissement, Formation continue, VAE et Taxe d’apprentissage
--   **Recettes recherche** : Valorisation, ANR en et hors investissement
-    d’avenir, contrats et prestations de recherche
+- **Ressources** : Ressources totales (produits encaissables)
+- **Masse salariale** : Masse salariale (dépenses de personnels)
+- **SCSP** : Subvention pour charge de service public (dotation d’Etat
+  directe)
+- **Recettes formation** : Droits d’inscription, Diplôme
+  d’établissement, Formation continue, VAE et Taxe d’apprentissage
+- **Recettes recherche** : Valorisation, ANR en et hors investissement
+  d’avenir, contrats et prestations de recherche
 
 #### Indicateurs clés de performance
 
--   **Taux de titularité** : Part des titulaires dans les personnels
--   **Taux de SCSP** : Part des Subventions pour charge de service
-    public (SCSP) dans les ressources
--   **Taux d’encadrement pédagogique** : Nombre d’enseignants
-    (titulaires et contractuels, hors doctorants et vacataires) pour 100
-    étudiants en cycles 1 et 2
--   **Taux d’encadrement administratif** : Part des personnels BIATSS
-    dans les personnels
--   **Ressources par étudiant** : Ressources divisées par le nombre
-    d’étudiants
--   **Recettes formation par étudiant** : Recettes formation divisées
-    par le nombre d’étudiants
--   **Recettes recherche par EC** : Recettes recherche divisées par le
-    nombre d’enseignants-chercheurs (titulaires et contractuels)
+- **Taux de titularité** : Part des titulaires dans les personnels
+- **Taux de SCSP** : Part des Subventions pour charge de service public
+  (SCSP) dans les ressources
+- **Taux d’encadrement pédagogique** : Nombre d’enseignants (titulaires
+  et contractuels, hors doctorants et vacataires) pour 100 étudiants en
+  cycles 1 et 2
+- **Taux d’encadrement administratif** : Part des personnels BIATSS dans
+  les personnels
+- **Ressources par étudiant** : Ressources divisées par le nombre
+  d’étudiants
+- **Recettes formation par étudiant** : Recettes formation divisées par
+  le nombre d’étudiants
+- **Recettes recherche par EC** : Recettes recherche divisées par le
+  nombre d’enseignants-chercheurs (titulaires et contractuels)
 
 ### Représentations et exemples de lecture
 
 Trois représentations sont utilisées dans ce document :
 
--   **Valeurs absolues** : permettant de connaitre les valeurs à la
-    dernière année ;
--   **Evolutions normalisées** : permettant de percevoir l’évolution
-    dans le temps, en valeur 100 pour une année de référence ;
--   **Valeurs normalisées** : permettant connaitre un rapport et de le
-    comparer aux autres établissements.
+- **Valeurs absolues** : permettant de connaitre les valeurs à la
+  dernière année ;
+- **Evolutions normalisées** : permettant de percevoir l’évolution dans
+  le temps, en valeur 100 pour une année de référence ;
+- **Valeurs normalisées** : permettant connaitre un rapport et de le
+  comparer aux autres établissements.
 
 Les exemples suivants utilisent l’ensemble des établissements dans le
 périmètre du MESRI.
@@ -329,10 +366,9 @@ dont 1,1 million en premier cycle (Licence) ».
 Les évolutions normalisées sont calculées en valeur 100 pour une rentrée
 de référence.
 
--   la courbe colorée concerne l’établissement ou le groupe ;
--   deux courbes grises concernent l’ensemble et le groupe ;
--   l’aire grise en fond concerne la moitié des établissements du
-    groupe.
+- la courbe colorée concerne l’établissement ou le groupe ;
+- deux courbes grises concernent l’ensemble et le groupe ;
+- l’aire grise en fond concerne la moitié des établissements du groupe.
 
 <img src="README_files/figure-gfm/etu.evol-1.png" width="100%" style="display: block; margin: auto;" />
 
@@ -345,12 +381,12 @@ Les valeurs normalisées sont calculées comme le rapport entre les
 indicateurs secondaires et l’indicateur primaire. L’avantage principal
 de ces rapport est d’être comparables d’un établissement à l’autre.
 
--   Le disque central contient la valeur propre à l’établissement ou au
-    groupe ;
--   chaque point correspond à un établissement du groupe ;
--   le violon représente la distribution des établissements du groupe ;
--   une ou deux lignes horizontales représentent les valeurs de
-    l’ensemble et du groupe.
+- Le disque central contient la valeur propre à l’établissement ou au
+  groupe ;
+- chaque point correspond à un établissement du groupe ;
+- le violon représente la distribution des établissements du groupe ;
+- une ou deux lignes horizontales représentent les valeurs de l’ensemble
+  et du groupe.
 
 <img src="README_files/figure-gfm/etu.norm-1.png" width="100%" style="display: block; margin: auto;" />
 
@@ -363,5 +399,12 @@ exclus des représentations. Par exemple, certains taux d’encadrement
 montent à plus de 100 dans des établissements de recherche inscrivants
 très peu d’étudiants.
 
-[^1]: Méthodologie et sources des traitements sont disponible à cette
-    adresse : <https://github.com/cpesr/kpiESR>
+### Tableaux de bord
+
+Les différentes représentations mises ensemble constituent un tableau de
+bord en deux volets, d’abord les indicateurs clés de performance, et
+ensuite les données primaires.
+
+<img src="README_files/figure-gfm/tdb.kpi-1.png" width="100%" style="display: block; margin: auto;" />
+
+<img src="README_files/figure-gfm/tdb.series-1.png" width="100%" style="display: block; margin: auto;" />

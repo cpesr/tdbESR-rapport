@@ -187,5 +187,15 @@ des représentations. Par exemple, certains taux d'encadrement montent à plus d
 100 dans des établissements de recherche inscrivants très peu d'étudiants.
 
 
+### Tableaux de bord
 
+Les différentes représentations mises ensemble constituent un tableau de bord en deux volets, 
+d'abord les indicateurs clés de performance, et ensuite les données primaires.
 
+```{r tdb.kpi, fig.width = 12, fig.asp = 9/16, out.width="100%", out.height=NULL}
+combine_plots_groupe(plots)
+```
+
+```{r tdb.series, fig.width = 12, fig.asp = 9/16, out.width="100%", out.height=NULL}
+combine_plots_series(plots)
+```
