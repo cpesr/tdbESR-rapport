@@ -47,7 +47,7 @@ wdesr_load_and_plot(wdid, c('prédécesseur', 'séparé_de'), depth=10,
                     node_label = "alias_date",
                     legend_position="right",
                     node_sizes = 30,
-                    label_sizes = c(3,5),
+                    label_sizes = c(2,4),
                     arrow_gap = 0, margin_y = 0.15)
 ```
 
@@ -62,7 +62,7 @@ Exemple de lecture : « L'Université de Strasbourg (Unistra) a été créée en
 
 ```{r, out.width = "100%", out.height=NULL, echo = FALSE, warning = FALSE, fig.width=8, fig.height=5}
 wdesr_load_and_plot(wdid, c('composante_de', 'associé_de', 'membre_de'), depth=2, 
-                      legend_position="left", arrow_gap = 0, margin_y = 0.1)
+                      legend_position="right", arrow_gap = 0, margin_y = 0.1, label_sizes = c(2,4), label_wrap=10)
 ```
 
 Exemple de lecture : « L'Université de Strasbourg (Unistra) est inclue dans le Site Alsacien. Elle est membre de la LERU, de la CURIF, de l'EUA, du Réseau d'Utrecht, de COUPERIN et de RENATER. Elle est également lauréate de l'IDEX»
@@ -74,10 +74,10 @@ Exemple de lecture : « L'Université de Strasbourg (Unistra) est inclue dans le
 
 #### Diagramme de composition
 
-```{r, out.width = "100%", out.height=NULL, fig.width=8, fig.height=5, echo = FALSE, warning = FALSE}
-wdesr_load_and_plot(wdid, c('composante','associé'), depth=2,
-                      legend_position="left")
+```{r, out.width = "100%", out.height=NULL, fig.width=10, fig.height=6, echo = FALSE, warning = FALSE}
+wdesr_load_and_plot(wdid, c('composante','associé'), depth=2, label_sizes = c(2,4), label_wrap=10,
+                      legend_position="right")
 ```
 
-Exemple de lecture : « L'Université de Strasbourg (Unistra) a de nombreuses composantes.\ »
+Exemple de lecture : « L'Université de Strasbourg (Unistra) a 3 IUTs.\ »
 
