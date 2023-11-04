@@ -42,7 +42,7 @@ strvar <- function(var) {
 ## Lecture du cache wdest
 
 ```{r wdesr.load}
-wdesr_load_cache()
+# wdesr_load_cache()
 ```
 
 ## Etablissements

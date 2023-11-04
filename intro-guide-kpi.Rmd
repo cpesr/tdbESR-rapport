@@ -141,7 +141,7 @@ Les valeurs absolues sont représentées en colonne, avec en première colonne l
 plots$etu.abs + rm_xytext + rm_ymingrid + rm_xgrid + rm_facetmargins
 ```
 
-Exemple de lecture : « Les données recensent 1,8 millions d'étudiants, dont 1,1 million en premier cycle (Licence) ».
+Exemple de lecture : « Les données recensent 1,8 millions d'étudiants, dont 1 million en premier cycle (Licence) ».
 
 ```{=latex}
 \vfill
@@ -159,7 +159,7 @@ Les évolutions normalisées sont calculées en valeur 100 pour une rentrée de 
 plots$etu.evol+ sats + rm_ytext  + shrink_xtext + rl_margin
 ```
 
-Exemple de lecture : « Les données recensent une augmentation de 19% de tous les étudiants, et de 24% en premier cycle (Licence) ».
+Exemple de lecture : « Les données recensent une augmentation de 14% de tous les étudiants, et une baisse de 8% en troisième cycle (Doctorat) ».
 
 ```{=latex}
 \vfill

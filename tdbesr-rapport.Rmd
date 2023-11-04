@@ -37,7 +37,7 @@ library(pander)
 library(kpiESR)
 library(wikidataESR)
 
-rentrée <- 2021
+rentrée <- 2022
 rentrée.deb <- 2013
 
 strvar <- function(var) {
