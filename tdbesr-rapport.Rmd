@@ -66,8 +66,14 @@ slugify <- function(x, alphanum_replace="", space_replace="_", tolower=TRUE) {
 ```
 
 ```{=latex}
-\vfill\null
-\columnbreak
+\end{multicols}
+```
+
+
+# Chiffres principaux {-}
+
+```{=latex}
+\begin{multicols}{2}
 ```
 
 
