@@ -419,6 +419,18 @@ table_classement("Universités et assimilés",
 ```
 
 
+\newpage
+## SCSP par étudiant (L et M)
+
+
+```{r classement.dPe, echo = FALSE, warning = FALSE, eval=TRUE}
+table_classement("Universités et assimilés",
+                  c("kpi.K.dotPetu","kpi.FIN.S.SCSP","kpi.ETU.S.cycle1_L","kpi.ETU.S.cycle2_M"),
+                  c("SCSP\npar étudiant","SCSP","Effectifs\nLicence","Effectifs\nMaster"))
+```
+
+
+
 \stopautovi
 
 ```{=latex}
